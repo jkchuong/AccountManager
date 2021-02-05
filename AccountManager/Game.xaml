@@ -97,11 +97,10 @@
 
             <ListBox Grid.Column="1" Grid.Row="1"/>
             <Button x:Name="Save" Content="Save" Grid.Column="1" Grid.Row="2" FontSize="30" Background="LightGreen" Click="Save_Click"/>
-            <Button x:Name="Settings" Content="Settings" Grid.Column="2" Grid.Row="2" FontSize="30" Click="Settings_Click"/>
+            <Button x:Name="Settings" Content="Settings" Grid.Column="2" Grid.Row="3" FontSize="30" Click="Settings_Click"/>
             <Button x:Name="Logout" Content="Logout" Grid.Column="1" Grid.Row="3" FontSize="30" Background="Orange" Click="Logout_Click"/>
-            <Button x:Name="Delete" Content="Delete" Grid.Column="2" Grid.Row="3" FontSize="30" Background="Red" Click="Delete_Click"/>
             
-            <TextBox x:Name="UserData" Grid.Column="3" Grid.Row="2" Text="" FontSize="30" TextAlignment="Center"/>
+            <TextBox x:Name="UserData" Grid.Column="2" Grid.Row="2" Text="" FontSize="30" TextAlignment="Center" Grid.ColumnSpan="2"/>
 
         </Grid>
 
