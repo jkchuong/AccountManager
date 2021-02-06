@@ -19,6 +19,7 @@ namespace AccountManager
     /// <summary>
     /// Interaction logic for Game.xaml
     /// </summary>
+    
     public partial class Game : Page
     {
         private Business _account = new Business();
@@ -51,7 +52,16 @@ namespace AccountManager
 
         private void Rules_Click(object sender, RoutedEventArgs e)
         {
-
+            if (Rulebook.Visibility == Visibility.Collapsed)
+            {
+                Rulebook.Visibility = Visibility.Visible;
+                Rules.Background = Brushes.Yellow;
+            }
+            else
+            {
+                Rulebook.Visibility = Visibility.Collapsed;
+                Rules.Background = Brushes.LightGoldenrodYellow;
+            }
         }
     }
 }
