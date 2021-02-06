@@ -9,10 +9,15 @@ namespace AccountBusiness
     {
         static void Main(string[] args)
         {
-            Business account = new Business();
-            account.Create("Jimmy", "jcsoup", "scrroge");
-            Console.WriteLine(account.UserExist("sfdgfd"));
-            account.DeleteAllUsers();
+            //Business account = new Business();
+            //account.DeleteAllUsers();
+            //account.Create("Jimmy", "jcsoup", "Password");
+            //User user = account.SetSelectedCustomer("jcsoup");
+            //account.UpdateUserNameTheme(user, "Andy", 5);
+            //account.UpdatePassword(user, "asjipuabgaubfg");
+            //Console.WriteLine(user.Name);
+            //Console.WriteLine(user.ThemeId);
+            //Console.WriteLine(user.Password);
         }
     }
 }

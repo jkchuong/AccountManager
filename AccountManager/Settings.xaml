@@ -5,10 +5,50 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AccountManager"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="800" d:DesignWidth="800"
       Title="Settings">
 
     <Grid>
-        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60*"/>
+                <ColumnDefinition Width="270*"/>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition Width="270*"/>
+                <ColumnDefinition Width="60*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="89*"/>
+                <RowDefinition Height="89*"/>
+                <RowDefinition Height="89*"/>
+                <RowDefinition Height="89*"/>
+                <RowDefinition Height="89*"/>
+                <RowDefinition Height="89*"/>
+                <RowDefinition Height="89*"/>
+                <RowDefinition Height="89*"/>
+                <RowDefinition Height="89*"/>
+                <RowDefinition Height="50*"/>
+            </Grid.RowDefinitions>
+
+            <TextBox Text="Username:" Grid.Row="1" Grid.Column="1" FontSize="60" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox Text="Name:" Grid.Row="2" Grid.Column="1" FontSize="60" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox Text="Fill below if you want to change passwords." Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" FontSize="30" VerticalContentAlignment="Center" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox Text="Password:" Grid.Row="4" Grid.Column="1" FontSize="60" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox Text="Repeat:" Grid.Row="5" Grid.Column="1" FontSize="60" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox Text="Theme:" Grid.Row="8" Grid.Column="1" FontSize="60" TextAlignment="Center" IsReadOnly="True"/>
+
+            <TextBox x:Name="SettingsUsername" Grid.Row="1" Grid.Column="3" FontSize="60" TextAlignment="Center" Grid.RowSpan="2" IsReadOnly="True"/>
+            <TextBox x:Name="SettingsName" Grid.Row="2" Grid.Column="3" FontSize="60" TextAlignment="Center" />
+            <PasswordBox x:Name="SettingsPassword" Grid.Row="4" Grid.Column="3" FontSize="60"/>
+            <PasswordBox x:Name="SettingsPasswordCheck" Grid.Row="5" Grid.Column="3" FontSize="60"/>
+            <ComboBox x:Name="ThemeBox" Grid.Row="8" Grid.Column="3"/>
+
+
+            <Button x:Name="Save" Content="Save Changes" Grid.Column="3" Grid.Row="6" FontSize="40" Click="Settings_Save_Click"/>
+            <Button x:Name="Back" Content="Back" Grid.Column="1" Grid.Row="6" FontSize="40" Click="Back_Click"/>
+
+            <TextBox x:Name="Status" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" FontSize="30" VerticalContentAlignment="Center" TextAlignment="Center" IsReadOnly="True"/>
+
+        </Grid>
     </Grid>
 </Page>

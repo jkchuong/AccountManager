@@ -8,7 +8,7 @@ namespace AccountBusiness
 {
     public class Business
     {
-        public User SelectedUser { get; set; }
+        public User electedUser { get; set; }
 
         public void Create(string name, string userId, string password)
         {
@@ -56,6 +56,28 @@ namespace AccountBusiness
             }
         }
 
+        public void UpdateUserNameTheme(string username, string name, int theme)
+        {
+            using (var db = new GameContext())
+            {
+                var selectedUser = db.Users.Find(username);
+                selectedUser.Name = name;
+                selectedUser.ThemeId = theme;
+                db.SaveChanges();
+            }
+
+        }
+
+        public void UpdatePassword(string username, string password)
+        {
+            using (var db = new GameContext())
+            {
+                var selectedUser = db.Users.Find(username);
+                selectedUser.Password = password;
+                db.SaveChanges();
+            }
+        }
+
         public void DeleteUser(string userId)
         {
             using (var db = new GameContext())
@@ -92,7 +114,6 @@ namespace AccountBusiness
                 var entry = db.Users.Find(username);
                 return entry;
             }
-
         }
     }
 }

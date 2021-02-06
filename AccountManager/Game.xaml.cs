@@ -40,15 +40,16 @@ namespace AccountManager
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-
+            Settings setting = new Settings(user);
+            this.NavigationService.Navigate(setting);
         }
 
-        private void Delete_Click(object sender, RoutedEventArgs e)
+        private void Rules_Click(object sender, RoutedEventArgs e)
         {
 
         }
