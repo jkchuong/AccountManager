@@ -8,9 +8,9 @@ namespace AccountBusiness
 {
     public class Business
     {
-        public User electedUser { get; set; }
+        public User selectedUser { get; set; }
 
-        public void Create(string name, string userId, string password)
+        public void CreateUser(string name, string userId, string password)
         {
             using (var db = new GameContext())
             {
@@ -18,6 +18,48 @@ namespace AccountBusiness
                 db.SaveChanges();
             }
         }
+
+        public void CreateTheme(string primary, string secondary)
+        {
+            using (var db = new GameContext())
+            {
+                db.Add(new Theme() { PrimaryColour = primary, SecondaryColour = secondary });
+                db.SaveChanges();
+            }
+        }
+
+
+        public List<string> GetThemePrimary()
+        {
+            using (var db = new GameContext())
+            {
+                var primary = db.Themes.Select(t => t.PrimaryColour).ToList();
+                return primary;
+            }
+        }
+
+        public List<string> GetThemeSecondary()
+        {
+            using (var db = new GameContext())
+            {
+                var secondary = db.Themes.Select(t => t.SecondaryColour).ToList();
+                return secondary;
+            }
+        }
+
+        public List<string> GetThemes()
+        {
+            var primary = GetThemePrimary();
+            var secondary = GetThemeSecondary();
+            List<string> themes = new List<string>();
+            for (int i = 0; i < primary.Count; i++)
+            {
+                themes.Add($"{primary[i]}, {secondary[i]}");
+            }
+
+            return themes;
+        }
+
 
         public bool UserExist(string username)
         {
@@ -77,6 +119,7 @@ namespace AccountBusiness
                 db.SaveChanges();
             }
         }
+
 
         public void DeleteUser(string userId)
         {

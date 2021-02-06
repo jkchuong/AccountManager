@@ -54,7 +54,7 @@ namespace AccountManager
                     }
                     else
                     {
-                        _account.Create(name, userId, password);
+                        _account.CreateUser(name, userId, password);
                         Test.Text = "Registration complete";
                     }
                 }

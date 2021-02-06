@@ -9,15 +9,21 @@ namespace AccountBusiness
     {
         static void Main(string[] args)
         {
-            //Business account = new Business();
+            Business account = new Business();
             //account.DeleteAllUsers();
-            //account.Create("Jimmy", "jcsoup", "Password");
+            //account.CreateUser("Jimmy", "jcsoup", "Password");
             //User user = account.SetSelectedCustomer("jcsoup");
-            //account.UpdateUserNameTheme(user, "Andy", 5);
-            //account.UpdatePassword(user, "asjipuabgaubfg");
             //Console.WriteLine(user.Name);
             //Console.WriteLine(user.ThemeId);
             //Console.WriteLine(user.Password);
+
+            //account.CreateTheme("White", "Black");
+            //account.CreateTheme("Green", "Red");
+            //var themes = account.GetThemes();
+            //foreach (string theme in themes)
+            //{
+            //    Console.WriteLine(theme);
+            //}
         }
     }
 }

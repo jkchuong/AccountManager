@@ -32,6 +32,10 @@ namespace AccountManager
             user = userPassed;
             SettingsUsername.Text = user.UserId;
             SettingsName.Text = user.Name;
+
+            var themes = _account.GetThemes();
+            ThemeBox.ItemsSource = themes;
+
         }
 
         private void Settings_Save_Click(object sender, RoutedEventArgs e)
@@ -40,7 +44,7 @@ namespace AccountManager
 
             string username = user.UserId;
             string newName = SettingsName.Text;
-            int newTheme = ThemeBox.SelectedIndex;
+            int newTheme = ThemeBox.SelectedIndex + 1; // for the PK of themes
             string newPassword = SettingsPassword.Password;
             string newPasswordCheck = SettingsPasswordCheck.Password;
 
