@@ -33,7 +33,7 @@ namespace AccountManager
             SettingsUsername.Text = user.UserId;
             SettingsName.Text = user.Name;
 
-            var themes = _account.GetThemes();
+            var themes = _account.GetAllThemes();
             ThemeBox.ItemsSource = themes;
 
         }

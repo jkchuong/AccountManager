@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using AccountData;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountBusiness
 {
@@ -10,11 +11,11 @@ namespace AccountBusiness
     {
         public User selectedUser { get; set; }
 
-        public void CreateUser(string name, string userId, string password)
+        public void CreateUser(string name, string username, string password)
         {
             using (var db = new GameContext())
             {
-                db.Add(new User() { Name = name, UserId = userId, Password = password });
+                db.Add(new User() { Name = name, UserId = username, Password = password });
                 db.SaveChanges();
             }
         }
@@ -47,7 +48,7 @@ namespace AccountBusiness
             }
         }
 
-        public List<string> GetThemes()
+        public List<string> GetAllThemes()
         {
             var primary = GetThemePrimary();
             var secondary = GetThemeSecondary();
@@ -58,6 +59,16 @@ namespace AccountBusiness
             }
 
             return themes;
+        }
+
+
+        public List<string> GetUserTheme(string username)
+        {
+            using (var db = new GameContext())
+            {
+                var themes = 
+                   from u in 
+            }
         }
 
 
@@ -121,11 +132,11 @@ namespace AccountBusiness
         }
 
 
-        public void DeleteUser(string userId)
+        public void DeleteUser(string username)
         {
             using (var db = new GameContext())
             {
-                var entry = db.Users.Find(userId);
+                var entry = db.Users.Find(username);
                 db.Remove(entry);
                 db.SaveChanges();
             }
