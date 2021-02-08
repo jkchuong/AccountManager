@@ -15,8 +15,8 @@ namespace AccountData
         public string Password { get; set; }
         public int Wins { get; set; }
         public int Losses { get; set; }
-        public int ThemeId { get; set; } = 1;
 
-        public virtual Theme Theme { get; set; }
+        public int ThemeId { get; set; } = 1;
+        public Theme Theme { get; set; }
     }
 }

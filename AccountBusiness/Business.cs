@@ -62,14 +62,18 @@ namespace AccountBusiness
         }
 
 
-        public List<string> GetUserTheme(string username)
-        {
-            using (var db = new GameContext())
-            {
-                var themes = 
-                   from u in 
-            }
-        }
+        //public List<string> GetUserTheme(string username)
+        //{
+        //    using (var db = new GameContext())
+        //    {
+        //        var themes = 
+        //           from u in db.Users.Include(u => u.ThemeId)
+        //           where u.UserId == username
+        //           select u.ThemeId.
+
+
+        //    }
+        //}
 
 
         public bool UserExist(string username)
