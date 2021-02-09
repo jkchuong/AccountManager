@@ -13,39 +13,31 @@ namespace AccountBusiness
 
         public void CreateUser(string name, string username, string password)
         {
-            using (var db = new GameContext())
-            {
-                db.Add(new User() { Name = name, UserId = username, Password = password });
-                db.SaveChanges();
-            }
+            using var db = new GameContext();
+            db.Add(new User() { Name = name, UserId = username, Password = password });
+            db.SaveChanges();
         }
 
         public void CreateTheme(string primary, string secondary)
         {
-            using (var db = new GameContext())
-            {
-                db.Add(new Theme() { PrimaryColour = primary, SecondaryColour = secondary });
-                db.SaveChanges();
-            }
+            using var db = new GameContext();
+            db.Add(new Theme() { PrimaryColour = primary, SecondaryColour = secondary });
+            db.SaveChanges();
         }
 
 
         public List<string> GetThemePrimary()
         {
-            using (var db = new GameContext())
-            {
-                var primary = db.Themes.Select(t => t.PrimaryColour).ToList();
-                return primary;
-            }
+            using var db = new GameContext();
+            var primary = db.Themes.Select(t => t.PrimaryColour).ToList();
+            return primary;
         }
 
         public List<string> GetThemeSecondary()
         {
-            using (var db = new GameContext())
-            {
-                var secondary = db.Themes.Select(t => t.SecondaryColour).ToList();
-                return secondary;
-            }
+            using var db = new GameContext();
+            var secondary = db.Themes.Select(t => t.SecondaryColour).ToList();
+            return secondary;
         }
 
         public List<string> GetAllThemes()
@@ -63,126 +55,97 @@ namespace AccountBusiness
 
         public List<string> GetUserTheme(string username)
         {
-            using (var db = new GameContext())
+            using var db = new GameContext();
+            List<string> userTheme = new List<string>();
+            var themes =
+                from u in db.Users.Include(u => u.Theme)
+                where u.UserId == username
+                select new { Primary = u.Theme.PrimaryColour, Secondary = u.Theme.SecondaryColour };
+
+            foreach (var t in themes)
             {
-                List<string> userTheme = new List<string>();
-
-                var themes =
-                    from u in db.Users.Include(u => u.Theme)
-                    where u.UserId == username
-                    select new
-                    {
-                        Primary = u.Theme.PrimaryColour,
-                        Secondary = u.Theme.SecondaryColour
-                    };
-
-                foreach (var t in themes)
-                {
-                    userTheme.Add(t.Primary);
-                    userTheme.Add(t.Secondary);
-                }
-
-                return userTheme;
+                userTheme.Add(t.Primary);
+                userTheme.Add(t.Secondary);
             }
+            return userTheme;
         }
 
 
         public bool UserExist(string username)
         {
-            using (var db = new GameContext())
+            using var db = new GameContext();
+            var entry = db.Users.Find(username);
+            if (entry != null)
             {
-                var entry = db.Users.Find(username);
-
-                if (entry != null)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
         public bool UserAndPasswordExist(string username, string password)
         {
-            using (var db = new GameContext())
+            using var db = new GameContext();
+            var entry = from user in db.Users where user.UserId == username && user.Password == password select user.UserId;
+            if (entry.Count() != 0)
             {
-                var entry =
-                    from user in db.Users
-                    where user.UserId == username && user.Password == password
-                    select user.UserId;
-
-                if (entry.Count() != 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
         public void UpdateUserNameTheme(string username, string name, int theme)
         {
-            using (var db = new GameContext())
-            {
-                var selectedUser = db.Users.Find(username);
-                selectedUser.Name = name;
-                selectedUser.ThemeId = theme;
-                db.SaveChanges();
-            }
+            using var db = new GameContext();
+            var selectedUser = db.Users.Find(username);
+            selectedUser.Name = name;
+            selectedUser.ThemeId = theme;
+            db.SaveChanges();
 
         }
 
         public void UpdatePassword(string username, string password)
         {
-            using (var db = new GameContext())
-            {
-                var selectedUser = db.Users.Find(username);
-                selectedUser.Password = password;
-                db.SaveChanges();
-            }
+            using var db = new GameContext();
+            var selectedUser = db.Users.Find(username);
+            selectedUser.Password = password;
+            db.SaveChanges();
         }
 
 
         public void DeleteUser(string username)
         {
-            using (var db = new GameContext())
-            {
-                var entry = db.Users.Find(username);
-                db.Remove(entry);
-                db.SaveChanges();
-            }
+            using var db = new GameContext();
+            var entry = db.Users.Find(username);
+            db.Remove(entry);
+            db.SaveChanges();
         }
 
         public void DeleteAllUsers()
         {
-            using (var db = new GameContext())
-            {
-                db.RemoveRange(db.Users);
-                db.SaveChanges();
-            }
+            using var db = new GameContext();
+            db.RemoveRange(db.Users);
+            db.SaveChanges();
         }
 
         public void DeleteAllThemes()
         {
-            using (var db = new GameContext())
-            {
-                db.RemoveRange(db.Themes);
-                db.SaveChanges();
-            }
+            using var db = new GameContext();
+            db.RemoveRange(db.Themes);
+            db.SaveChanges();
         }
 
         // Can I combine this with UserAndPasswordExist?
         public User SetSelectedCustomer(string username)
         {
-            using (var db = new GameContext())
-            {
-                var entry = db.Users.Find(username);
-                return entry;
-            }
+            using var db = new GameContext();
+            var entry = db.Users.Find(username);
+            return entry;
         }
     }
 }

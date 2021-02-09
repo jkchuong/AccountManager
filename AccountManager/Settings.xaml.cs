@@ -28,12 +28,13 @@ namespace AccountManager
 
         public Settings(User userPassed)
         {
-            InitializeComponent();
             user = userPassed;
+            var themes = _account.GetAllThemes();
+            InitializeComponent();
             SettingsUsername.Text = user.UserId;
             SettingsName.Text = user.Name;
 
-            var themes = _account.GetAllThemes();
+            ThemeBox.SelectedIndex = user.ThemeId - 1;
             ThemeBox.ItemsSource = themes;
 
         }
@@ -47,6 +48,8 @@ namespace AccountManager
             int newTheme = ThemeBox.SelectedIndex + 1; // for the PK of themes
             string newPassword = SettingsPassword.Password;
             string newPasswordCheck = SettingsPasswordCheck.Password;
+
+            ThemeBox.SelectedIndex = user.ThemeId - 1;
 
             _account.UpdateUserNameTheme(username, newName, newTheme);
 

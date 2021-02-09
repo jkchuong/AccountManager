@@ -27,8 +27,14 @@ namespace AccountManager
 
         public Game(User userPassed)
         {
-            InitializeComponent();
             user = userPassed;
+
+            InitializeComponent();
+
+            var userThemes = _account.GetUserTheme(user.UserId);
+            Chessboard.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[0]);
+            Brush secondaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[1]);
+
             string data = $"{user.Name}, Wins: {user.Wins}, Losses: {user.Losses}.";
             UserData.Text = data;
         }

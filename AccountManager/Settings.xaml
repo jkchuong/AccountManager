@@ -42,7 +42,7 @@
             <PasswordBox x:Name="SettingsPassword" Grid.Row="5" Grid.Column="3" FontSize="60"/>
             <PasswordBox x:Name="SettingsPasswordCheck" Grid.Row="6" Grid.Column="3" FontSize="60"/>
 
-            <ComboBox x:Name="ThemeBox" Grid.Row="3" Grid.Column="3" ItemsSource="{Binding Path=themes}" SelectedValue="{Binding Path=userTheme}">
+            <ComboBox x:Name="ThemeBox" Grid.Row="3" Grid.Column="3" ItemsSource="{Binding Path=themes}">
 
             </ComboBox>
             

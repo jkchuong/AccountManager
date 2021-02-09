@@ -31,7 +31,7 @@
 
             
             <!-- The Main Game Area -->
-            <Grid x:Name="Chessboard" Grid.Column="2" Grid.Row="1" Background="White" Grid.ColumnSpan="2" >
+            <Grid x:Name="Chessboard" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -55,7 +55,8 @@
 
                 <Border BorderThickness="2" BorderBrush="Black" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
 
-                <Rectangle Grid.Row="0" Grid.Column="1" Fill="Black"/>
+
+                <Rectangle Grid.Row="0" Grid.Column="1" Fill="{Binding secondaryColour}"/>
                 <Rectangle Grid.Row="0" Grid.Column="3" Fill="Black"/>
                 <Rectangle Grid.Row="0" Grid.Column="5" Fill="Black"/>
                 <Rectangle Grid.Row="0" Grid.Column="7" Fill="Black"/>
