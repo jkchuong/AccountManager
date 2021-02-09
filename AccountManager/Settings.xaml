@@ -27,7 +27,7 @@
                 <RowDefinition Height="89*"/>
                 <RowDefinition Height="89*"/>
                 <RowDefinition Height="89*"/>
-                <RowDefinition Height="50*"/>
+                <RowDefinition Height="60*"/>
             </Grid.RowDefinitions>
 
             <TextBox Text="Username:" Grid.Row="1" Grid.Column="1" FontSize="60" TextAlignment="Center" IsReadOnly="True"/>
@@ -45,12 +45,14 @@
             <ComboBox x:Name="ThemeBox" Grid.Row="3" Grid.Column="3" ItemsSource="{Binding Path=themes}" SelectedValue="{Binding Path=userTheme}">
 
             </ComboBox>
-
-
-            <Button x:Name="Save" Content="Save Changes" Grid.Column="3" Grid.Row="8" FontSize="40" Click="Settings_Save_Click"/>
-            <Button x:Name="Back" Content="Back" Grid.Column="1" Grid.Row="8" FontSize="40" Click="Back_Click"/>
-
+            
             <TextBox x:Name="Status" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" FontSize="30" VerticalContentAlignment="Center" TextAlignment="Center" IsReadOnly="True"/>
+
+            <Button x:Name="Save" Content="Save Changes" Grid.Column="1" Grid.Row="8" FontSize="40" Click="Settings_Save_Click"/>
+            <Button x:Name="Back" Content="Back" Grid.Column="3" Grid.Row="8" FontSize="40" Click="Back_Click"/>
+
+            
+            <Button x:Name="Delete" Grid.Row="9" Grid.Column="4" Content="DELETE" FontSize="15" Background="Red" Foreground="White" Click="Delete_Click"/>
 
         </Grid>
     </Grid>

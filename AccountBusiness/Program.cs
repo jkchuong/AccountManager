@@ -31,12 +31,25 @@ namespace AccountBusiness
                 db.SaveChanges();
             }
 
-            //using (var db = new GameContext())
-            //{
-            //    var themes =
-            //        from u in db.Users.Include(u => u.Themes)
-            //        where u.
-            //}
+            using (var db = new GameContext())
+            {
+                List<string> userTheme = new List<string>();
+
+                var themes =
+                    from u in db.Users.Include(u => u.Theme)
+                    where u.UserId == "jcsoup"
+                    select new
+                    {
+                        Primary = u.Theme.PrimaryColour,
+                        Secondary = u.Theme.SecondaryColour
+                    };
+
+                foreach (var t in themes)
+                {
+                    userTheme.Add(t.Primary);
+                    userTheme.Add(t.Secondary);
+                }
+            }
         }
 
 

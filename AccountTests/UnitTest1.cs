@@ -160,7 +160,25 @@ namespace AccountTests
         {
             using (var db = new GameContext())
             {
-                
+                _account.CreateUser("Jimmy", "jkchuong", "visual");
+
+                var theme = _account.GetUserTheme("jkchuong");
+                Assert.AreEqual("White", theme[0]);
+                Assert.AreEqual("Black", theme[1]);
+            }
+        }
+
+        [Test]
+        public void GetUserThemeReturnsPrimaryAndSecondaryColoursAfterUpdatingTheme()
+        {
+            using (var db = new GameContext())
+            {
+                _account.CreateUser("Jimmy", "jkchuong", "visual");
+                _account.UpdateUserNameTheme("jkchuong", "Jimmy", 2);
+
+                var theme = _account.GetUserTheme("jkchuong");
+                Assert.AreEqual("Green", theme[0]);
+                Assert.AreEqual("Red", theme[1]);
             }
         }
     }

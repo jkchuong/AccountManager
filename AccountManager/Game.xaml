@@ -29,6 +29,8 @@
 
             <Border BorderThickness="2" BorderBrush="Black" Grid.ColumnSpan="3" Grid.RowSpan="3" Grid.Column="1" Grid.Row="1" Panel.ZIndex="5"/>
 
+            
+            <!-- The Main Game Area -->
             <Grid x:Name="Chessboard" Grid.Column="2" Grid.Row="1" Background="White" Grid.ColumnSpan="2" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -53,52 +55,53 @@
 
                 <Border BorderThickness="2" BorderBrush="Black" Grid.ColumnSpan="8" Grid.RowSpan="8"/>
 
-                <Rectangle Grid.Row="0" Grid.Column="0" Fill="Black"/>
-                <Rectangle Grid.Row="0" Grid.Column="2" Fill="Black"/>
-                <Rectangle Grid.Row="0" Grid.Column="4" Fill="Black"/>
-                <Rectangle Grid.Row="0" Grid.Column="6" Fill="Black"/>
+                <Rectangle Grid.Row="0" Grid.Column="1" Fill="Black"/>
+                <Rectangle Grid.Row="0" Grid.Column="3" Fill="Black"/>
+                <Rectangle Grid.Row="0" Grid.Column="5" Fill="Black"/>
+                <Rectangle Grid.Row="0" Grid.Column="7" Fill="Black"/>
 
-                <Rectangle Grid.Row="1" Grid.Column="1" Fill="Black"/>
-                <Rectangle Grid.Row="1" Grid.Column="3" Fill="Black"/>
-                <Rectangle Grid.Row="1" Grid.Column="5" Fill="Black"/>
-                <Rectangle Grid.Row="1" Grid.Column="7" Fill="Black"/>
+                <Rectangle Grid.Row="1" Grid.Column="0" Fill="Black"/>
+                <Rectangle Grid.Row="1" Grid.Column="2" Fill="Black"/>
+                <Rectangle Grid.Row="1" Grid.Column="4" Fill="Black"/>
+                <Rectangle Grid.Row="1" Grid.Column="6" Fill="Black"/>
 
-                <Rectangle Grid.Row="2" Grid.Column="0" Fill="Black"/>
-                <Rectangle Grid.Row="2" Grid.Column="2" Fill="Black"/>
-                <Rectangle Grid.Row="2" Grid.Column="4" Fill="Black"/>
-                <Rectangle Grid.Row="2" Grid.Column="6" Fill="Black"/>
+                <Rectangle Grid.Row="2" Grid.Column="1" Fill="Black"/>
+                <Rectangle Grid.Row="2" Grid.Column="3" Fill="Black"/>
+                <Rectangle Grid.Row="2" Grid.Column="5" Fill="Black"/>
+                <Rectangle Grid.Row="2" Grid.Column="7" Fill="Black"/>
 
-                <Rectangle Grid.Row="3" Grid.Column="1" Fill="Black"/>
-                <Rectangle Grid.Row="3" Grid.Column="3" Fill="Black"/>
-                <Rectangle Grid.Row="3" Grid.Column="5" Fill="Black"/>
-                <Rectangle Grid.Row="3" Grid.Column="7" Fill="Black"/>
+                <Rectangle Grid.Row="3" Grid.Column="0" Fill="Black"/>
+                <Rectangle Grid.Row="3" Grid.Column="2" Fill="Black"/>
+                <Rectangle Grid.Row="3" Grid.Column="4" Fill="Black"/>
+                <Rectangle Grid.Row="3" Grid.Column="6" Fill="Black"/>
 
-                <Rectangle Grid.Row="4" Grid.Column="0" Fill="Black"/>
-                <Rectangle Grid.Row="4" Grid.Column="2" Fill="Black"/>
-                <Rectangle Grid.Row="4" Grid.Column="4" Fill="Black"/>
-                <Rectangle Grid.Row="4" Grid.Column="6" Fill="Black"/>
-
-                <Rectangle Grid.Row="5" Grid.Column="1" Fill="Black"/>
-                <Rectangle Grid.Row="5" Grid.Column="3" Fill="Black"/>
-                <Rectangle Grid.Row="5" Grid.Column="5" Fill="Black"/>
-                <Rectangle Grid.Row="5" Grid.Column="7" Fill="Black"/>
-
-                <Rectangle Grid.Row="6" Grid.Column="0" Fill="Black"/>
-                <Rectangle Grid.Row="6" Grid.Column="2" Fill="Black"/>
-                <Rectangle Grid.Row="6" Grid.Column="4" Fill="Black"/>
-                <Rectangle Grid.Row="6" Grid.Column="6" Fill="Black"/>
-
-                <Rectangle Grid.Row="7" Grid.Column="1" Fill="Black"/>
-                <Rectangle Grid.Row="7" Grid.Column="3" Fill="Black"/>
-                <Rectangle Grid.Row="7" Grid.Column="5" Fill="Black"/>
-                <Rectangle Grid.Row="7" Grid.Column="7" Fill="Black"/>
-
-
-                <TextBox x:Name="Rulebook" Grid.Row="0" Grid.Column="0" Background="Red" Grid.ColumnSpan="8" Grid.RowSpan="8" Visibility="Collapsed" FontSize="100" TextWrapping="Wrap">
-                    This is where the rules be going
-                </TextBox>
+                <Rectangle Grid.Row="4" Grid.Column="1" Fill="Black"/>
+                <Rectangle Grid.Row="4" Grid.Column="3" Fill="Black"/>
+                <Rectangle Grid.Row="4" Grid.Column="5" Fill="Black"/>
+                <Rectangle Grid.Row="4" Grid.Column="7" Fill="Black"/>
                 
+                <Rectangle Grid.Row="5" Grid.Column="0" Fill="Black"/>
+                <Rectangle Grid.Row="5" Grid.Column="2" Fill="Black"/>
+                <Rectangle Grid.Row="5" Grid.Column="4" Fill="Black"/>
+                <Rectangle Grid.Row="5" Grid.Column="6" Fill="Black"/>
+
+                <Rectangle Grid.Row="6" Grid.Column="1" Fill="Black"/>
+                <Rectangle Grid.Row="6" Grid.Column="3" Fill="Black"/>
+                <Rectangle Grid.Row="6" Grid.Column="5" Fill="Black"/>
+                <Rectangle Grid.Row="6" Grid.Column="7" Fill="Black"/>
+                
+                <Rectangle Grid.Row="7" Grid.Column="0" Fill="Black"/>
+                <Rectangle Grid.Row="7" Grid.Column="2" Fill="Black"/>
+                <Rectangle Grid.Row="7" Grid.Column="4" Fill="Black"/>
+                <Rectangle Grid.Row="7" Grid.Column="6" Fill="Black"/>
+
             </Grid>
+
+            <!-- End Game Area -->
+            
+            <TextBox x:Name="Rulebook" Grid.Row="1" Grid.Column="2" Background="Red" Grid.ColumnSpan="2" Visibility="Collapsed" FontSize="100" TextWrapping="Wrap">
+                This is where the rules be going
+            </TextBox>
 
             <ListBox Grid.Column="1" Grid.Row="1"/>
             <Button x:Name="Save" Content="Save" Grid.Column="1" Grid.Row="2" FontSize="30" Background="LightGreen" Click="Save_Click"/>

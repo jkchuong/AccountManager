@@ -71,5 +71,12 @@ namespace AccountManager
             Game game = new Game(user);
             this.NavigationService.Navigate(game);
         }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            Login login = new Login();
+            this.NavigationService.Navigate(login);
+            _account.DeleteUser(user.UserId);
+        }
     }
 }

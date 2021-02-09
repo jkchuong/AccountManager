@@ -61,19 +61,30 @@ namespace AccountBusiness
             return themes;
         }
 
+        public List<string> GetUserTheme(string username)
+        {
+            using (var db = new GameContext())
+            {
+                List<string> userTheme = new List<string>();
 
-        //public List<string> GetUserTheme(string username)
-        //{
-        //    using (var db = new GameContext())
-        //    {
-        //        var themes = 
-        //           from u in db.Users.Include(u => u.ThemeId)
-        //           where u.UserId == username
-        //           select u.ThemeId.
+                var themes =
+                    from u in db.Users.Include(u => u.Theme)
+                    where u.UserId == username
+                    select new
+                    {
+                        Primary = u.Theme.PrimaryColour,
+                        Secondary = u.Theme.SecondaryColour
+                    };
 
+                foreach (var t in themes)
+                {
+                    userTheme.Add(t.Primary);
+                    userTheme.Add(t.Secondary);
+                }
 
-        //    }
-        //}
+                return userTheme;
+            }
+        }
 
 
         public bool UserExist(string username)
