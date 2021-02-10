@@ -20,19 +20,20 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="7*"/>
-                <RowDefinition Height="211*"/>
+                <RowDefinition Height="21*"/>
+                <RowDefinition Height="362*"/>
+                <RowDefinition Height="271*"/>
                 <RowDefinition Height="62"/>
                 <RowDefinition Height="63"/>
-                <RowDefinition Height="7*"/>
+                <RowDefinition Height="21*"/>
             </Grid.RowDefinitions>
 
-            <Border BorderThickness="2" BorderBrush="Black" Grid.ColumnSpan="3" Grid.RowSpan="3" Grid.Column="1" Grid.Row="1" Panel.ZIndex="5"/>
+            <Border BorderThickness="2" BorderBrush="Black" Grid.ColumnSpan="3" Grid.RowSpan="4" Grid.Column="1" Grid.Row="1" Panel.ZIndex="5"/>
 
-            
+
             <!-- The Main Game Area -->
 
-            <Grid  x:Name="Board" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid  x:Name="Board" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
                 <UniformGrid Rows="8" Columns="8" Opacity=".75"
                      x:Name="Chessboard"/>
 
@@ -73,8 +74,8 @@
             </Grid>
 
             <!-- End Game Area -->
-            
-            <ScrollViewer x:Name="Rulebook" Grid.Row="1" Grid.Column="2" Background="Red" Grid.ColumnSpan="2" Visibility="Collapsed" FontSize="20" VerticalScrollBarVisibility="Visible">
+
+            <ScrollViewer x:Name="Rulebook" Grid.Row="1" Grid.Column="2" Background="Red" Grid.ColumnSpan="2" Visibility="Collapsed" FontSize="20" VerticalScrollBarVisibility="Visible" Grid.RowSpan="2">
                 <TextBlock TextWrapping="Wrap">
                     <Span FontWeight="Bold" FontSize="25">The Rules of Chess</Span>  <LineBreak/> <LineBreak/>
                         
@@ -223,17 +224,20 @@
                     >>>>>>>>
 
                     We have now covered the chess rules; the next step is chess strategy. When you are beginning your journey in chess it is tough to know what chess books, software and e-books to study. There is a big gap between knowing how to move the pieces and studying more advanced strategy and tactics. The chess e-books and chess software presented here will help bridge that gap and get you quickly on the road to chess success!
-                </TextBlock>      
+                </TextBlock>
             </ScrollViewer>
 
-            <TextBox x:Name="History" Grid.Column="1" Grid.Row="1" FontSize="30"/>
-            <Button x:Name="Save" Content="Save" Grid.Column="1" Grid.Row="2" FontSize="30" Background="LightGreen" Click="Save_Click"/>
-            <Button x:Name="Settings" Content="Settings" Grid.Column="2" Grid.Row="3" FontSize="30" Click="Settings_Click"/>
-            <Button x:Name="Logout" Content="Logout" Grid.Column="1" Grid.Row="3" FontSize="30" Background="Orange" Click="Logout_Click"/>
-            <Button x:Name="Rules" Content="Rules" Grid.Column="2" Grid.Row="2" FontSize="30" Background="LightGoldenrodYellow" Click="Rules_Click"/>
-
-            <TextBox x:Name="UserData" Grid.Column="3" Grid.Row="2" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox x:Name="WhiteHistory" Grid.Column="1" Grid.Row="1" FontSize="15"/>
+            <TextBox x:Name="BlackHistory" Grid.Column="1" Grid.Row="2" FontSize="15"/>
             
+            <Button x:Name="Save" Content="Save" Grid.Column="1" Grid.Row="3" FontSize="30" Background="LightGreen" Click="Save_Click"/>
+            <Button x:Name="Settings" Content="Settings" Grid.Column="2" Grid.Row="4" FontSize="30" Click="Settings_Click"/>
+            <Button x:Name="Logout" Content="Logout" Grid.Column="1" Grid.Row="4" FontSize="30" Background="Orange" Click="Logout_Click"/>
+            <Button x:Name="Rules" Content="Rules" Grid.Column="2" Grid.Row="3" FontSize="30" Background="LightGoldenrodYellow" Click="Rules_Click"/>
+
+            <TextBox x:Name="UserData" Grid.Column="3" Grid.Row="3" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox x:Name="Rankings" Grid.Column="3" Grid.Row="4" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
+
         </Grid>
 
     </Grid>

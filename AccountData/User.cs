@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using ChessApp;
+
 namespace AccountData
 {
     public partial class User
@@ -15,6 +17,9 @@ namespace AccountData
         public string Password { get; set; }
         public int Wins { get; set; }
         public int Losses { get; set; }
+
+        public Chessboard Save { get; set; }
+        public bool SaveExist { get; set; } = false;
 
         public int ThemeId { get; set; } = 1;
         public Theme Theme { get; set; }

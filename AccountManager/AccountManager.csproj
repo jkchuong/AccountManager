@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AccountBusiness\AccountBusiness.csproj" />
     <ProjectReference Include="..\AccountData\AccountData.csproj" />
+    <ProjectReference Include="..\ChessApp\ChessApp.csproj" />
   </ItemGroup>
 
 </Project>
