@@ -20,12 +20,12 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="21*"/>
-                <RowDefinition Height="362*"/>
-                <RowDefinition Height="271*"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="106*"/>
+                <RowDefinition Height="105*"/>
                 <RowDefinition Height="62"/>
                 <RowDefinition Height="63"/>
-                <RowDefinition Height="21*"/>
+                <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
 
             <Border BorderThickness="2" BorderBrush="Black" Grid.ColumnSpan="3" Grid.RowSpan="4" Grid.Column="1" Grid.Row="1" Panel.ZIndex="5"/>
@@ -227,9 +227,10 @@
                 </TextBlock>
             </ScrollViewer>
 
-            <TextBox x:Name="WhiteHistory" Grid.Column="1" Grid.Row="1" FontSize="15"/>
-            <TextBox x:Name="BlackHistory" Grid.Column="1" Grid.Row="2" FontSize="15"/>
-            
+
+            <ScrollViewer x:Name="WhiteHistory" Grid.Column="1" Grid.Row="1" FontSize="15" VerticalScrollBarVisibility="Hidden" Background="White" Foreground="Black"/>
+            <ScrollViewer x:Name="BlackHistory" Grid.Column="1" Grid.Row="2" FontSize="15" VerticalScrollBarVisibility="Hidden" Background="Black" Foreground="White"/>
+
             <Button x:Name="Save" Content="Save" Grid.Column="1" Grid.Row="3" FontSize="30" Background="LightGreen" Click="Save_Click"/>
             <Button x:Name="Settings" Content="Settings" Grid.Column="2" Grid.Row="4" FontSize="30" Click="Settings_Click"/>
             <Button x:Name="Logout" Content="Logout" Grid.Column="1" Grid.Row="4" FontSize="30" Background="Orange" Click="Logout_Click"/>

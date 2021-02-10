@@ -14,7 +14,6 @@ namespace ChessApp
 
             if (isWhite)
             {
-                Name = "Pawn";
                 PossibleMoves = Rulebook.WhitePawnMoves;
             }
             else

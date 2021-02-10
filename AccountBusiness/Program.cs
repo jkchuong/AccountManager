@@ -10,34 +10,7 @@ namespace AccountBusiness
     {
         static void Main(string[] args)
         {
-            Business account = new Business();
-            //account.DeleteAllUsers();
 
-            using (var db = new GameContext())
-            {
-                var selectedUsers =
-                from u in db.Users
-                where u.UserId == "jkchuong"
-                select u;
-                db.Users.RemoveRange(selectedUsers);
-
-
-                var selectedThemes =
-                    from t in db.Themes
-                    where t.PrimaryColour == "Purple"
-                    select t;
-                db.Themes.RemoveRange(selectedThemes);
-
-                db.SaveChanges();
-            }
-
-
-
-            List<string> themes = account.GetUserTheme("jkchuong");
-            foreach (string theme in themes)
-            {
-                Console.WriteLine(theme);
-            }
         }
 
 

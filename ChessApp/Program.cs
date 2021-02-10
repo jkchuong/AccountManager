@@ -60,7 +60,7 @@ namespace ChessApp
             Console.WriteLine("=====================================================");
 
             Console.WriteLine("New Game");
-            chessboard.NewGame();
+            //chessboard.NewGame();
             PrintBoardOccupiedAndLegal(chessboard);
 
             Console.WriteLine("=====================================================");

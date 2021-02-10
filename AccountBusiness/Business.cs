@@ -71,6 +71,27 @@ namespace AccountBusiness
         }
 
 
+        public int AddOneToWins(string username)
+        {
+            using var db = new GameContext();
+            var selectedUser = db.Users.Find(username);
+            selectedUser.Wins += 1;
+            db.SaveChanges();
+
+            return selectedUser.Wins;
+        }
+
+        public int AddOneToLosses(string username)
+        {
+            using var db = new GameContext();
+            var selectedUser = db.Users.Find(username);
+            selectedUser.Losses += 1;
+            db.SaveChanges();
+
+            return selectedUser.Losses;
+        }
+
+
         public bool UserExist(string username)
         {
             using var db = new GameContext();
@@ -89,7 +110,7 @@ namespace AccountBusiness
         {
             using var db = new GameContext();
             var entry = from user in db.Users where user.UserId == username && user.Password == password select user.UserId;
-            if (entry.Count() != 0)
+            if (entry.Any())
             {
                 return true;
             }

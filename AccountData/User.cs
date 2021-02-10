@@ -15,11 +15,11 @@ namespace AccountData
         public string UserId { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
-        public int Wins { get; set; }
-        public int Losses { get; set; }
+        public int Wins { get; set; } = 0;
+        public int Losses { get; set; } = 0;
 
-        public Chessboard Save { get; set; }
-        public bool SaveExist { get; set; } = false;
+        //public List<Pieces> Pieces { get; set; }
+        //public bool SaveExist { get; set; } = false;
 
         public int ThemeId { get; set; } = 1;
         public Theme Theme { get; set; }

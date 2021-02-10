@@ -30,9 +30,12 @@ namespace AccountManager
         private Business _account = new Business();
         private User user;
 
-        Chessboard chessboard = new Chessboard();
+        private Brush primaryColour;
+        private Brush secondaryColour;
+
+        private Chessboard chessboard = new Chessboard();
         public ObservableCollection<Pieces> Piece { get; set; }
-        Cell currentCell;
+        private Cell currentCell;
 
         public Game(User userPassed)
         {
@@ -42,20 +45,24 @@ namespace AccountManager
             InitializeComponent();
 
             var userThemes = _account.GetUserTheme(user.UserId);
-            Brush primaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[0]);
-            Brush secondaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[1]);
+            primaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[0]);
+            secondaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[1]);
             CreateButtonGrid(primaryColour, secondaryColour);
 
 
-            WhiteHistory.Text = "White Moves";
-            BlackHistory.Text = "Black Moves";
+            WhiteHistory.Content = " White Moves";
+            BlackHistory.Content = " Black Moves";
 
             NewGame();
+
             UpdateBoardState();
 
+            // Populate user information
             string data = $"{user.Name}, Wins: {user.Wins}, Losses: {user.Losses}.";
             UserData.Text = data;
         }
+
+        #region Chess Game Mechanics
 
         private void CreateButtonGrid(Brush primary, Brush secondary)
         {
@@ -98,27 +105,26 @@ namespace AccountManager
 
                 UpdateBoardState();
 
-                // Check if game over
+                // Check if game over after white move
                 whitePieces = SearchForPieces(true);
                 blackPieces = SearchForPieces(false);
 
                 if (IsGameOver(whitePieces, blackPieces))
                 {
                     NewGame();
-                    
                 }
                 else
                 {
                     ComputerMove(blackPieces);
                 }
 
-
+                // Check if game over after black move
+                blackPieces = SearchForPieces(false);
                 whitePieces = SearchForPieces(true);
 
                 if (IsGameOver(whitePieces, blackPieces))
                 {
                     NewGame();
-
                 }
 
             }
@@ -143,11 +149,9 @@ namespace AccountManager
 
         private void ComputerMove(List<Pieces> blackPieces)
         {
-
             // Delay before computer move
             Random rnd = new Random();
             Task.Delay(rnd.Next(500, 2000));
-
 
             bool hasNotMoved = true;
             while (hasNotMoved)
@@ -184,18 +188,29 @@ namespace AccountManager
 
         private bool IsGameOver(List<Pieces> whitePieces, List<Pieces> blackPieces)
         {
+            int newWins = 0, newLoss = 0;
+            // continue if king exists. Add one to win/loss otherwise
+            if (KingExists(whitePieces) && KingExists(blackPieces))
+            {
+                return false;
 
-            if (!KingExists(whitePieces))
-            {
-                WhiteHistory.Text = "White Loses!";
-                return true;
             }
-            if (!KingExists(blackPieces))
+            else if (!KingExists(blackPieces))
             {
-                BlackHistory.Text = "Black Loses!";
-                return true;
+                newWins = _account.AddOneToWins(user.UserId);
             }
-            return false;
+            else
+            {
+                newLoss = _account.AddOneToLosses(user.UserId);
+            }
+
+            //refresh data
+            WhiteHistory.Content = " White Moves";
+            BlackHistory.Content = " Black Moves";
+
+            string data = $"{user.Name}, Wins: {newWins}, Losses: {newLoss}.";
+            UserData.Text = data;
+            return true;
         }
 
         private void PrintMoveHistory(Cell beforeCell, Cell afterCell)
@@ -224,16 +239,24 @@ namespace AccountManager
 
             if (beforeCell.piece.IsWhite)
             {
-                WhiteHistory.Text += message;
+                WhiteHistory.Content += message;
+                WhiteHistory.ScrollToBottom();
             }
             else
             {
-                BlackHistory.Text += message;
+                BlackHistory.Content += message;
+                BlackHistory.ScrollToBottom();
             }
         }
 
         private void MovePiece(Cell beforeCell, Cell afterCell)
         {
+            // if pawn then set first move to false
+            if (beforeCell.piece.IsFirstMove)
+            {
+                beforeCell.piece.IsFirstMove = false;
+            }
+
             // move piece to new cell and set that cell to be occupied
             afterCell.piece = beforeCell.piece;
             afterCell.IsOccupied = true;
@@ -271,11 +294,11 @@ namespace AccountManager
                 {
                     if (ChessApp.Rulebook.BlackCells.Contains(button.Name))
                     {
-                        button.Background = Brushes.Black;
+                        button.Background = secondaryColour;
                     }
                     else
                     {
-                        button.Background = Brushes.White;
+                        button.Background = primaryColour;
                     }
                 }
             }
@@ -286,41 +309,41 @@ namespace AccountManager
 
             chessboard.ClearBoard();
 
-            Pawn whitePawn1 = new Pawn(true, chessboard.Board[6, 0]);
-            Pawn whitePawn2 = new Pawn(true, chessboard.Board[6, 1]);
-            Pawn whitePawn3 = new Pawn(true, chessboard.Board[6, 2]);
-            Pawn whitePawn4 = new Pawn(true, chessboard.Board[6, 3]);
-            Pawn whitePawn5 = new Pawn(true, chessboard.Board[6, 4]);
-            Pawn whitePawn6 = new Pawn(true, chessboard.Board[6, 5]);
-            Pawn whitePawn7 = new Pawn(true, chessboard.Board[6, 6]);
-            Pawn whitePawn8 = new Pawn(true, chessboard.Board[6, 7]);
+            _ = new Pawn(true, chessboard.Board[6, 0]);
+            _ = new Pawn(true, chessboard.Board[6, 1]);
+            _ = new Pawn(true, chessboard.Board[6, 2]);
+            _ = new Pawn(true, chessboard.Board[6, 3]);
+            _ = new Pawn(true, chessboard.Board[6, 4]);
+            _ = new Pawn(true, chessboard.Board[6, 5]);
+            _ = new Pawn(true, chessboard.Board[6, 6]);
+            _ = new Pawn(true, chessboard.Board[6, 7]);
 
-            Rook whiteRook1 = new Rook(true, chessboard.Board[7, 0]);
-            Knight whiteKnight1 = new Knight(true, chessboard.Board[7, 1]);
-            Bishop whiteBishop1 = new Bishop(true, chessboard.Board[7, 2]);
-            Queen whiteQueen = new Queen(true, chessboard.Board[7, 3]);
-            King whiteKing = new King(true, chessboard.Board[7, 4]);
-            Bishop whiteBishop2 = new Bishop(true, chessboard.Board[7, 5]);
-            Knight whiteKnight2 = new Knight(true, chessboard.Board[7, 6]);
-            Rook whiteRook2 = new Rook(true, chessboard.Board[7, 7]);
+            _ = new Rook(true, chessboard.Board[7, 0]);
+            _ = new Knight(true, chessboard.Board[7, 1]);
+            _ = new Bishop(true, chessboard.Board[7, 2]);
+            _ = new Queen(true, chessboard.Board[7, 3]);
+            _ = new King(true, chessboard.Board[7, 4]);
+            _ = new Bishop(true, chessboard.Board[7, 5]);
+            _ = new Knight(true, chessboard.Board[7, 6]);
+            _ = new Rook(true, chessboard.Board[7, 7]);
 
-            Pawn blackPawn1 = new Pawn(false, chessboard.Board[1, 0]);
-            Pawn blackPawn2 = new Pawn(false, chessboard.Board[1, 1]);
-            Pawn blackPawn3 = new Pawn(false, chessboard.Board[1, 2]);
-            Pawn blackPawn4 = new Pawn(false, chessboard.Board[1, 3]);
-            Pawn blackPawn5 = new Pawn(false, chessboard.Board[1, 4]);
-            Pawn blackPawn6 = new Pawn(false, chessboard.Board[1, 5]);
-            Pawn blackPawn7 = new Pawn(false, chessboard.Board[1, 6]);
-            Pawn blackPawn8 = new Pawn(false, chessboard.Board[1, 7]);
-
-            Rook blackRook1 = new Rook(false, chessboard.Board[0, 0]);
-            Knight blackKnight1 = new Knight(false, chessboard.Board[0, 1]);
-            Bishop blackBishop1 = new Bishop(false, chessboard.Board[0, 2]);
-            Queen blackQueen = new Queen(false, chessboard.Board[0, 3]);
-            King blackKing = new King(false, chessboard.Board[0, 4]);
-            Bishop blackBishop2 = new Bishop(false, chessboard.Board[0, 5]);
-            Knight blackKnight2 = new Knight(false, chessboard.Board[0, 6]);
-            Rook blackRook2 = new Rook(false, chessboard.Board[0, 7]);
+            _ = new Pawn(false, chessboard.Board[1, 0]);
+            _ = new Pawn(false, chessboard.Board[1, 1]);
+            _ = new Pawn(false, chessboard.Board[1, 2]);
+            _ = new Pawn(false, chessboard.Board[1, 3]);
+            _ = new Pawn(false, chessboard.Board[1, 4]);
+            _ = new Pawn(false, chessboard.Board[1, 5]);
+            _ = new Pawn(false, chessboard.Board[1, 6]);
+            _ = new Pawn(false, chessboard.Board[1, 7]);
+           
+            _ = new Rook(false, chessboard.Board[0, 0]);
+            _ = new Knight(false, chessboard.Board[0, 1]);
+            _ = new Bishop(false, chessboard.Board[0, 2]);
+            _ = new Queen(false, chessboard.Board[0, 3]);
+            _ = new King(false, chessboard.Board[0, 4]);
+            _ = new Bishop(false, chessboard.Board[0, 5]);
+            _ = new Knight(false, chessboard.Board[0, 6]);
+            _ = new Rook(false, chessboard.Board[0, 7]);
         }
 
         private List<Pieces> SearchForPieces(bool isWhite)
@@ -342,7 +365,7 @@ namespace AccountManager
             return pieces;
         }
 
-        private bool KingExists(List<Pieces> pieces)
+        private static bool KingExists(List<Pieces> pieces)
         {
             foreach (Pieces piece in pieces)
             {
@@ -355,8 +378,8 @@ namespace AccountManager
         }
 
 
-        // Use images instead of letters?
-        public string ImageSource(Pieces piece)
+        // Use images instead of letters? (not implemented)
+        public static string ImageSource(Pieces piece)
         {
             string source = "pack://application:,,,/ChessImages/";
             if (piece.Name == "BlackPawn" || piece.Name == "WhitePawn")
@@ -376,6 +399,8 @@ namespace AccountManager
             }
             return source;
         }
+
+        #endregion
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {

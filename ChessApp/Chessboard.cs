@@ -73,38 +73,33 @@ namespace ChessApp
                 foreach (Move move in piece.PossibleMoves)
                 {
                     int desitinationRow = piece.Position.Row + move.MoveRow;
-                    int desitnationColumn = piece.Position.Column + move.MoveColumn;
+                    int destinationColumn = piece.Position.Column + move.MoveColumn;
 
-                    if (IsOnBoard(desitinationRow, desitnationColumn))
+                    if (IsOnBoard(desitinationRow, destinationColumn))
                     {
-                        // move 2 only if first move and empty or occupied by opposite colour and it's the first move
-                        if (Math.Abs(move.MoveRow) == 2)
-                        {
-                            if (piece.IsFirstMove &&
-                                (Board[desitinationRow, desitnationColumn].piece == null
-                                || IsOppositeColour(piece.IsWhite, Board[desitinationRow, desitnationColumn].piece.IsWhite)))
-                            {
-                                Board[desitinationRow, desitnationColumn].IsLegal = true;
-                                piece.IsFirstMove = false;
-                            }
-                        }
-
                         // move diagonally only if it's occupied by opposite colour
-                        else if (desitinationRow != piece.Position.Row && desitnationColumn != piece.Position.Column)
+                        if (desitinationRow != piece.Position.Row && destinationColumn != piece.Position.Column)
                         {
-                            if (Board[desitinationRow, desitnationColumn].IsOccupied
-                                && IsOppositeColour(piece.IsWhite, Board[desitinationRow, desitnationColumn].piece.IsWhite))
+                            if (Board[desitinationRow, destinationColumn].IsOccupied
+                                && IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].piece.IsWhite))
                             {
-                                Board[desitinationRow, desitnationColumn].IsLegal = true;
+                                Board[desitinationRow, destinationColumn].IsLegal = true;
                             }
                         }
 
-                        // Moving forward by 1
+                        // Moving forward
                         else
                         {
-                            if (!Board[desitinationRow, desitnationColumn].IsOccupied)
+                            // if unobstructed is legal
+                            if (!Board[desitinationRow, destinationColumn].IsOccupied)
                             {
-                                Board[desitinationRow, desitnationColumn].IsLegal = true;
+                                Board[desitinationRow, destinationColumn].IsLegal = true;
+
+                                // if first move, can move two steps
+                                if (piece.IsFirstMove)
+                                {
+                                    Board[desitinationRow + move.MoveRow, destinationColumn + move.MoveColumn].IsLegal = true;
+                                }
                             }
                         }
                     }
@@ -151,45 +146,45 @@ namespace ChessApp
             }
         }
 
-        public void NewGame()
-        {
-            Pawn whitePawn1 = new Pawn(true, Board[6, 0]);
-            Pawn whitePawn2 = new Pawn(true, Board[6, 1]);
-            Pawn whitePawn3 = new Pawn(true, Board[6, 2]);
-            Pawn whitePawn4 = new Pawn(true, Board[6, 3]);
-            Pawn whitePawn5 = new Pawn(true, Board[6, 4]);
-            Pawn whitePawn6 = new Pawn(true, Board[6, 5]);
-            Pawn whitePawn7 = new Pawn(true, Board[6, 6]);
-            Pawn whitePawn8 = new Pawn(true, Board[6, 7]);
+        //public void NewGame()
+        //{
+        //    Pawn whitePawn1 = new Pawn(true, Board[6, 0]);
+        //    Pawn whitePawn2 = new Pawn(true, Board[6, 1]);
+        //    Pawn whitePawn3 = new Pawn(true, Board[6, 2]);
+        //    Pawn whitePawn4 = new Pawn(true, Board[6, 3]);
+        //    Pawn whitePawn5 = new Pawn(true, Board[6, 4]);
+        //    Pawn whitePawn6 = new Pawn(true, Board[6, 5]);
+        //    Pawn whitePawn7 = new Pawn(true, Board[6, 6]);
+        //    Pawn whitePawn8 = new Pawn(true, Board[6, 7]);
 
-            Rook whiteRook1 = new Rook(true, Board[7, 0]);
-            Knight whiteKnight1 = new Knight(true, Board[7, 1]);
-            Bishop whiteBishop1 = new Bishop(true, Board[7, 2]);
-            Queen whiteQueen = new Queen(true, Board[7, 3]);
-            King whiteKing = new King(true, Board[7, 4]);
-            Bishop whiteBishop2 = new Bishop(true, Board[7, 5]);
-            Knight whiteKnight2 = new Knight(true, Board[7, 6]);
-            Rook whiteRook2 = new Rook(true, Board[7, 7]);
+        //    Rook whiteRook1 = new Rook(true, Board[7, 0]);
+        //    Knight whiteKnight1 = new Knight(true, Board[7, 1]);
+        //    Bishop whiteBishop1 = new Bishop(true, Board[7, 2]);
+        //    Queen whiteQueen = new Queen(true, Board[7, 3]);
+        //    King whiteKing = new King(true, Board[7, 4]);
+        //    Bishop whiteBishop2 = new Bishop(true, Board[7, 5]);
+        //    Knight whiteKnight2 = new Knight(true, Board[7, 6]);
+        //    Rook whiteRook2 = new Rook(true, Board[7, 7]);
 
-            Pawn blackPawn1 = new Pawn(false, Board[1, 0]);
-            Pawn blackPawn2 = new Pawn(false, Board[1, 1]);
-            Pawn blackPawn3 = new Pawn(false, Board[1, 2]);
-            Pawn blackPawn4 = new Pawn(false, Board[1, 3]);
-            Pawn blackPawn5 = new Pawn(false, Board[1, 4]);
-            Pawn blackPawn6 = new Pawn(false, Board[1, 5]);
-            Pawn blackPawn7 = new Pawn(false, Board[1, 6]);
-            Pawn blackPawn8 = new Pawn(false, Board[1, 7]);
+        //    Pawn blackPawn1 = new Pawn(false, Board[1, 0]);
+        //    Pawn blackPawn2 = new Pawn(false, Board[1, 1]);
+        //    Pawn blackPawn3 = new Pawn(false, Board[1, 2]);
+        //    Pawn blackPawn4 = new Pawn(false, Board[1, 3]);
+        //    Pawn blackPawn5 = new Pawn(false, Board[1, 4]);
+        //    Pawn blackPawn6 = new Pawn(false, Board[1, 5]);
+        //    Pawn blackPawn7 = new Pawn(false, Board[1, 6]);
+        //    Pawn blackPawn8 = new Pawn(false, Board[1, 7]);
 
-            Rook blackRook1 = new Rook(false, Board[0, 0]);
-            Knight blackKnight1 = new Knight(false, Board[0, 1]);
-            Bishop blackBishop1 = new Bishop(false, Board[0, 2]);
-            Queen blackQueen = new Queen(false, Board[0, 3]);
-            King blackKing = new King(false, Board[0, 4]);
-            Bishop blackBishop2 = new Bishop(false, Board[0, 5]);
-            Knight blackKnight2 = new Knight(false, Board[0, 6]);
-            Rook blackRook2 = new Rook(false, Board[0, 7]);
+        //    Rook blackRook1 = new Rook(false, Board[0, 0]);
+        //    Knight blackKnight1 = new Knight(false, Board[0, 1]);
+        //    Bishop blackBishop1 = new Bishop(false, Board[0, 2]);
+        //    Queen blackQueen = new Queen(false, Board[0, 3]);
+        //    King blackKing = new King(false, Board[0, 4]);
+        //    Bishop blackBishop2 = new Bishop(false, Board[0, 5]);
+        //    Knight blackKnight2 = new Knight(false, Board[0, 6]);
+        //    Rook blackRook2 = new Rook(false, Board[0, 7]);
 
-        }
+        //}
 
         public void MovePiece(Pieces piece, Cell cell)
         {
