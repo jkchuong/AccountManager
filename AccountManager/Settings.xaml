@@ -42,10 +42,8 @@
             <PasswordBox x:Name="SettingsPassword" Grid.Row="5" Grid.Column="3" FontSize="60"/>
             <PasswordBox x:Name="SettingsPasswordCheck" Grid.Row="6" Grid.Column="3" FontSize="60"/>
 
-            <ComboBox x:Name="ThemeBox" Grid.Row="3" Grid.Column="3" ItemsSource="{Binding Path=themes}">
+            <ComboBox x:Name="ThemeBox" Grid.Row="3" Grid.Column="3" ItemsSource="{Binding Path=themes}"/>
 
-            </ComboBox>
-            
             <TextBox x:Name="Status" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" FontSize="30" VerticalContentAlignment="Center" TextAlignment="Center" IsReadOnly="True"/>
 
             <Button x:Name="Save" Content="Save Changes" Grid.Column="1" Grid.Row="8" FontSize="40" Click="Settings_Save_Click"/>

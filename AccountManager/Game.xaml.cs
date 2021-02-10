@@ -19,6 +19,8 @@ namespace AccountManager
     /// <summary>
     /// Interaction logic for Game.xaml
     /// </summary>
+    /// 
+
     
     public partial class Game : Page
     {
@@ -31,12 +33,38 @@ namespace AccountManager
 
             InitializeComponent();
 
+
+
             var userThemes = _account.GetUserTheme(user.UserId);
-            Chessboard.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[0]);
+            Brush primaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[0]);
             Brush secondaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[1]);
+            CreateButtonGrid(primaryColour, secondaryColour);
 
             string data = $"{user.Name}, Wins: {user.Wins}, Losses: {user.Losses}.";
             UserData.Text = data;
+        }
+
+        private void CreateButtonGrid(Brush primary, Brush secondary)
+        {
+            for (var col = 0; col < 8; col++)
+            {
+                var isBlack = col % 2 == 1;
+                for (int row = 0; row < 8; row++)
+                {
+                    var button = new Button() { Background = isBlack ? primary : secondary, Foreground = !isBlack ? primary : secondary };
+                    button.Name = "_" + row.ToString() + col.ToString();
+                    button.Content = button.Name;
+                    button.Click += GridButton_Click;
+                    button.FontSize = 30;
+                    Chessboard.Children.Add(button);
+                    isBlack = !isBlack;
+                }
+            }
+        }
+
+        private void GridButton_Click(object sender, RoutedEventArgs e)
+        {
+            History.Text = (sender as Button).Name.ToString();
         }
 
         private void Logout_Click(object sender, RoutedEventArgs e)
