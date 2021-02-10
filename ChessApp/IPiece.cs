@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChessApp
 {
-    // Redundant?
+    // Redundant Class
     public interface IPiece
     {
         public bool IsWhite { get; set; }

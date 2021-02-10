@@ -1,6 +1,6 @@
 # Account Manager
 
-This project uses WPF and SQL to create program that allows the user to register and log in to an account.
+This project aims to use WPF and SQL to create program that allows the user to register and log in to an account and play a chess game. The project is considered to be done when a user can register an account, log in, and play a full game of chess with ability to track user stats, moves, and colour themes.
 
 <u>Sprint 1</u>
 
@@ -30,3 +30,21 @@ What to change next time: Work only on tasks inside Sprint Log.
 
 <u>Sprint 3</u>
 
+- Completed CGE included AI moves
+- CGE connected to application
+- User wins and losses stored and shown
+- User move history tracked and shown
+
+<u>Retrospect</u>
+
+What went well: Constructing CGE outside of solution was a good idea as it didn't interfere with the other parts of the program and features segregated.
+
+What didn't go well: Not knowing how to store custom datatypes in SQL table
+
+What to change next time: Lean serialisation better.
+
+<u>Sprint 4</u>
+
+
+
+<u>Retrospect</u>
