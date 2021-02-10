@@ -22,3 +22,11 @@ What to change next time: Ensure I have a clearer idea of how the software will 
 
 <u>Retrospect</u>
 
+What went well: CGE progress fast after planning was done. 
+
+What didn't go well: Not keeping within the scope of the Sprint
+
+What to change next time: Work only on tasks inside Sprint Log.
+
+<u>Sprint 3</u>
+
