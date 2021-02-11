@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,6 +40,8 @@ namespace AccountManager
         public ObservableCollection<Pieces> Piece { get; set; }
         private Cell currentCell;
 
+
+
         public Game(User userPassed)
         {
             Piece = new ObservableCollection<Pieces>();
@@ -55,13 +59,41 @@ namespace AccountManager
             WhiteHistory.Content = " White Moves";
             BlackHistory.Content = " Black Moves";
 
-            chessboard.NewGame();
+            if (user.SaveExist)
+            {
+                GetSavedGame();
+
+            }
+            else
+            {
+                chessboard.NewGame();
+            }
 
             UpdateBoardState();
 
             // Populate user information
             string data = $"{user.Name}, Wins: {user.Wins}, Losses: {user.Losses}.";
             UserData.Text = data;
+        }
+
+        public void GetSavedGame()
+        {
+            XDocument saveFile = _account.LoadSaveFile();
+            XElement userSave =
+                saveFile.Descendants("User")
+                .Where(s => (string)s.Attribute("UserId") == user.UserId)
+                .FirstOrDefault();
+
+            foreach (XElement pieceInSave in userSave.Elements())
+            {
+                string pieceName = pieceInSave.Attribute("Name").Value;
+                int pieceRow = Int32.Parse(pieceInSave.Element("Row").Value);
+                int pieceCol = Int32.Parse(pieceInSave.Element("Column").Value);
+                bool isWhite = Convert.ToBoolean(pieceInSave.Element("IsWhite").Value);
+                bool isFirstMove = Convert.ToBoolean(pieceInSave.Element("IsFirstMove").Value);
+
+                chessboard.AddPieceToBoard(pieceName, pieceRow, pieceCol, isWhite, isFirstMove);
+            }
         }
 
         #region Chess Game Mechanics
@@ -335,8 +367,9 @@ namespace AccountManager
         // Store all piece information in SQL database
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-
+            _account.SaveToXML(user.UserId, chessboard.Board);
         }
+
 
         // Go to settings page
         private void Settings_Click(object sender, RoutedEventArgs e)

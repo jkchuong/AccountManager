@@ -139,6 +139,8 @@
             <TextBox x:Name="UserData" Grid.Column="3" Grid.Row="3" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
             <TextBox x:Name="Rankings" Grid.Column="3" Grid.Row="4" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
 
+
+
         </Grid>
 
     </Grid>

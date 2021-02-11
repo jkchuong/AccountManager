@@ -5,11 +5,15 @@ using System.Linq;
 using AccountData;
 using Microsoft.EntityFrameworkCore;
 
+using ChessApp;
+using System.IO;
+using System.Xml.Linq;
+
 namespace AccountBusiness
 {
     public class Business
     {
-        public User selectedUser { get; set; }
+        public User SelectedUser { get; set; }
 
         public void CreateUser(string name, string username, string password)
         {
@@ -95,8 +99,8 @@ namespace AccountBusiness
         public bool UserExist(string username)
         {
             using var db = new GameContext();
-            var entry = db.Users.Find(username);
-            if (entry != null)
+            var selectedUser = db.Users.Find(username);
+            if (selectedUser != null)
             {
                 return true;
             }
@@ -142,8 +146,8 @@ namespace AccountBusiness
         public void DeleteUser(string username)
         {
             using var db = new GameContext();
-            var entry = db.Users.Find(username);
-            db.Remove(entry);
+            var selectedUser = db.Users.Find(username);
+            db.Remove(selectedUser);
             db.SaveChanges();
         }
 
@@ -161,12 +165,82 @@ namespace AccountBusiness
             db.SaveChanges();
         }
 
-        // Can I combine this with UserAndPasswordExist?
+
+        public void SetSaveToExist(string username)
+        {
+            using var db = new GameContext();
+            var selectedUser = db.Users.Find(username);
+            selectedUser.SaveExist = true;
+            db.SaveChanges();
+        }
+
+        public XElement GetUserSave(string userId, XDocument saveFile)
+        {
+            return 
+                saveFile.Descendants("User")
+                .Where(s => (string)s.Attribute("UserId") == userId)
+                .FirstOrDefault();
+        }
+
+        public XDocument LoadSaveFile()
+        {
+            var filename = "Saves.xml";
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var saveFilePath = Path.Combine(currentDirectory, filename);
+            XDocument saveFile = XDocument.Load(saveFilePath);
+            return saveFile;
+        }
+
+        private static void DeleteUserSave(string userId, XDocument saveFile)
+        {
+            saveFile.Descendants().Where(u => (string)u.Attribute("UserId") == userId).FirstOrDefault().Remove();
+            saveFile.Save("Saves.xml");
+        }
+
+        public void SaveToXML(string userId, Cell[,] board)
+        {
+            XDocument saveFile = LoadSaveFile();
+
+            var userSave = GetUserSave(userId, saveFile);
+
+            // If user already has save file, delete and create a new one
+            if (userSave != null)
+            {
+                DeleteUserSave(userId, saveFile);
+            }
+
+            // Create XElement and populate with pieces
+            XElement user = new XElement("User", new XAttribute("UserId", userId));
+
+            foreach (Cell cell in board)
+            {
+                if (cell.IsOccupied)
+                {
+                    XElement piece =
+                        new XElement("Piece", new XAttribute("Name", cell.Piece.Name),
+                            new XElement("Row", cell.Row),
+                            new XElement("Column", cell.Column),
+                            new XElement("IsWhite", cell.Piece.IsWhite),
+                            new XElement("IsFirstMove", cell.Piece.IsFirstMove)
+                        );
+
+                    user.Add(piece);
+                }
+            }
+
+            saveFile.Element("Saves").Add(user);
+            saveFile.Save("Saves.xml");
+            SetSaveToExist(userId);
+        }
+
+
+        // How to use this when passing user between pages?
         public User SetSelectedCustomer(string username)
         {
             using var db = new GameContext();
             var entry = db.Users.Find(username);
             return entry;
         }
+
     }
 }

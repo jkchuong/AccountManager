@@ -17,10 +17,7 @@ namespace AccountData
         public string Password { get; set; }
         public int Wins { get; set; } = 0;
         public int Losses { get; set; } = 0;
-
-        //public List<Pieces> Pieces { get; set; }
-        //public bool SaveExist { get; set; } = false;
-
+        public bool SaveExist { get; set; } = false;
         public int ThemeId { get; set; } = 1;
         public Theme Theme { get; set; }
     }

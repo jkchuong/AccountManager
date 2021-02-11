@@ -516,6 +516,30 @@ namespace ChessApp
 
         }
 
+        public void AddPieceToBoard(string pieceName, int pieceRow, int pieceCol, bool isWhite, bool isFirstMove)
+        {
+            switch (pieceName)
+            {
+                case "Pawn":
+                    _ = new Pawn(isWhite, Board[pieceRow, pieceCol]) { IsFirstMove = isFirstMove };
+                    break;
+                case "Knight":
+                    _ = new Knight(isWhite, Board[pieceRow, pieceCol]) { IsFirstMove = isFirstMove };
+                    break;
+                case "King":
+                    _ = new King(isWhite, Board[pieceRow, pieceCol]) { IsFirstMove = isFirstMove };
+                    break;
+                case "Rook":
+                    _ = new Rook(isWhite, Board[pieceRow, pieceCol]) { IsFirstMove = isFirstMove };
+                    break;
+                case "Bishop":
+                    _ = new Bishop(isWhite, Board[pieceRow, pieceCol]) { IsFirstMove = isFirstMove };
+                    break;
+                case "Queen":
+                    _ = new Queen(isWhite, Board[pieceRow, pieceCol]) { IsFirstMove = isFirstMove };
+                    break;
+            }
+        }
 
     }
 }
