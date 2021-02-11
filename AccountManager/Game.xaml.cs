@@ -45,9 +45,11 @@ namespace AccountManager
 
             InitializeComponent();
 
+            
             var userThemes = _account.GetUserTheme(user.UserId);
             primaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[0]);
             secondaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[1]);
+
             CreateButtonGrid(primaryColour, secondaryColour);
 
             WhiteHistory.Content = " White Moves";
@@ -64,7 +66,7 @@ namespace AccountManager
 
         #region Chess Game Mechanics
 
-        // Create interactive Chessboard with alternating colours
+        // Create interactive Chessboard using user theme colours
         private void CreateButtonGrid(Brush primary, Brush secondary)
         {
             for (int row = 0; row < 8; row++)
@@ -73,11 +75,15 @@ namespace AccountManager
                 for (int col = 0; col < 8; col++)
                 {
                     var button = new Button() { Background = isBlack ? secondary : primary, Foreground = !isBlack ? secondary : primary };
-                    button.Name = ChessApp.Rulebook.ArrayToCellRow[col].ToString() + ChessApp.Rulebook.ArrayToCellColumn[row].ToString();
+
+                    // Name buttons with algebraic notation
+                    button.Name = ChessApp.Rulebook.ArrayToCellRow[col].ToString() + ChessApp.Rulebook.ArrayToCellColumn[row].ToString(); 
                     button.Click += GridButton_Click;
                     button.FontSize = 50;
                     button.Tag = chessboard.Board[row, col];
                     chessboard.Board[row, col].Name = button.Name;
+
+                    // Add the buttons to uniform grid
                     Chessboard.Children.Add(button);
                     isBlack = !isBlack;
                 }
@@ -196,7 +202,8 @@ namespace AccountManager
         private bool IsGameOver(List<Pieces> whitePieces, List<Pieces> blackPieces)
         {
             int newWins = 0, newLoss = 0;
-            // continue if king exists. Add one to win/loss otherwise
+
+            // Continue if king exists. Add one to win/loss otherwise
             if (KingExists(whitePieces) && KingExists(blackPieces))
             {
                 return false;
@@ -211,7 +218,7 @@ namespace AccountManager
                 newLoss = _account.AddOneToLosses(user.UserId);
             }
 
-            //refresh data
+            //Refresh data
             WhiteHistory.Content = " White Moves";
             BlackHistory.Content = " Black Moves";
 
@@ -222,10 +229,11 @@ namespace AccountManager
 
         private void PrintMoveHistory(Cell beforeCell, Cell afterCell)
         {
+            // Put each move on new line
             string message = "\r\n ";
             if (beforeCell.piece.Name == "Pawn")
             {
-                // Pawn moves into empty cell print only cell name
+                // Pawn moves into empty cell print only cell name, if occupied add column value and x
                 if (!afterCell.IsOccupied)
                 {
                     message += $"{afterCell.Name}";
@@ -235,6 +243,8 @@ namespace AccountManager
                     message += $"{beforeCell.Name[0]}x{afterCell.Name}";
                 }
             }
+
+            // Print piece initial and cell name if moving into empty cell, otherwise add x
             else if (!afterCell.IsOccupied)
             {
                 message += $"{ChessApp.Rulebook.ConvertPieceToInitial(beforeCell.piece)}{afterCell.Name}";
@@ -315,6 +325,7 @@ namespace AccountManager
             }
         }
 
+        // Reset the board and populate with new pieces
         private void NewGame()
         {
 
@@ -357,6 +368,7 @@ namespace AccountManager
             _ = new Rook(false, chessboard.Board[0, 7]);
         }
 
+        // Get list of all pieces of one colour on board
         private List<Pieces> SearchForPieces(bool isWhite)
         {
             List<Pieces> pieces = new List<Pieces>();
@@ -376,6 +388,7 @@ namespace AccountManager
             return pieces;
         }
 
+        // Check if King exists
         private static bool KingExists(List<Pieces> pieces)
         {
             foreach (Pieces piece in pieces)
@@ -413,23 +426,27 @@ namespace AccountManager
 
         #endregion
 
+        // Go back to login page
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             Login login = new Login();
             this.NavigationService.Navigate(login);
         }
 
+        // Store all piece information in SQL database
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             
         }
 
+        // Go to settings page
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             Settings setting = new Settings(user);
             this.NavigationService.Navigate(setting);
         }
 
+        // Toggle rules 
         private void Rules_Click(object sender, RoutedEventArgs e)
         {
             if (Rulebook.Visibility == Visibility.Collapsed)

@@ -41,6 +41,7 @@ namespace ChessApp
             return pieceInitial;
         }
 
+        // Cells that are the secondary colour
         public static readonly List<string> BlackCells = new List<string>
         {
             "b8", "d8", "f8", "h8",
@@ -53,9 +54,9 @@ namespace ChessApp
             "a1", "c1", "e1", "g1"
         };
 
+        // Column in Array to Column Cell
         public static readonly Dictionary<int, int> ArrayToCellColumn = new Dictionary<int, int>
         {
-            // Column in Array to Column Cell
             {0, 8 },
             {1, 7 },
             {2, 6 },
@@ -66,9 +67,9 @@ namespace ChessApp
             {7, 1 }
         };
 
+        // Row in Array to Row Cell
         public static readonly Dictionary<int, char> ArrayToCellRow = new Dictionary<int, char>
         {
-            // Row in Array to Row Cell
             {0, 'a' },
             {1, 'b' },
             {2, 'c' },
