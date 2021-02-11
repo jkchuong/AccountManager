@@ -28,12 +28,14 @@ namespace AccountManager
             InitializeComponent();
         }
 
+        // Go to registration page
         private void Register_Click(object sender, RoutedEventArgs e)
         {
             Registration registration = new Registration();
             this.NavigationService.Navigate(registration);
         }
 
+        // Check if entered information exists, if it does go to Game page, if not show invalid error
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             string username = usernameInput.Text;

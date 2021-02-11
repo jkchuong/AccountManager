@@ -11,6 +11,7 @@ namespace ChessApp
 
         public Cell[,] Board { get; }
 
+        // Create grid of Cells
         public Chessboard()
         {
             Board = new Cell[8, 8];
@@ -23,6 +24,7 @@ namespace ChessApp
             }
         }
 
+        // Check position is on the board
         public bool IsOnBoard(int row, int column)
         {
             if (row >= 8 || column >= 8 || row < 0 || column < 0)
@@ -32,6 +34,7 @@ namespace ChessApp
             return true;
         }
 
+        // Check if two pieces are opposite colours
         public bool IsOppositeColour(bool isWhite, bool otherPieceWhite)
         {
             if((isWhite && otherPieceWhite) || (!isWhite && !otherPieceWhite))
@@ -41,6 +44,7 @@ namespace ChessApp
             return true;
         }
 
+        // Set all cells IsLegal property to false
         public void ClearMarkedLegalMoves()
         {
             foreach (Cell cell in Board)
@@ -49,6 +53,7 @@ namespace ChessApp
             }
         }
 
+        // Remove everything from board
         public void ClearBoard()
         {
             foreach (Cell cell in Board)
@@ -59,78 +64,23 @@ namespace ChessApp
             }
         }
 
-        // Can make this shorter? (DRY)
-        // Create method to check each of these and reuse?
         // Check if K is in check, if so next move must move piece out of check (i.e check if K is on same cell as legal move)
         // Check if K is in mate, if so end the game (check all K legal and occupied positions are in opponents legal move)
         // Castling, en passant?
-        // Promotion, when pawn reaches other side of the board, give choice on which piece to choose (B R Q N)
+        // Promotion, when pawn reaches either side of the board, give choice on which piece to choose (B R Q N)
 
         public void FindLegalMoves(Pieces piece)
         {
             if (piece.Name == "Pawn")
             {
-                foreach (Move move in piece.PossibleMoves)
-                {
-                    int desitinationRow = piece.Position.Row + move.MoveRow;
-                    int destinationColumn = piece.Position.Column + move.MoveColumn;
-
-                    if (IsOnBoard(desitinationRow, destinationColumn))
-                    {
-                        // move diagonally only if it's occupied by opposite colour
-                        if (desitinationRow != piece.Position.Row && destinationColumn != piece.Position.Column)
-                        {
-                            if (Board[desitinationRow, destinationColumn].IsOccupied
-                                && IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].piece.IsWhite))
-                            {
-                                Board[desitinationRow, destinationColumn].IsLegal = true;
-                            }
-                        }
-
-                        // Moving forward
-                        else
-                        {
-                            // if unobstructed is legal
-                            if (!Board[desitinationRow, destinationColumn].IsOccupied)
-                            {
-                                Board[desitinationRow, destinationColumn].IsLegal = true;
-
-                                // if first move, can move two steps
-                                if (piece.IsFirstMove)
-                                {
-                                    Board[desitinationRow + move.MoveRow, destinationColumn + move.MoveColumn].IsLegal = true;
-                                }
-                            }
-                        }
-                    }
-                }
+                CheckPawnLegals(piece);
             }
 
             else if (piece.Name == "King" || piece.Name == "Knight")
             {
-                foreach (Move move in piece.PossibleMoves)
-                {
-                    int desitinationRow = piece.Position.Row + move.MoveRow;
-                    int desitnationColumn = piece.Position.Column + move.MoveColumn;
-
-                    // Can move anywhere as long as it is of opposide colour or unoccupied
-                    if (IsOnBoard(desitinationRow, desitnationColumn))
-                    {
-                        if (Board[desitinationRow, desitnationColumn].piece == null)
-                        {
-                            Board[desitinationRow, desitnationColumn].IsLegal = true;
-                        }
-                        else
-                        {
-                            if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, desitnationColumn].piece.IsWhite))
-                            {
-                                Board[desitinationRow, desitnationColumn].IsLegal = true;
-                            }
-                        }
-                    }
-                }
+                CheckKnightLegals(piece);
             }
-            
+
             else if (piece.Name == "Rook")
             {
                 CheckRookObstruction(piece);
@@ -148,66 +98,70 @@ namespace ChessApp
             }
         }
 
-        // Redundant code for testing in console
-        //public void NewGame()
-        //{
-        //    Pawn whitePawn1 = new Pawn(true, Board[6, 0]);
-        //    Pawn whitePawn2 = new Pawn(true, Board[6, 1]);
-        //    Pawn whitePawn3 = new Pawn(true, Board[6, 2]);
-        //    Pawn whitePawn4 = new Pawn(true, Board[6, 3]);
-        //    Pawn whitePawn5 = new Pawn(true, Board[6, 4]);
-        //    Pawn whitePawn6 = new Pawn(true, Board[6, 5]);
-        //    Pawn whitePawn7 = new Pawn(true, Board[6, 6]);
-        //    Pawn whitePawn8 = new Pawn(true, Board[6, 7]);
-
-        //    Rook whiteRook1 = new Rook(true, Board[7, 0]);
-        //    Knight whiteKnight1 = new Knight(true, Board[7, 1]);
-        //    Bishop whiteBishop1 = new Bishop(true, Board[7, 2]);
-        //    Queen whiteQueen = new Queen(true, Board[7, 3]);
-        //    King whiteKing = new King(true, Board[7, 4]);
-        //    Bishop whiteBishop2 = new Bishop(true, Board[7, 5]);
-        //    Knight whiteKnight2 = new Knight(true, Board[7, 6]);
-        //    Rook whiteRook2 = new Rook(true, Board[7, 7]);
-
-        //    Pawn blackPawn1 = new Pawn(false, Board[1, 0]);
-        //    Pawn blackPawn2 = new Pawn(false, Board[1, 1]);
-        //    Pawn blackPawn3 = new Pawn(false, Board[1, 2]);
-        //    Pawn blackPawn4 = new Pawn(false, Board[1, 3]);
-        //    Pawn blackPawn5 = new Pawn(false, Board[1, 4]);
-        //    Pawn blackPawn6 = new Pawn(false, Board[1, 5]);
-        //    Pawn blackPawn7 = new Pawn(false, Board[1, 6]);
-        //    Pawn blackPawn8 = new Pawn(false, Board[1, 7]);
-
-        //    Rook blackRook1 = new Rook(false, Board[0, 0]);
-        //    Knight blackKnight1 = new Knight(false, Board[0, 1]);
-        //    Bishop blackBishop1 = new Bishop(false, Board[0, 2]);
-        //    Queen blackQueen = new Queen(false, Board[0, 3]);
-        //    King blackKing = new King(false, Board[0, 4]);
-        //    Bishop blackBishop2 = new Bishop(false, Board[0, 5]);
-        //    Knight blackKnight2 = new Knight(false, Board[0, 6]);
-        //    Rook blackRook2 = new Rook(false, Board[0, 7]);
-
-        //}
-
-        public void MovePiece(Pieces piece, Cell cell)
+        private void CheckKnightLegals(Pieces piece)
         {
-            ClearMarkedLegalMoves();
-            FindLegalMoves(piece);
-
-            if (cell.IsLegal)
+            foreach (Move move in piece.PossibleMoves)
             {
-                piece.Position.ChangeStatus();
-                piece.Position = cell;
-                cell.piece = piece;
+                int desitinationRow = piece.Position.Row + move.MoveRow;
+                int desitnationColumn = piece.Position.Column + move.MoveColumn;
 
-                if (!cell.IsOccupied)
+                // Can move anywhere as long as it is of opposite colour or unoccupied
+                if (IsOnBoard(desitinationRow, desitnationColumn))
                 {
-                    cell.ChangeStatus();
+                    if (Board[desitinationRow, desitnationColumn].piece == null)
+                    {
+                        Board[desitinationRow, desitnationColumn].IsLegal = true;
+                    }
+                    else
+                    {
+                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, desitnationColumn].piece.IsWhite))
+                        {
+                            Board[desitinationRow, desitnationColumn].IsLegal = true;
+                        }
+                    }
                 }
             }
-            
         }
 
+        private void CheckPawnLegals(Pieces piece)
+        {
+            foreach (Move move in piece.PossibleMoves)
+            {
+                int desitinationRow = piece.Position.Row + move.MoveRow;
+                int destinationColumn = piece.Position.Column + move.MoveColumn;
+
+                if (IsOnBoard(desitinationRow, destinationColumn))
+                {
+                    // move diagonally only if it's occupied by opposite colour
+                    if (desitinationRow != piece.Position.Row && destinationColumn != piece.Position.Column)
+                    {
+                        if (Board[desitinationRow, destinationColumn].IsOccupied
+                            && IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].piece.IsWhite))
+                        {
+                            Board[desitinationRow, destinationColumn].IsLegal = true;
+                        }
+                    }
+
+                    // Moving forward
+                    else
+                    {
+                        // if unobstructed is legal
+                        if (!Board[desitinationRow, destinationColumn].IsOccupied)
+                        {
+                            Board[desitinationRow, destinationColumn].IsLegal = true;
+
+                            // if first move, can move two steps
+                            if (piece.IsFirstMove)
+                            {
+                                Board[desitinationRow + move.MoveRow, destinationColumn + move.MoveColumn].IsLegal = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Use for... continute loop?
         public void CheckRookObstruction(Pieces piece)
         {
             // backward movement
@@ -453,6 +407,7 @@ namespace ChessApp
             while (Unobstructed);
         }
 
+        // Check if piece has legal moves
         public bool HasLegalMove(Pieces piece)
         {
             FindLegalMoves(piece);
@@ -465,5 +420,66 @@ namespace ChessApp
             }
             return false;
         }
+
+        // Redundant code for testing in console
+        //public void NewGame()
+        //{
+        //    Pawn whitePawn1 = new Pawn(true, Board[6, 0]);
+        //    Pawn whitePawn2 = new Pawn(true, Board[6, 1]);
+        //    Pawn whitePawn3 = new Pawn(true, Board[6, 2]);
+        //    Pawn whitePawn4 = new Pawn(true, Board[6, 3]);
+        //    Pawn whitePawn5 = new Pawn(true, Board[6, 4]);
+        //    Pawn whitePawn6 = new Pawn(true, Board[6, 5]);
+        //    Pawn whitePawn7 = new Pawn(true, Board[6, 6]);
+        //    Pawn whitePawn8 = new Pawn(true, Board[6, 7]);
+
+        //    Rook whiteRook1 = new Rook(true, Board[7, 0]);
+        //    Knight whiteKnight1 = new Knight(true, Board[7, 1]);
+        //    Bishop whiteBishop1 = new Bishop(true, Board[7, 2]);
+        //    Queen whiteQueen = new Queen(true, Board[7, 3]);
+        //    King whiteKing = new King(true, Board[7, 4]);
+        //    Bishop whiteBishop2 = new Bishop(true, Board[7, 5]);
+        //    Knight whiteKnight2 = new Knight(true, Board[7, 6]);
+        //    Rook whiteRook2 = new Rook(true, Board[7, 7]);
+
+        //    Pawn blackPawn1 = new Pawn(false, Board[1, 0]);
+        //    Pawn blackPawn2 = new Pawn(false, Board[1, 1]);
+        //    Pawn blackPawn3 = new Pawn(false, Board[1, 2]);
+        //    Pawn blackPawn4 = new Pawn(false, Board[1, 3]);
+        //    Pawn blackPawn5 = new Pawn(false, Board[1, 4]);
+        //    Pawn blackPawn6 = new Pawn(false, Board[1, 5]);
+        //    Pawn blackPawn7 = new Pawn(false, Board[1, 6]);
+        //    Pawn blackPawn8 = new Pawn(false, Board[1, 7]);
+
+        //    Rook blackRook1 = new Rook(false, Board[0, 0]);
+        //    Knight blackKnight1 = new Knight(false, Board[0, 1]);
+        //    Bishop blackBishop1 = new Bishop(false, Board[0, 2]);
+        //    Queen blackQueen = new Queen(false, Board[0, 3]);
+        //    King blackKing = new King(false, Board[0, 4]);
+        //    Bishop blackBishop2 = new Bishop(false, Board[0, 5]);
+        //    Knight blackKnight2 = new Knight(false, Board[0, 6]);
+        //    Rook blackRook2 = new Rook(false, Board[0, 7]);
+
+        //}
+
+        //public void MovePiece(Pieces piece, Cell cell)
+        //{
+        //    ClearMarkedLegalMoves();
+        //    FindLegalMoves(piece);
+
+        //    if (cell.IsLegal)
+        //    {
+        //        piece.Position.ChangeStatus();
+        //        piece.Position = cell;
+        //        cell.piece = piece;
+
+        //        if (!cell.IsOccupied)
+        //        {
+        //            cell.ChangeStatus();
+        //        }
+        //    }
+
+        //}
+
     }
 }

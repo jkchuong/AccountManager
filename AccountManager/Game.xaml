@@ -73,169 +73,69 @@
                 </ItemsControl>
             </Grid>
 
-            <!-- End Game Area -->
+            <!-- Rules Viewer -->
 
-            <ScrollViewer x:Name="Rulebook" Grid.Row="1" Grid.Column="2" Background="Red" Grid.ColumnSpan="2" Visibility="Collapsed" FontSize="20" VerticalScrollBarVisibility="Visible" Grid.RowSpan="2">
+            <ScrollViewer x:Name="Rulebook" Grid.Row="1" Grid.Column="2" Background="MintCream" Grid.ColumnSpan="2" Visibility="Collapsed" FontSize="20" VerticalScrollBarVisibility="Visible" Grid.RowSpan="2">
                 <TextBlock TextWrapping="Wrap">
-                    <Span FontWeight="Bold" FontSize="25">The Rules of Chess</Span>  <LineBreak/> <LineBreak/>
-                        
-                    <Span FontWeight="Bold">The Chess Board</Span>  <LineBreak/>
-                    Let's start chess rules by looking at the chess board. The most ancient and most enduring feature of Chess is certainly the board, the table upon which it is played on the field of the Chess struggle. It consists of 64 parts everyone a small square, in their totality composing a large square. In eight rows and, perpendicularly thereto, in eight lines the 64 squares are ordered. Consequently one can draw a Chessboard by halving the side of a big square three times in succession.
-
-                    The technical process of producing a Chessboard is therefore very simple, and the logical conception, neither is apprehension of the board complicated. The perception of the 64 squares by the eye is no so easy, but it has been facilitated by the use of color. The squares are alternately colored black and white, so that from time immemorial the Chessboard looks as follows:
-
-                    rules-01.jpg
-
-                    It is of importance that the student of Chess should know the board very accurately; he should be able to visualize each square in its individual position as well as in its relations to its neighboring squares. For this reason the board has been divided into three regions: the middle and the two wings. The left wing is composed of the first and second line to the left, the right wing in the same way by the two extreme lines on the right hand, and the middle is formed by the four remaining lines, the third, fourth, fifth and sixth. In the center of this middle, four squares are situated, which form the intersection of the fourth and fifth line with the fourth and fifth row. These four squares in the center of the board have, for strategic purposes, the greatest significance.
-
-                    To describe the events on the Chessboard briefly and exactly, a name has been given to every one of the 64 squares; in olden times a descriptive name, in our time, where the science of Nature and of Mathematics has become so prominent, a mathematical name. This mathematical name reminds us of a system of coordinates in the manner as introduced by Descartes. Accordingly, the eight lines, running upwards, are successively designated by the numbers 1, 2, 3, 4, 5, 6, 7, 8, and the eight rows running from left to right, are successively designated by the letters a, b, c, d, e, f, g, h. The "a" line, "b" line, through the "h" line is therefore a certain line; the first row, second row, through the eighth row is a certain row. Since each square belongs to one line and to one row only, its line and row unambiguously designate it. For instance, "b5" is that one square on the b file that belongs to the fifth row. According to custom the letter precedes the number: one writes b5, never 5b. Thus this notation has the advantage of naming each square without ambiguity.
-
-                    Of the other notation, the descriptive one, which is in use in many countries and also in the Anglo-Saxon world, we shall speak more fully later on.
-
-                    In the mathematical notation, the division of the board described above would read as follows: the left wing "a" and "b" files, the right wing "g" and "h" files, the middle c, d, e, f line, the center d4, d5, e4, e5. The boundary of the board is formed by the "a" file, the "h" file, the first rank, the eighth rank. The corners are a1, a8, h1, and h8.
-
-                    The student should endeavor to acquire the habit of designating the squares and of visualizing their position. There are many Chess players who fail merely from their incapacity to master this geometrical task, not suspecting its value.
-                    <LineBreak/> <LineBreak/>
+                    <Span FontWeight="Bold" FontSize="30">The Rules of Chess</Span> <LineBreak/>
                     
-                    The Chess Pieces<LineBreak/>
-                    The armies combating each other on the board consist of Black and White pieces. The White pieces form the one side, the Black pieces the antagonistic side. The two sides are briefly called White and Black. The coloring of the piece therefore determines its obedience and fidelity, unconditionally. A piece never deserts to the enemy, nor does it ever rebel; it is faithful unto death. True, if it falls in combat, it wanders from the board merely into a box where the captured pieces are kept until the next game; then it celebrates a merry and hopeful resurrection.
-
-                    White and Black have equal forces. Each has a King, a Queen, two Rooks (or Castles), two Bishops, two Knights, and eight Pawns. Either party, therefore, counts sixteen pieces. The pieces stand on the board until they are captured, each piece on one square, no two pieces on the game square. At the start of the game the pieces are placed in a determined position shown hereafter, and then they are moved, the players moving alternately. Thus a struggle of the Chess pieces takes place according to determinate rules, until the King of a party is captured by force or the
-                    contestants agree upon a drawn issue.
-
-                    The pieces are usually carved of wood. The King has the appearance of a crowned monarch, the Queen bears a smaller crown, the Rooks or Castles suggest sturdy castles, the Bishops have a characteristic headdress, the Knights show a horse's head, and the Pawn is like a man without distinction, a man of the crowd, a common soldier.
-
-                    rules-02.gif
-
-                    The move consists in transferring a piece from one square to another. White "moves" a white piece, Black a black one. Sometimes two pieces are thus put into motion, namely, when a hostile piece is "captured," i.e., removed from the board, or in "Castling," or in "Queening" a pawn, terms which will be explained later. All of this is executed according to fixed rules which the player is constrained to obey.
-                    <LineBreak/> <LineBreak/>
-                    Chess Rules for Moving<LineBreak/>
-                    The King moves from its square to a neighboring square, the Rook in its line or row, the Bishop diagonally, the Queen may move like a Rook or a Bishop, the Knight jumps in making the shortest move that is not a straight one, and the Pawn moves one square straight ahead. But such moves are permitted only if the square upon which the piece lands is empty or occupied by a hostile piece. Moreover, the Rook, Bishop and Queen are obstructed in their motion as soon as they strike an occupied square. Thus, a Bishop on c1 may go to any square in the diagonal c1, d2, e3, f4, g5, h6 unless one of these squares is occupied; if e3 is occupied, f4, g5, and h6 are obstructed and the Bishop may not be moved there. The Rook, Bishop or Queen, however, can "capture" the obstruction, provided it is a hostile piece, by putting the moving piece on the square occupied by the obstruction and removing the latter into the box. Also, the other pieces, King, Knight and Pawn, may capture hostile men; the King or the Knight, whenever they have the right to move to the square held by the hostile man, the Pawn, however, not thus but with a diagonal move forward to a
-                    neighboring square. All pieces are subject to capture except the King. Its life is sacred, the player must defend it, it perishes only when no possible resource can save it from capture. Whenever that occurs the game is at an end; the player who cannot save his King from capture, is "Checkmate", and loses the game.
-
-                    These rules are not complete, besides they are too brief so that the reader cannot be expected to obtain a clear conception through them, but they serve as an initial step in that they produce a vivid impression of the Chess struggle. We shall now consider them in detail and at length in order to illuminate the various logical consequences that come thereby into play.
-                    <LineBreak/> <LineBreak/>
-                    The King in Chess<LineBreak/>
-                    The King may move from the square it occupies to any square satisfying the following conditions:
-
-                    1. A neighbor to the square of occupation.
-                    2. Not occupied by a man of its own party.
-                    3. Not menaced by any hostile piece.
-
-                    Once during the game the King may violate the first of these rules, namely, in Castling, otherwise never. In Castling, the King is moved TWO squares to the Right or Left, as the case may be, and the Rook towards which the King has moved is then placed upon the square which the King jumped over. But this move is not permitted when:
-
-                    1. The King is in "Check," i.e., menaced with capture.
-                    2. The King or Rook has already made a move.
-                    3. The move of the Rook is obstructed.
-                    4. The King or Rook after Castling would be exposed to capture.
-
-                    What has been said here in dry words may now be presented pictorially.
-
-                    rules-03.jpg
-
-                    The White King placed on c2 has only ONE possible move, to wit, to b2. It may go there, because firstly, that square is neighbor to c2; secondly it is not occupied by a man of its own party but a hostile one; and thirdly, the square b2 is not menaced by any enemy, neither the Black King nor the Black Rook, nor the Black Pawn in their present positions being able to capture a piece on b2. On the other hand, the White King could make no other move; it cannot move to b1 or d1, on account of the Black Rook, nor to b3 or d3, on account of the Black Pawn, nor to d2 because of the White Pawn standing there, still less to c1, where two slayers would await it, nor to c3, which is menaced by Bishop b2 and obstructed by a White Pawn besides. To other squares it cannot move since they are not neighbors to its present residence.
-
-                    The reader may demonstrate that in the next position also the Black King has only one possible move, namely, to g7.
-
-                    rules-04.jpg
-
-                    Black to move. His King is "Checked" because menaced by the White Queen. The King cannot capture the Queen since g7 is threatened by Pawn f6; the King can go nowhere else for the White Queen threatens its place of refuge; the White Queen can be captured by no Black piece. The King can therefore not be saved, the "Check" is a "Mate", "Checkmate"; Black has lost the game.
-
-                    rules-05.jpg
-
-                    The two Kings and the four Rooks still stand where they stood at the commencement of the game. Let us suppose that hitherto none of these pieces has moved. White, if he has the move, can Castle with Rook h1 by placing it on fl and simultaneously jumping with King to g1; or he can Castle with Rook a1 by placing it on dl and jumping with King to c1. Black, if it is his turn to move, can Castle with Rook as, whereby King and Rook occupy the squares c8, d8 respectively. But he cannot Castle with Rook h8, because the White Queen would attack the Rook after Castling and therefore Castling is illegal.
-
-                    In practice the player will be well advised always to move the K first and then his R when making this move.
-
-                    The Rook or "Castle" in Chess
-                    In the position below the Rook at c2 has the following possible moves:
-
-                    rules-06.jpg
-
-                    The c2 Rook may move to b2, d2, e2, f2 and capture at g2. It cannot go to c1 or c3 because it is under obligation to guard its King against the White Rook g2. The Rook c4 can go to a4 or b4 or d4 or capture e4 but cannot capture f4 because Rook e4 is an obstruction; it may also go to c8, c7, c6, c5 or c3 but not to c2 or c1 owing to the obstruction of Rook c2. The Rook e4 has only two squares open to it, d4 and c4, and the Rook g2 no less than 12 squares, any square of the "g" file and all but two squares of the second row: h2, f2, e2, d2, c2, g1, g3, g4, g5, g6, g7, g8.
-
-                    The name "Castle" is rarely if ever used in modern chess literature for this piece.
-
-                    The Bishop in Chess
-                    In this position three Bishops are on the board:
-
-                    rules-07.jpg
-
-                    Bishops are placed on c3, c4, f6; also three Rooks, c1, d2, f7, and of course the two Kings - the Kings never being captured - on a1 and g8. Since the Bishops move diagonally, Bishop c3 can capture f6, and vice versa. But the Bishop c3 cannot capture Rook d2 because the Bishop is forced to protect its King against Bishop f6 by obstruction. The Bishop c4 can capture Rook f7; this piece is immobile since it is pinned by the Bishop c4. The number of squares to which in the above position the Bishops might move, is therefore found to be for c4 = 10 (a2, b3, d5, e6, f7, b5, a6, d3, e2, f1); for f6 = 9 (h8, g7, e5, d4, c3, e7, d8, g5, h4); for c3 = 4 (b2, d4, e5, f6).
+                    Below are the rules of chess. If you forget any of the rules, remember that you can click on any white piece 
+                    to see where it can move!
                     <LineBreak/><LineBreak/>
-                    The Queen in Chess<LineBreak/>
-                    In the next position two Queens, a Rook, a Bishop and the two Kings are on the board:
+                    
+                    <Span FontWeight="Bold" FontSize="25">The King (K/k)</Span> <LineBreak/>
+                    The King may move from the square it occupies to any square satisfying the following conditions:<LineBreak/>
 
-                    rules-08.jpg
-
-                    The Black Queen a4 which can move like a Rook or like a Bishop has the following moves at its disposal: to b4, c4, d4, capture on e4, a1, a2, a3, a5, a6, a7, a8, b5, c6, d7, b3, capture on c2. The White Queen, however, has a very limited range, because it is "pinned" by the Rook e8. If the pin would be released it could go to h7 and there, supported by the Bishop c2, Checkmate the King; as it is, the Queen must either capture the Rook e8 or suffer capture by that piece; she can only move to e3, e2, e5, e6, e7, capture on e8.
-
-                    The Knight in Chess
-                    Here are four Knights on the board, and a Rook and a Bishop and the two Kings:
-
-                    rules-09.jpg
-
-                    Two of the Knights are immobile, Knight e2 on account of the Bishop h5 and the Knight g7 because of the Rook g3: they must protect their Kings. The Knight f5 can move to one of the following squares: e7, d6, d4, e3, g3 (whereby it captures the Rook) h4, h6. The shortest jump on the Chessboard is, namely, to take two squares (in the air) in a line or row and one square perpendicularly thereto. That movement allows to Knight f5 eight possibilities, but in the above position one of these, on the square g7, is taken away by the obstruction of a Knight partisan to Knight f5. The Knight f6 has eight possible moves: it threatens the hostile King, "gives Check," or "Checks," and the King will have to fly, for instance, to f7, in order to save himself.
-
-                    The Pawn in Chess
-                    Here you see 16 Pawns, therefore all that were in the box, and two Rooks, one Bishop, one Knight, the two Kings besides:
-
-                    rules-10.jpg
-
-                    At the beginning of the game the White Pawns are placed on the second row and the Black Pawns on the seventh row; thence they move or capture ahead towards the enemy, the White Pawns from below upwards, the Black Pawns in the opposite direction. For instance, Pawn d4 may capture e5 and conversely, because the Pawns, though moving ahead in their file, capture obliquely, always advancing towards the enemy.
-
-                    The above position shows three immobile Pawns, "blocked" Pawns: g3, g4, and f7. Pawn g3 is blocked by g4, because the Pawn does not capture straight ahead but obliquely. The position shows nine Pawns standing on the squares where they stood at the start of the game: a2, b2 e2, f2, h2, a7, b7, c7, f7; they have not moved yet; the other seven Pawns have advanced during the progress of the game. The Pawn d4 has two possible moves: to advance to d5 or to capture e5. The Pawn c3 has only one possible move: to advance to c4.
-
-                    Now the rule was introduced about four centuries ago that Pawns in their initial position and which are not blocked may advance one or two steps according to the plan of the player. This rule made the game more lively, and therefore the Chess world accepted it in time. For instance, Pawn a2 may advance to a3 or to a4 in one move.
-
-                    With this rule a difficulty arose. Its object was to accelerate the pace of the Chess events and to add to their variety, but it betrayed sometimes the obvious rights of the opponent. To illustrate this point, observe the two Pawns f2 and g4. The Pawn g4 stands on guard over f3. If f2 advances to f3, g4 can capture it; thus it had been for many centuries; after the introduction of the new rule Pawn f2 could evade Pawn g4 by advancing at once to f4 and could then molest Black unpunished. Naturally, the Pawn g4 on guard felt itself deceived, when the hostile Pawn crept through the advance posts. There were scenes of hot dispute. It could not be the meaning of the innovation to make the advancing Pawn immune. And finally justice was victorious: the Pawn standing on guard was acceded the right of capture, just as if the Pawn trying to slip through had advanced one step only; but the Pawn on guard cannot defer this movement but must execute it without loss of time as an immediate reply to the attempted advance. If, for instance, in the above position White moves f2-f4 Black may answer g4 captures f3, thus executing his original intention of capturing the Pawn on f3. This species of capture is named "capture in passing" or, with the French expression capture "en passant". If the Pawn, after f2-f4, is not immediately captured by g4 "in passing," it stays unmolested on f4 and has thereafter to contend only with the hostile Pawns of the f and e files.
-
-                    The Pawns only advancing ahead arrive, in advancing row by row finally to the eighth row where according to the rule they would come to a barrier and would be immobile. Should this signify their death? Should they now become useless after having done their duty and fought their way through the ranks of the enemy? That would not be in keeping with justice. Since in a struggle it is honorable to draw upon oneself the fire of the enemy and to do him harm, the Pawn advancing to the last row is rewarded by becoming an "officer" in its army; it is changed for a Queen, Rook, Bishop or Knight, according to the will of the player; it is promoted to a higher rank since officers have much more mobility and value than Pawns.
-
-                    rules-11.jpg
-
-                    If it is White's turn to move here, he may advance Pawn e7 to e8, change it for a Queen and call Mate. If it is Black's turn to move, he can advance f2 to f1, demand a Knight and Checkmate White.
-
-                    The Initial Position in Chess
-                    From time immemorial the men are placed at the beginning of the game in the order shown below, and White makes the first move.
-
-                    rules-12.jpg
-
-                    In the corners stand the Rooks, on the first row the White officers in the order R, N, B, Q, K, B, N, R; the corner to the right of White is white; in the second row stand the White Pawns, in the seventh row the Black Pawns and in the eighth row the Black officers, everyone opposite to a White officer of its own kind, the Queen opposite the Queen, the King opposite the King, and so forth. The White Queen is placed on a white square, the Black Queen on a black square, the Queen therefore on a square of its own color - a remnant of feudal gallantry.
-
-                    The End of the Game; Checkmate, Stalemate, Draw
-                    With a Checkmate the game is decided, but not every game ends with a Mate.
-
-                    If he whose turn it is to move can make no legal move and yet his King is not checked he is not checkmated though the game necessarily is at an end. Such a conclusion of the game is called a Stalemate, a useless, a false, an unproductive Mate, briefly "Stalemate." He who is Stalemated does not lose the game nor win it either, because loss of the game is suffered only by him who is, "Checkmated" and an essential condition therefore is that the King should be in Check, whereas in a Stalemating position the King is not in Check.
-
-                    Again when neither of the opponents believes he has the power to end the game by administering Checkmate, the game is undecided, "drawn", by mutual agreement. This agreement may be voluntary or compulsory. Compulsory when the two opponents repeat their moves, going backwards and forwards without changing their position, compulsory also when for fifty moves in succession no essential changes, no advance towards the final goal can be demonstrated, by either player. This demonstration, such is the accepted law, is achieved when during these fifty moves no capture nor the advance of a Pawn has been performed, for these are, by common consent, the outward, the visible signs of an essential change.
-
-                    rules-13.jpg
-
-                    Here White is to move, Black menaces Checkmate in two ways, either by Qh3 captures h2 or plays to g2. White cannot defend the threat, he therefore tries to attack the opponent by giving Check with Qb6 to a6. Black is forced to reply Ka8 to b8. Now Qa6 to b6 again checking. The pinned Pawn cannot capture, hence Kb8, -c8 or -a8. Again Qb6-a6, Ka8 (c8)-b8. And the Checks have no end, the game is drawn by Perpetual Check.
-
-                    The Function of Strategy
-                    Herewith the rules and laws of the game are laid down; according to the very same rules play the beginner and the veteran, the duffer and the master. Whoever does not follow these rules does not play Chess; whoever follows them belongs to the community of Chess players that counts many millions.
-
-                    What distinguishes the Chess players, all of whom follow the same rules, is called strategy: the plan, meaning, intent, force, briefly the reason of their moves.
-
-                    This reason is no different from all reason, but a part of it, grown on its body, possessed of its force and conditioned by its pains. On the same tree where a little branch hangs, called the logic of Aristotle, there hangs another branch named Strategy in Chess.
-
-                    >>>>>>>>
-
-                    We have now covered the chess rules; the next step is chess strategy. When you are beginning your journey in chess it is tough to know what chess books, software and e-books to study. There is a big gap between knowing how to move the pieces and studying more advanced strategy and tactics. The chess e-books and chess software presented here will help bridge that gap and get you quickly on the road to chess success!
+                    1. A neighbor to the square of occupation.<LineBreak/>
+                    2. Not occupied by a man of its own party.<LineBreak/>
+                    
+                    All pieces are subject to the king. The player who loses their king loses the game.
+                    <LineBreak/><LineBreak/>
+                    
+                    <Span FontWeight="Bold" FontSize="25">The Pawn (P/p)</Span> <LineBreak/>
+                    Pawns may only move forward, unless there is a piece one block diagonally forward to it that can be captured.
+                    On its first turn, the pawn is allowed to move forward two blocks, but is one block otherwise.
+                    <LineBreak/><LineBreak/>
+                    
+                    <Span FontWeight="Bold" FontSize="25">The Knight (N/n)</Span> <LineBreak/>
+                    The Knight can move in an L shape of any orientation - i.e one block in one direction, and two blocks in another.
+                    This piece is able to jump over other pieces and as such, cannot be obstructed by other pieces unless its destination is occupied
+                    by a piece of the same colour.
+                    <LineBreak/><LineBreak/>
+                    
+                    
+                    <Span FontWeight="Bold" FontSize="25">The Rook (R/r)</Span> <LineBreak/>
+                    The Rook can move in a straight line in any direction, however it can be obstructed by any piece. 
+                    <LineBreak/><LineBreak/>
+                    
+                    
+                    <Span FontWeight="Bold" FontSize="25">The Bishop (B/b)</Span> <LineBreak/>
+                    The Bishop can move in a diagonal in any direction, however it can be obstructed by any piece.
+                    <LineBreak/><LineBreak/>
+                    
+                    
+                    <Span FontWeight="Bold" FontSize="25">The Queen (Q/q)</Span> <LineBreak/>
+                    The Queen is a combination of the Rook and Bishop - it is able to move in any direction, in a line or diagonally.
+                    It can also be obstructed by any piece. 
+                    <LineBreak/><LineBreak/>
+                    
                 </TextBlock>
             </ScrollViewer>
 
+            <!-- Move History -->
 
             <ScrollViewer x:Name="WhiteHistory" Grid.Column="1" Grid.Row="1" FontSize="15" VerticalScrollBarVisibility="Hidden" Background="White" Foreground="Black"/>
             <ScrollViewer x:Name="BlackHistory" Grid.Column="1" Grid.Row="2" FontSize="15" VerticalScrollBarVisibility="Hidden" Background="Black" Foreground="White"/>
 
+            <!-- Functional Buttons -->
+            
             <Button x:Name="Save" Content="Save" Grid.Column="1" Grid.Row="3" FontSize="30" Background="LightGreen" Click="Save_Click"/>
             <Button x:Name="Settings" Content="Settings" Grid.Column="2" Grid.Row="4" FontSize="30" Click="Settings_Click"/>
             <Button x:Name="Logout" Content="Logout" Grid.Column="1" Grid.Row="4" FontSize="30" Background="Orange" Click="Logout_Click"/>
             <Button x:Name="Rules" Content="Rules" Grid.Column="2" Grid.Row="3" FontSize="30" Background="LightGoldenrodYellow" Click="Rules_Click"/>
 
+            <!-- Database Information -->
+            
             <TextBox x:Name="UserData" Grid.Column="3" Grid.Row="3" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
             <TextBox x:Name="Rankings" Grid.Column="3" Grid.Row="4" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
 
