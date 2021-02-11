@@ -28,27 +28,6 @@ namespace AccountTests
             db.SaveChanges();
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            _account = new Business();
-            // remove test entry in DB if present
-            using var db = new GameContext();
-            var selectedUsers =
-            from u in db.Users
-            where u.UserId == "jkchuong"
-            select u;
-            db.Users.RemoveRange(selectedUsers);
-
-            var selectedThemes =
-                from t in db.Themes
-                where t.PrimaryColour == "Purple"
-                select t;
-            db.Themes.RemoveRange(selectedThemes);
-
-            db.SaveChanges();
-        }
-
         [Test]
         public void WhenAUserIsAdded_NumberOfUsersIncreaseBy1()
         {
@@ -76,7 +55,7 @@ namespace AccountTests
         {
             using var db = new GameContext();
             _account.CreateUser("Jimmy", "jkchuong", "visual");
-            _account.UpdateUserNameTheme("jkchuong", "Brad", 2);
+            _account.UpdateUserNameTheme("jkchuong", "Brad", true, 1);
 
             var updatedUser = db.Users.Find("jkchuong");
             Assert.AreEqual("Brad", updatedUser.Name);
@@ -150,11 +129,47 @@ namespace AccountTests
         {
             using var db = new GameContext();
             _account.CreateUser("Jimmy", "jkchuong", "visual");
-            _account.UpdateUserNameTheme("jkchuong", "Jimmy", 2);
+            _account.UpdateUserNameTheme("jkchuong", "Jimmy", false, 2);
 
             var theme = _account.GetUserTheme("jkchuong");
             Assert.AreEqual("Green", theme[0]);
             Assert.AreEqual("Red", theme[1]);
+        }
+
+        [Test]
+        public void AddOneToWinsAddsOneToWins()
+        {
+            using var db = new GameContext();
+            _account.CreateUser("Jimmy", "jkchuong", "visual");
+            _account.AddOneToWins("jkchuong");
+
+            _account.SelectedUser = _account.SetSelectedUser("jkchuong");
+            var wins = _account.SelectedUser.Wins;
+            Assert.AreEqual(1, wins);
+        }
+
+        [Test]
+        public void AddOneToLossesAddsOneToLosses()
+        {
+            using var db = new GameContext();
+            _account.CreateUser("Jimmy", "jkchuong", "visual");
+            _account.AddOneToLosses("jkchuong");
+
+            _account.SelectedUser = _account.SetSelectedUser("jkchuong");
+            var wins = _account.SelectedUser.Losses;
+            Assert.AreEqual(1, wins);
+        }
+
+        [Test]
+        public void DeletingUserRemovesUserFromDatabase()
+        {
+            using var db = new GameContext();
+            int numberBefore = db.Users.Count();
+            _account.CreateUser("Jimmy", "jkchuong", "visual");
+            _account.DeleteUser("jkchuong");
+            int numberAfter = db.Users.Count();
+
+            Assert.AreEqual(numberBefore, numberAfter);
         }
     }
 }

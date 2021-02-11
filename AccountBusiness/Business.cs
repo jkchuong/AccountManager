@@ -16,7 +16,7 @@ namespace AccountBusiness
         // Not used
         public User SelectedUser { get; set; }
 
-        public User SetSelectedCustomer(string username)
+        public User SetSelectedUser(string username)
         {
             using var db = new GameContext();
             var entry = db.Users.Find(username);
@@ -198,7 +198,7 @@ namespace AccountBusiness
         }
 
 
-
+        // How to test these?
         public void SetSaveToExist(string username)
         {
             using var db = new GameContext();

@@ -45,7 +45,7 @@ namespace AccountManager
             bool exists = _account.UserAndPasswordExist(username, password);
             if (exists)
             {
-                User user = _account.SetSelectedCustomer(username);
+                User user = _account.SetSelectedUser(username);
                 Game game = new Game(user);
                 this.NavigationService.Navigate(game);
             }

@@ -81,18 +81,18 @@ namespace ChessApp
 
             else if (piece.Name == "Rook")
             {
-                CheckRookObstruction(piece);
+                CheckRookLegals(piece);
             }
 
             else if (piece.Name == "Bishop")
             {
-                CheckBishopObstruction(piece);
+                CheckBishopLegals(piece);
             }
 
             else if (piece.Name == "Queen")
             {
-                CheckBishopObstruction(piece);
-                CheckRookObstruction(piece);
+                CheckBishopLegals(piece);
+                CheckRookLegals(piece);
             }
         }
 
@@ -201,7 +201,7 @@ namespace ChessApp
             while (Unobstructed);
         }
 
-        public void CheckRookObstruction(Pieces piece)
+        public void CheckRookLegals(Pieces piece)
         {
             LineMovement(piece, 1, 0);
             LineMovement(piece, -1, 0);
@@ -209,13 +209,12 @@ namespace ChessApp
             LineMovement(piece, 0, -1);
         }
 
-        private void CheckBishopObstruction(Pieces piece)
+        private void CheckBishopLegals(Pieces piece)
         {
             LineMovement(piece, -1, -1);
             LineMovement(piece, 1, -1);
             LineMovement(piece, 1, 1);
             LineMovement(piece, -1, 1);
-
         }
 
         // Check if piece has legal moves
