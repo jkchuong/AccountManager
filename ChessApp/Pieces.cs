@@ -20,7 +20,7 @@ namespace ChessApp
         {
             IsWhite = isWhite;
             Position = position;
-            Position.piece = this;
+            Position.Piece = this;
         }
 
         public virtual string GetPosition()

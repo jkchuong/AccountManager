@@ -10,10 +10,14 @@ namespace ChessApp
     {
         public bool IsOccupied { get; set; } = false;
         public bool IsLegal { get; set; } = false;
-        public Pieces piece { get; set; } = null;
+        public Pieces Piece { get; set; } = null;
         public int Row { get; set; }
         public int Column { get; set; }
         public string Name { get; set; }
+
+        // Properties for storing data
+        public string PieceName { get; set; }
+        public bool PieceColour { get; set; }
 
         public Cell()
         {

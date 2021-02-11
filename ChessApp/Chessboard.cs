@@ -60,7 +60,7 @@ namespace ChessApp
             {
                 cell.IsLegal = false;
                 cell.IsOccupied = false;
-                cell.piece = null;
+                cell.Piece = null;
             }
         }
 
@@ -108,13 +108,13 @@ namespace ChessApp
                 // Can move anywhere as long as it is of opposite colour or unoccupied
                 if (IsOnBoard(desitinationRow, desitnationColumn))
                 {
-                    if (Board[desitinationRow, desitnationColumn].piece == null)
+                    if (Board[desitinationRow, desitnationColumn].Piece == null)
                     {
                         Board[desitinationRow, desitnationColumn].IsLegal = true;
                     }
                     else
                     {
-                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, desitnationColumn].piece.IsWhite))
+                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, desitnationColumn].Piece.IsWhite))
                         {
                             Board[desitinationRow, desitnationColumn].IsLegal = true;
                         }
@@ -136,7 +136,7 @@ namespace ChessApp
                     if (desitinationRow != piece.Position.Row && destinationColumn != piece.Position.Column)
                     {
                         if (Board[desitinationRow, destinationColumn].IsOccupied
-                            && IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].piece.IsWhite))
+                            && IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].Piece.IsWhite))
                         {
                             Board[desitinationRow, destinationColumn].IsLegal = true;
                         }
@@ -172,13 +172,13 @@ namespace ChessApp
                 int desitinationRow = piece.Position.Row + movement;
                 if (IsOnBoard(desitinationRow, piece.Position.Column))
                 {
-                    if (Board[desitinationRow, piece.Position.Column].piece == null)
+                    if (Board[desitinationRow, piece.Position.Column].Piece == null)
                     {
                         Board[desitinationRow, piece.Position.Column].IsLegal = true;
                     }
                     else 
                     {
-                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, piece.Position.Column].piece.IsWhite))
+                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, piece.Position.Column].Piece.IsWhite))
                         {
                             Board[desitinationRow, piece.Position.Column].IsLegal = true;
                         }
@@ -201,13 +201,13 @@ namespace ChessApp
                 int desitinationRow = piece.Position.Row - movement;
                 if (IsOnBoard(desitinationRow, piece.Position.Column))
                 {
-                    if (Board[desitinationRow, piece.Position.Column].piece == null)
+                    if (Board[desitinationRow, piece.Position.Column].Piece == null)
                     {
                         Board[desitinationRow, piece.Position.Column].IsLegal = true;
                     }
                     else 
                     {
-                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, piece.Position.Column].piece.IsWhite))
+                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, piece.Position.Column].Piece.IsWhite))
                         {
                             Board[desitinationRow, piece.Position.Column].IsLegal = true;
                         }
@@ -230,13 +230,13 @@ namespace ChessApp
                 int destinationColumn = piece.Position.Column - movement;
                 if (IsOnBoard(piece.Position.Row, destinationColumn))
                 {
-                    if (Board[piece.Position.Row, destinationColumn].piece == null)
+                    if (Board[piece.Position.Row, destinationColumn].Piece == null)
                     {
                         Board[piece.Position.Row, destinationColumn].IsLegal = true;
                     }
                     else 
                     {
-                        if (IsOppositeColour(piece.IsWhite, Board[piece.Position.Row, destinationColumn].piece.IsWhite))
+                        if (IsOppositeColour(piece.IsWhite, Board[piece.Position.Row, destinationColumn].Piece.IsWhite))
                         {
                             Board[piece.Position.Row, destinationColumn].IsLegal = true;
                         }
@@ -259,13 +259,13 @@ namespace ChessApp
                 int destinationColumn = piece.Position.Column + movement;
                 if (IsOnBoard(piece.Position.Row, destinationColumn))
                 {
-                    if (Board[piece.Position.Row, destinationColumn].piece == null)
+                    if (Board[piece.Position.Row, destinationColumn].Piece == null)
                     {
                         Board[piece.Position.Row, destinationColumn].IsLegal = true;
                     }
                     else 
                     {
-                        if (IsOppositeColour(piece.IsWhite, Board[piece.Position.Row, destinationColumn].piece.IsWhite))
+                        if (IsOppositeColour(piece.IsWhite, Board[piece.Position.Row, destinationColumn].Piece.IsWhite))
                         {
                             Board[piece.Position.Row, destinationColumn].IsLegal = true;
                         }
@@ -292,13 +292,13 @@ namespace ChessApp
                 int destinationColumn = piece.Position.Column + movement;
                 if (IsOnBoard(desitinationRow, destinationColumn))
                 {
-                    if (Board[desitinationRow, destinationColumn].piece == null)
+                    if (Board[desitinationRow, destinationColumn].Piece == null)
                     {
                         Board[desitinationRow, destinationColumn].IsLegal = true;
                     }
                     else 
                     {
-                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].piece.IsWhite))
+                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].Piece.IsWhite))
                         {
                             Board[desitinationRow, destinationColumn].IsLegal = true;
                         }
@@ -323,13 +323,13 @@ namespace ChessApp
 
                 if (IsOnBoard(desitinationRow, destinationColumn))
                 {
-                    if (Board[desitinationRow, destinationColumn].piece == null)
+                    if (Board[desitinationRow, destinationColumn].Piece == null)
                     {
                         Board[desitinationRow, destinationColumn].IsLegal = true;
                     }
                     else 
                     {
-                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].piece.IsWhite))
+                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].Piece.IsWhite))
                         {
                             Board[desitinationRow, destinationColumn].IsLegal = true;
                         }
@@ -354,13 +354,13 @@ namespace ChessApp
 
                 if (IsOnBoard(desitinationRow, destinationColumn))
                 {
-                    if (Board[desitinationRow, destinationColumn].piece == null)
+                    if (Board[desitinationRow, destinationColumn].Piece == null)
                     {
                         Board[desitinationRow, destinationColumn].IsLegal = true;
                     }
                     else 
                     {
-                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].piece.IsWhite))
+                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].Piece.IsWhite))
                         {
                             Board[desitinationRow, destinationColumn].IsLegal = true;
                         }
@@ -385,13 +385,13 @@ namespace ChessApp
 
                 if (IsOnBoard(desitinationRow, destinationColumn))
                 {
-                    if (Board[desitinationRow, destinationColumn].piece == null)
+                    if (Board[desitinationRow, destinationColumn].Piece == null)
                     {
                         Board[desitinationRow, destinationColumn].IsLegal = true;
                     }
                     else 
                     {
-                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].piece.IsWhite))
+                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].Piece.IsWhite))
                         {
                             Board[desitinationRow, destinationColumn].IsLegal = true;
                         }
@@ -438,18 +438,18 @@ namespace ChessApp
         public void MovePiece(Cell beforeCell, Cell afterCell)
         {
             // if pawn then set first move to false
-            if (beforeCell.piece.IsFirstMove)
+            if (beforeCell.Piece.IsFirstMove)
             {
-                beforeCell.piece.IsFirstMove = false;
+                beforeCell.Piece.IsFirstMove = false;
             }
 
             // move piece to new cell and set that cell to be occupied
-            afterCell.piece = beforeCell.piece;
+            afterCell.Piece = beforeCell.Piece;
             afterCell.IsOccupied = true;
-            beforeCell.piece.Position = afterCell;
+            beforeCell.Piece.Position = afterCell;
 
             // remove piece from old cell and set it to be not occupied
-            beforeCell.piece = null;
+            beforeCell.Piece = null;
             beforeCell.IsOccupied = false;
 
             ClearMarkedLegalMoves();
@@ -464,9 +464,9 @@ namespace ChessApp
             {
                 if (cell.IsOccupied)
                 {
-                    if (cell.piece.IsWhite == isWhite)
+                    if (cell.Piece.IsWhite == isWhite)
                     {
-                        pieces.Add(cell.piece);
+                        pieces.Add(cell.Piece);
                     }
                 }
             }

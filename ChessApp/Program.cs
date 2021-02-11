@@ -29,10 +29,10 @@ namespace ChessApp
                         }
                         else
                         {
-                            switch (chessboard.Board[i, j].piece.Name)
+                            switch (chessboard.Board[i, j].Piece.Name)
                             {
                                 case "Pawn":
-                                    if(chessboard.Board[i, j].piece.IsWhite)
+                                    if(chessboard.Board[i, j].Piece.IsWhite)
                                     Console.Write("P    ");
                                     else
                                     {
@@ -41,7 +41,7 @@ namespace ChessApp
                                     break;
 
                                 case "Knight":
-                                    if (chessboard.Board[i, j].piece.IsWhite)
+                                    if (chessboard.Board[i, j].Piece.IsWhite)
                                         Console.Write("N   ");
                                     else
                                     {
@@ -50,7 +50,7 @@ namespace ChessApp
                                     break;
 
                                 case "King":
-                                    if (chessboard.Board[i, j].piece.IsWhite)
+                                    if (chessboard.Board[i, j].Piece.IsWhite)
                                         Console.Write("K    ");
                                     else
                                     {
@@ -59,7 +59,7 @@ namespace ChessApp
                                     break;
 
                                 case "Queen":
-                                    if (chessboard.Board[i, j].piece.IsWhite)
+                                    if (chessboard.Board[i, j].Piece.IsWhite)
                                         Console.Write("Q    ");
                                     else
                                     {
@@ -68,7 +68,7 @@ namespace ChessApp
                                     break;
 
                                 case "Rook":
-                                    if (chessboard.Board[i, j].piece.IsWhite)
+                                    if (chessboard.Board[i, j].Piece.IsWhite)
                                         Console.Write("R    ");
                                     else
                                     {
@@ -77,7 +77,7 @@ namespace ChessApp
                                     break;
 
                                 case "Bishop":
-                                    if (chessboard.Board[i, j].piece.IsWhite)
+                                    if (chessboard.Board[i, j].Piece.IsWhite)
                                         Console.Write("B    ");
                                     else
                                     {
@@ -109,9 +109,9 @@ namespace ChessApp
             {
                 if (cell.IsOccupied)
                 {
-                    if (cell.piece.IsWhite == isWhite)
+                    if (cell.Piece.IsWhite == isWhite)
                     {
-                        pieces.Add(cell.piece);
+                        pieces.Add(cell.Piece);
                     }
                 }
             }

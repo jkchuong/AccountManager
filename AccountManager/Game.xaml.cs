@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Xml.Linq;
 using AccountBusiness;
 using AccountData;
 using ChessApp;
@@ -136,10 +136,10 @@ namespace AccountManager
             else if (clickedCell.IsOccupied)
             {
                 // Find legal moves if user clicks on white piece, do nothing if black piece that is not legal
-                if (clickedCell.piece.IsWhite)
+                if (clickedCell.Piece.IsWhite)
                 {
                     chessboard.ClearMarkedLegalMoves();
-                    chessboard.FindLegalMoves(clickedCell.piece);
+                    chessboard.FindLegalMoves(clickedCell.Piece);
                 }
                 else
                 {
@@ -229,7 +229,7 @@ namespace AccountManager
         {
             // Put each move on new line
             string message = "\r\n ";
-            if (beforeCell.piece.Name == "Pawn")
+            if (beforeCell.Piece.Name == "Pawn")
             {
                 // Pawn moves into empty cell print only cell name, if occupied add column value and x
                 if (!afterCell.IsOccupied)
@@ -245,14 +245,14 @@ namespace AccountManager
             // Print piece initial and cell name if moving into empty cell, otherwise add x
             else if (!afterCell.IsOccupied)
             {
-                message += $"{ChessApp.Rulebook.ConvertPieceToInitial(beforeCell.piece)}{afterCell.Name}";
+                message += $"{ChessApp.Rulebook.ConvertPieceToInitial(beforeCell.Piece)}{afterCell.Name}";
             }
             else
             {
-                message += $"{ChessApp.Rulebook.ConvertPieceToInitial(beforeCell.piece)}x{afterCell.Name}";
+                message += $"{ChessApp.Rulebook.ConvertPieceToInitial(beforeCell.Piece)}x{afterCell.Name}";
             }
 
-            if (beforeCell.piece.IsWhite)
+            if (beforeCell.Piece.IsWhite)
             {
                 WhiteHistory.Content += message;
                 WhiteHistory.ScrollToBottom();
@@ -274,7 +274,7 @@ namespace AccountManager
                 if (cell.IsOccupied)
                 {
 
-                    button.Content = ChessApp.Rulebook.ConvertPieceToInitial(cell.piece);
+                    button.Content = ChessApp.Rulebook.ConvertPieceToInitial(cell.Piece);
                 }
                 else
                 {
@@ -335,7 +335,7 @@ namespace AccountManager
         // Store all piece information in SQL database
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         // Go to settings page
