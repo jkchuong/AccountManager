@@ -161,7 +161,7 @@ namespace ChessApp
             }
         }
 
-        // Use for... continute loop?
+        // Use for... continue loop?
         public void CheckRookObstruction(Pieces piece)
         {
             // backward movement
@@ -421,65 +421,101 @@ namespace ChessApp
             return false;
         }
 
-        // Redundant code for testing in console
-        //public void NewGame()
-        //{
-        //    Pawn whitePawn1 = new Pawn(true, Board[6, 0]);
-        //    Pawn whitePawn2 = new Pawn(true, Board[6, 1]);
-        //    Pawn whitePawn3 = new Pawn(true, Board[6, 2]);
-        //    Pawn whitePawn4 = new Pawn(true, Board[6, 3]);
-        //    Pawn whitePawn5 = new Pawn(true, Board[6, 4]);
-        //    Pawn whitePawn6 = new Pawn(true, Board[6, 5]);
-        //    Pawn whitePawn7 = new Pawn(true, Board[6, 6]);
-        //    Pawn whitePawn8 = new Pawn(true, Board[6, 7]);
+        // Check if King exists
+        public bool KingExists(List<Pieces> pieces)
+        {
+            foreach (Pieces piece in pieces)
+            {
+                if (piece.Name == "King")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
-        //    Rook whiteRook1 = new Rook(true, Board[7, 0]);
-        //    Knight whiteKnight1 = new Knight(true, Board[7, 1]);
-        //    Bishop whiteBishop1 = new Bishop(true, Board[7, 2]);
-        //    Queen whiteQueen = new Queen(true, Board[7, 3]);
-        //    King whiteKing = new King(true, Board[7, 4]);
-        //    Bishop whiteBishop2 = new Bishop(true, Board[7, 5]);
-        //    Knight whiteKnight2 = new Knight(true, Board[7, 6]);
-        //    Rook whiteRook2 = new Rook(true, Board[7, 7]);
+        // Move piece from one cell to another and change cell state
+        public void MovePiece(Cell beforeCell, Cell afterCell)
+        {
+            // if pawn then set first move to false
+            if (beforeCell.piece.IsFirstMove)
+            {
+                beforeCell.piece.IsFirstMove = false;
+            }
 
-        //    Pawn blackPawn1 = new Pawn(false, Board[1, 0]);
-        //    Pawn blackPawn2 = new Pawn(false, Board[1, 1]);
-        //    Pawn blackPawn3 = new Pawn(false, Board[1, 2]);
-        //    Pawn blackPawn4 = new Pawn(false, Board[1, 3]);
-        //    Pawn blackPawn5 = new Pawn(false, Board[1, 4]);
-        //    Pawn blackPawn6 = new Pawn(false, Board[1, 5]);
-        //    Pawn blackPawn7 = new Pawn(false, Board[1, 6]);
-        //    Pawn blackPawn8 = new Pawn(false, Board[1, 7]);
+            // move piece to new cell and set that cell to be occupied
+            afterCell.piece = beforeCell.piece;
+            afterCell.IsOccupied = true;
+            beforeCell.piece.Position = afterCell;
 
-        //    Rook blackRook1 = new Rook(false, Board[0, 0]);
-        //    Knight blackKnight1 = new Knight(false, Board[0, 1]);
-        //    Bishop blackBishop1 = new Bishop(false, Board[0, 2]);
-        //    Queen blackQueen = new Queen(false, Board[0, 3]);
-        //    King blackKing = new King(false, Board[0, 4]);
-        //    Bishop blackBishop2 = new Bishop(false, Board[0, 5]);
-        //    Knight blackKnight2 = new Knight(false, Board[0, 6]);
-        //    Rook blackRook2 = new Rook(false, Board[0, 7]);
+            // remove piece from old cell and set it to be not occupied
+            beforeCell.piece = null;
+            beforeCell.IsOccupied = false;
 
-        //}
+            ClearMarkedLegalMoves();
+        }
 
-        //public void MovePiece(Pieces piece, Cell cell)
-        //{
-        //    ClearMarkedLegalMoves();
-        //    FindLegalMoves(piece);
+        // Get list of all pieces of one colour on board
+        public List<Pieces> SearchForPieces(bool isWhite)
+        {
+            List<Pieces> pieces = new List<Pieces>();
 
-        //    if (cell.IsLegal)
-        //    {
-        //        piece.Position.ChangeStatus();
-        //        piece.Position = cell;
-        //        cell.piece = piece;
+            foreach (Cell cell in Board)
+            {
+                if (cell.IsOccupied)
+                {
+                    if (cell.piece.IsWhite == isWhite)
+                    {
+                        pieces.Add(cell.piece);
+                    }
+                }
+            }
 
-        //        if (!cell.IsOccupied)
-        //        {
-        //            cell.ChangeStatus();
-        //        }
-        //    }
+            return pieces;
+        }
 
-        //}
+        public void NewGame()
+        {
+            ClearBoard();
+
+            _ = new Pawn(true, Board[6, 0]);
+            _ = new Pawn(true, Board[6, 1]);
+            _ = new Pawn(true, Board[6, 2]);
+            _ = new Pawn(true, Board[6, 3]);
+            _ = new Pawn(true, Board[6, 4]);
+            _ = new Pawn(true, Board[6, 5]);
+            _ = new Pawn(true, Board[6, 6]);
+            _ = new Pawn(true, Board[6, 7]);
+
+            _ = new Rook(true, Board[7, 0]);
+            _ = new Knight(true, Board[7, 1]);
+            _ = new Bishop(true, Board[7, 2]);
+            _ = new Queen(true, Board[7, 3]);
+            _ = new King(true, Board[7, 4]);
+            _ = new Bishop(true, Board[7, 5]);
+            _ = new Knight(true, Board[7, 6]);
+            _ = new Rook(true, Board[7, 7]);
+
+            _ = new Pawn(false, Board[1, 0]);
+            _ = new Pawn(false, Board[1, 1]);
+            _ = new Pawn(false, Board[1, 2]);
+            _ = new Pawn(false, Board[1, 3]);
+            _ = new Pawn(false, Board[1, 4]);
+            _ = new Pawn(false, Board[1, 5]);
+            _ = new Pawn(false, Board[1, 6]);
+            _ = new Pawn(false, Board[1, 7]);
+
+            _ = new Rook(false, Board[0, 0]);
+            _ = new Knight(false, Board[0, 1]);
+            _ = new Bishop(false, Board[0, 2]);
+            _ = new Queen(false, Board[0, 3]);
+            _ = new King(false, Board[0, 4]);
+            _ = new Bishop(false, Board[0, 5]);
+            _ = new Knight(false, Board[0, 6]);
+            _ = new Rook(false, Board[0, 7]);
+
+        }
+
 
     }
 }

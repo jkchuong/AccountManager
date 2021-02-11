@@ -55,7 +55,7 @@ namespace AccountManager
             WhiteHistory.Content = " White Moves";
             BlackHistory.Content = " Black Moves";
 
-            NewGame();
+            chessboard.NewGame();
 
             UpdateBoardState();
 
@@ -76,7 +76,7 @@ namespace AccountManager
                 {
                     var button = new Button() { Background = isBlack ? secondary : primary, Foreground = !isBlack ? secondary : primary };
 
-                    // Name buttons with algebraic notation
+                    // Name buttons with algebraic notation and connect to chessboard
                     button.Name = ChessApp.Rulebook.ArrayToCellRow[col].ToString() + ChessApp.Rulebook.ArrayToCellColumn[row].ToString(); 
                     button.Click += GridButton_Click;
                     button.FontSize = 50;
@@ -105,17 +105,17 @@ namespace AccountManager
             {
                 // Move the piece and update the board
                 PrintMoveHistory(currentCell, clickedCell);
-                MovePiece(currentCell, clickedCell);
+                chessboard.MovePiece(currentCell, clickedCell);
 
                 UpdateBoardState();
 
                 // Check if game over after white move
-                whitePieces = SearchForPieces(true);
-                blackPieces = SearchForPieces(false);
+                whitePieces = chessboard.SearchForPieces(true);
+                blackPieces = chessboard.SearchForPieces(false);
 
                 if (IsGameOver(whitePieces, blackPieces))
                 {
-                    NewGame();
+                    chessboard.NewGame();
                 }
                 else
                 {
@@ -123,17 +123,16 @@ namespace AccountManager
                 }
 
                 // Check if game over after black move
-                blackPieces = SearchForPieces(false);
-                whitePieces = SearchForPieces(true);
+                blackPieces = chessboard.SearchForPieces(false);
+                whitePieces = chessboard.SearchForPieces(true);
 
                 if (IsGameOver(whitePieces, blackPieces))
                 {
-                    NewGame();
+                    chessboard.NewGame();
                 }
 
             }
 
-            
             else if (clickedCell.IsOccupied)
             {
                 // Find legal moves if user clicks on white piece, do nothing if black piece that is not legal
@@ -186,8 +185,8 @@ namespace AccountManager
                     // Print Move History
                     Cell newCell = legalPositions[rnd.Next(0, legalPositions.Count - 1)];
                     PrintMoveHistory(piece.Position, newCell);
-                    MovePiece(piece.Position, newCell);
 
+                    chessboard.MovePiece(piece.Position, newCell);
                     hasNotMoved = false;
                 }
                 else
@@ -196,7 +195,6 @@ namespace AccountManager
                 }
             }
             chessboard.ClearMarkedLegalMoves();
-
         }
 
         private bool IsGameOver(List<Pieces> whitePieces, List<Pieces> blackPieces)
@@ -204,12 +202,12 @@ namespace AccountManager
             int newWins = 0, newLoss = 0;
 
             // Continue if king exists. Add one to win/loss otherwise
-            if (KingExists(whitePieces) && KingExists(blackPieces))
+            if (chessboard.KingExists(whitePieces) && chessboard.KingExists(blackPieces))
             {
                 return false;
 
             }
-            else if (!KingExists(blackPieces))
+            else if (!chessboard.KingExists(blackPieces))
             {
                 newWins = _account.AddOneToWins(user.UserId);
             }
@@ -266,26 +264,6 @@ namespace AccountManager
             }
         }
 
-        private void MovePiece(Cell beforeCell, Cell afterCell)
-        {
-            // if pawn then set first move to false
-            if (beforeCell.piece.IsFirstMove)
-            {
-                beforeCell.piece.IsFirstMove = false;
-            }
-
-            // move piece to new cell and set that cell to be occupied
-            afterCell.piece = beforeCell.piece;
-            afterCell.IsOccupied = true;
-            beforeCell.piece.Position = afterCell;
-
-            // remove piece from old cell and set it to be not occupied
-            beforeCell.piece = null;
-            beforeCell.IsOccupied = false;
-
-            chessboard.ClearMarkedLegalMoves();
-        }
-
         private void UpdateBoardState()
         {
             foreach (Button button in Chessboard.Children)
@@ -320,87 +298,8 @@ namespace AccountManager
                         button.Background = primaryColour;
                     }
                 }
-
-
             }
         }
-
-        // Reset the board and populate with new pieces
-        private void NewGame()
-        {
-
-            chessboard.ClearBoard();
-
-            _ = new Pawn(true, chessboard.Board[6, 0]);
-            _ = new Pawn(true, chessboard.Board[6, 1]);
-            _ = new Pawn(true, chessboard.Board[6, 2]);
-            _ = new Pawn(true, chessboard.Board[6, 3]);
-            _ = new Pawn(true, chessboard.Board[6, 4]);
-            _ = new Pawn(true, chessboard.Board[6, 5]);
-            _ = new Pawn(true, chessboard.Board[6, 6]);
-            _ = new Pawn(true, chessboard.Board[6, 7]);
-
-            _ = new Rook(true, chessboard.Board[7, 0]);
-            _ = new Knight(true, chessboard.Board[7, 1]);
-            _ = new Bishop(true, chessboard.Board[7, 2]);
-            _ = new Queen(true, chessboard.Board[7, 3]);
-            _ = new King(true, chessboard.Board[7, 4]);
-            _ = new Bishop(true, chessboard.Board[7, 5]);
-            _ = new Knight(true, chessboard.Board[7, 6]);
-            _ = new Rook(true, chessboard.Board[7, 7]);
-
-            _ = new Pawn(false, chessboard.Board[1, 0]);
-            _ = new Pawn(false, chessboard.Board[1, 1]);
-            _ = new Pawn(false, chessboard.Board[1, 2]);
-            _ = new Pawn(false, chessboard.Board[1, 3]);
-            _ = new Pawn(false, chessboard.Board[1, 4]);
-            _ = new Pawn(false, chessboard.Board[1, 5]);
-            _ = new Pawn(false, chessboard.Board[1, 6]);
-            _ = new Pawn(false, chessboard.Board[1, 7]);
-           
-            _ = new Rook(false, chessboard.Board[0, 0]);
-            _ = new Knight(false, chessboard.Board[0, 1]);
-            _ = new Bishop(false, chessboard.Board[0, 2]);
-            _ = new Queen(false, chessboard.Board[0, 3]);
-            _ = new King(false, chessboard.Board[0, 4]);
-            _ = new Bishop(false, chessboard.Board[0, 5]);
-            _ = new Knight(false, chessboard.Board[0, 6]);
-            _ = new Rook(false, chessboard.Board[0, 7]);
-        }
-
-        // Get list of all pieces of one colour on board
-        private List<Pieces> SearchForPieces(bool isWhite)
-        {
-            List<Pieces> pieces = new List<Pieces>();
-
-            foreach (Button button in Chessboard.Children)
-            {
-                Cell cell = button.Tag as Cell;
-                if (cell.IsOccupied)
-                {
-                    if (cell.piece.IsWhite == isWhite)
-                    {
-                        pieces.Add(cell.piece);
-                    }
-                }
-            }
-
-            return pieces;
-        }
-
-        // Check if King exists
-        private static bool KingExists(List<Pieces> pieces)
-        {
-            foreach (Pieces piece in pieces)
-            {
-                if (piece.Name == "King")
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
 
         // Use images instead of letters? (not implemented)
         public static string ImageSource(Pieces piece)
