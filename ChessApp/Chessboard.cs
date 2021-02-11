@@ -91,8 +91,8 @@ namespace ChessApp
 
             else if (piece.Name == "Queen")
             {
-                CheckRookObstruction(piece);
                 CheckBishopObstruction(piece);
+                CheckRookObstruction(piece);
             }
         }
 
@@ -160,117 +160,38 @@ namespace ChessApp
             }
         }
 
-        // Use for... continue loop?
-        public void CheckRookObstruction(Pieces piece)
+        // Method to move in any direction until obstructed
+        public void LineMovement(Pieces piece, int rowMovement, int columnMovement)
         {
-            // backward movement
             bool Unobstructed = true;
-            int movement = 1;
             do
             {
-                int desitinationRow = piece.Position.Row + movement;
-                if (IsOnBoard(desitinationRow, piece.Position.Column))
-                {
-                    if (Board[desitinationRow, piece.Position.Column].Piece == null)
-                    {
-                        Board[desitinationRow, piece.Position.Column].IsLegal = true;
-                    }
-                    else 
-                    {
-                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, piece.Position.Column].Piece.IsWhite))
-                        {
-                            Board[desitinationRow, piece.Position.Column].IsLegal = true;
-                        }
-                        Unobstructed = false;
-                    }
-                    ++movement;
-                }
-                else
-                {
-                    Unobstructed = false;
-                }
-            }
-            while (Unobstructed);
+                int desitinationRow = piece.Position.Row + rowMovement;
+                int destinationColumn = piece.Position.Column + columnMovement;
 
-            // forward movement
-            Unobstructed = true;
-            movement = 1;
-            do
-            {
-                int desitinationRow = piece.Position.Row - movement;
-                if (IsOnBoard(desitinationRow, piece.Position.Column))
+                if (IsOnBoard(desitinationRow, destinationColumn))
                 {
-                    if (Board[desitinationRow, piece.Position.Column].Piece == null)
+                    if (Board[desitinationRow, destinationColumn].Piece == null)
                     {
-                        Board[desitinationRow, piece.Position.Column].IsLegal = true;
+                        Board[desitinationRow, destinationColumn].IsLegal = true;
                     }
-                    else 
+                    else
                     {
-                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, piece.Position.Column].Piece.IsWhite))
+                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].Piece.IsWhite))
                         {
-                            Board[desitinationRow, piece.Position.Column].IsLegal = true;
+                            Board[desitinationRow, destinationColumn].IsLegal = true;
                         }
                         Unobstructed = false;
                     }
-                    ++movement;
-                }
-                else
-                {
-                    Unobstructed = false;
-                }
-            }
-            while (Unobstructed);
-
-            // left movement
-            Unobstructed = true;
-            movement = 1;
-            do
-            {
-                int destinationColumn = piece.Position.Column - movement;
-                if (IsOnBoard(piece.Position.Row, destinationColumn))
-                {
-                    if (Board[piece.Position.Row, destinationColumn].Piece == null)
+                    
+                    if (rowMovement != 0)
                     {
-                        Board[piece.Position.Row, destinationColumn].IsLegal = true;
+                        rowMovement = rowMovement + (rowMovement / Math.Abs(rowMovement));
                     }
-                    else 
+                    if (columnMovement != 0)
                     {
-                        if (IsOppositeColour(piece.IsWhite, Board[piece.Position.Row, destinationColumn].Piece.IsWhite))
-                        {
-                            Board[piece.Position.Row, destinationColumn].IsLegal = true;
-                        }
-                        Unobstructed = false;
+                        columnMovement = columnMovement + (columnMovement / Math.Abs(columnMovement));
                     }
-                    ++movement;
-                }
-                else
-                {
-                    Unobstructed = false;
-                }
-            }
-            while (Unobstructed);
-
-            // right movement
-            Unobstructed = true;
-            movement = 1;
-            do
-            {
-                int destinationColumn = piece.Position.Column + movement;
-                if (IsOnBoard(piece.Position.Row, destinationColumn))
-                {
-                    if (Board[piece.Position.Row, destinationColumn].Piece == null)
-                    {
-                        Board[piece.Position.Row, destinationColumn].IsLegal = true;
-                    }
-                    else 
-                    {
-                        if (IsOppositeColour(piece.IsWhite, Board[piece.Position.Row, destinationColumn].Piece.IsWhite))
-                        {
-                            Board[piece.Position.Row, destinationColumn].IsLegal = true;
-                        }
-                        Unobstructed = false;
-                    }
-                    ++movement;
                 }
                 else
                 {
@@ -280,130 +201,21 @@ namespace ChessApp
             while (Unobstructed);
         }
 
+        public void CheckRookObstruction(Pieces piece)
+        {
+            LineMovement(piece, 1, 0);
+            LineMovement(piece, -1, 0);
+            LineMovement(piece, 0, 1);
+            LineMovement(piece, 0, -1);
+        }
+
         private void CheckBishopObstruction(Pieces piece)
         {
-            // backward right movement
-            bool Unobstructed = true;
-            int movement = 1;
-            do
-            {
-                int desitinationRow = piece.Position.Row + movement;
-                int destinationColumn = piece.Position.Column + movement;
-                if (IsOnBoard(desitinationRow, destinationColumn))
-                {
-                    if (Board[desitinationRow, destinationColumn].Piece == null)
-                    {
-                        Board[desitinationRow, destinationColumn].IsLegal = true;
-                    }
-                    else 
-                    {
-                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].Piece.IsWhite))
-                        {
-                            Board[desitinationRow, destinationColumn].IsLegal = true;
-                        }
-                        Unobstructed = false;
-                    }
-                    ++movement;
-                }
-                else
-                {
-                    Unobstructed = false;
-                }
-            }
-            while (Unobstructed);
+            LineMovement(piece, -1, -1);
+            LineMovement(piece, 1, -1);
+            LineMovement(piece, 1, 1);
+            LineMovement(piece, -1, 1);
 
-            // forward right movement
-            Unobstructed = true;
-            movement = 1;
-            do
-            {
-                int desitinationRow = piece.Position.Row - movement;
-                int destinationColumn = piece.Position.Column + movement;
-
-                if (IsOnBoard(desitinationRow, destinationColumn))
-                {
-                    if (Board[desitinationRow, destinationColumn].Piece == null)
-                    {
-                        Board[desitinationRow, destinationColumn].IsLegal = true;
-                    }
-                    else 
-                    {
-                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].Piece.IsWhite))
-                        {
-                            Board[desitinationRow, destinationColumn].IsLegal = true;
-                        }
-                        Unobstructed = false;
-                    }
-                    ++movement;
-                }
-                else
-                {
-                    Unobstructed = false;
-                }
-            }
-            while (Unobstructed);
-
-            // backward left movement
-            Unobstructed = true;
-            movement = 1;
-            do
-            {
-                int desitinationRow = piece.Position.Row + movement;
-                int destinationColumn = piece.Position.Column - movement;
-
-                if (IsOnBoard(desitinationRow, destinationColumn))
-                {
-                    if (Board[desitinationRow, destinationColumn].Piece == null)
-                    {
-                        Board[desitinationRow, destinationColumn].IsLegal = true;
-                    }
-                    else 
-                    {
-                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].Piece.IsWhite))
-                        {
-                            Board[desitinationRow, destinationColumn].IsLegal = true;
-                        }
-                        Unobstructed = false;
-                    }
-                    ++movement;
-                }
-                else
-                {
-                    Unobstructed = false;
-                }
-            }
-            while (Unobstructed);
-
-            // forward left movement
-            Unobstructed = true;
-            movement = 1;
-            do
-            {
-                int desitinationRow = piece.Position.Row - movement;
-                int destinationColumn = piece.Position.Column - movement;
-
-                if (IsOnBoard(desitinationRow, destinationColumn))
-                {
-                    if (Board[desitinationRow, destinationColumn].Piece == null)
-                    {
-                        Board[desitinationRow, destinationColumn].IsLegal = true;
-                    }
-                    else 
-                    {
-                        if (IsOppositeColour(piece.IsWhite, Board[desitinationRow, destinationColumn].Piece.IsWhite))
-                        {
-                            Board[desitinationRow, destinationColumn].IsLegal = true;
-                        }
-                        Unobstructed = false;
-                    }
-                    ++movement;
-                }
-                else
-                {
-                    Unobstructed = false;
-                }
-            }
-            while (Unobstructed);
         }
 
         // Check if piece has legal moves
