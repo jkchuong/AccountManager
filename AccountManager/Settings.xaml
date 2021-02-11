@@ -12,12 +12,13 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60*"/>
-                <ColumnDefinition Width="270*"/>
+                <ColumnDefinition Width="260*"/>
                 <ColumnDefinition Width="0*"/>
-                <ColumnDefinition Width="270*"/>
+                <ColumnDefinition Width="260*"/>
                 <ColumnDefinition Width="60*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="89*"/>
                 <RowDefinition Height="89*"/>
                 <RowDefinition Height="89*"/>
                 <RowDefinition Height="89*"/>
@@ -32,25 +33,33 @@
 
             <!-- What information to enter -->
             
-            <TextBox Text="Username:" Grid.Row="1" Grid.Column="1" FontSize="60" TextAlignment="Center" IsReadOnly="True"/>
-            <TextBox Text="Name:" Grid.Row="2" Grid.Column="1" FontSize="60" TextAlignment="Center" IsReadOnly="True"/>
-            <TextBox Text="Fill below if you want to change passwords." Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" FontSize="30" VerticalContentAlignment="Center" TextAlignment="Center" IsReadOnly="True"/>
-            <TextBox Text="Password:" Grid.Row="5" Grid.Column="1" FontSize="60" TextAlignment="Center" IsReadOnly="True"/>
-            <TextBox Text="Repeat:" Grid.Row="6" Grid.Column="1" FontSize="60" TextAlignment="Center" IsReadOnly="True"/>
-            <TextBox Text="Theme:" Grid.Row="3" Grid.Column="1" FontSize="60" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox Text="Username:" Grid.Row="1" Grid.Column="1" FontSize="50" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox Text="Name:" Grid.Row="2" Grid.Column="1" FontSize="50" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox Text="Theme:" Grid.Row="3" Grid.Column="1" FontSize="50" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox Text="Aggressive AI" Grid.Row="4" Grid.Column="1" FontSize="50" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox Text="Fill below if you want to change passwords." Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" FontSize="30" VerticalContentAlignment="Center" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox Text="Password:" Grid.Row="6" Grid.Column="1" FontSize="50" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox Text="Repeat:" Grid.Row="7" Grid.Column="1" FontSize="50" TextAlignment="Center" IsReadOnly="True"/>
 
             <!-- Where to enter information -->
-            
-            <TextBox x:Name="SettingsUsername" Grid.Row="1" Grid.Column="3" FontSize="60" TextAlignment="Center" IsReadOnly="True"/>
-            <TextBox x:Name="SettingsName" Grid.Row="2" Grid.Column="3" FontSize="60" TextAlignment="Center" />
-            <PasswordBox x:Name="SettingsPassword" Grid.Row="5" Grid.Column="3" FontSize="60"/>
-            <PasswordBox x:Name="SettingsPasswordCheck" Grid.Row="6" Grid.Column="3" FontSize="60"/>
+
+            <TextBox x:Name="SettingsUsername" Grid.Row="1" Grid.Column="3" FontSize="50" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox x:Name="SettingsName" Grid.Row="2" Grid.Column="3" FontSize="50" TextAlignment="Center" />
+
+            <CheckBox x:Name="AISetting" Grid.Row="4" Grid.Column="3" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="5" ScaleY="5" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+
+            <PasswordBox x:Name="SettingsPassword" Grid.Row="6" Grid.Column="3" FontSize="50"/>
+            <PasswordBox x:Name="SettingsPasswordCheck" Grid.Row="7" Grid.Column="3" FontSize="50"/>
             <ComboBox x:Name="ThemeBox" Grid.Row="3" Grid.Column="3" ItemsSource="{Binding Path=themes}" FontSize="40"/>
 
-            <TextBox x:Name="Status" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" FontSize="30" VerticalContentAlignment="Center" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox x:Name="Status" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3" FontSize="30" VerticalContentAlignment="Center" TextAlignment="Center" IsReadOnly="True"/>
 
-            <Button x:Name="Save" Content="Save Changes" Grid.Column="1" Grid.Row="8" FontSize="40" Click="Settings_Save_Click"/>
-            <Button x:Name="Back" Content="Back" Grid.Column="3" Grid.Row="8" FontSize="40" Click="Back_Click"/>
+            <Button x:Name="Save" Content="Save Changes" Grid.Column="1" Grid.Row="9" FontSize="40" Click="Settings_Save_Click"/>
+            <Button x:Name="Back" Content="Back" Grid.Column="3" Grid.Row="9" FontSize="40" Click="Back_Click"/>
 
             <!-- Deletion -->
             <Button x:Name="Delete" Grid.Row="9" Grid.Column="4" Content="DELETE" FontSize="15" Background="Red" Foreground="White" Click="Delete_Click"/>

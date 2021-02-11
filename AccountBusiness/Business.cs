@@ -153,11 +153,12 @@ namespace AccountBusiness
             }
         }
 
-        public void UpdateUserNameTheme(string username, string name, int theme)
+        public void UpdateUserNameTheme(string username, string name, bool agressiveOn, int theme)
         {
             using var db = new GameContext();
             var selectedUser = db.Users.Find(username);
             selectedUser.Name = name;
+            selectedUser.AggressiveOn = agressiveOn;
             selectedUser.ThemeId = theme;
             db.SaveChanges();
 

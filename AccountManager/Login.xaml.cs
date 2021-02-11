@@ -26,6 +26,8 @@ namespace AccountManager
         public Login()
         {
             InitializeComponent();
+
+            
         }
 
         // Go to registration page

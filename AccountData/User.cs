@@ -18,6 +18,7 @@ namespace AccountData
         public int Wins { get; set; } = 0;
         public int Losses { get; set; } = 0;
         public bool SaveExist { get; set; } = false;
+        public bool AggressiveOn { get; set; } = false;
         public int ThemeId { get; set; } = 1;
         public Theme Theme { get; set; }
     }

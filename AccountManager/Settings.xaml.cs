@@ -31,10 +31,13 @@ namespace AccountManager
         {
             user = userPassed;
             var themes = _account.GetAllThemes();
+
             InitializeComponent();
+
+            // Initialising entries 
             SettingsUsername.Text = user.UserId;
             SettingsName.Text = user.Name;
-
+            AISetting.IsChecked = user.AggressiveOn;
             ThemeBox.SelectedIndex = user.ThemeId - 1;
             ThemeBox.ItemsSource = themes;
 
@@ -44,15 +47,17 @@ namespace AccountManager
         {
             string message = "Updated information ";
 
+            // Get info from settings
             string username = user.UserId;
             string newName = SettingsName.Text;
-            int newTheme = ThemeBox.SelectedIndex + 1; // for the PK of themes
+            int newTheme = ThemeBox.SelectedIndex + 1;
+            bool aggressiveOn = (bool)AISetting.IsChecked;
             string newPassword = SettingsPassword.Password;
             string newPasswordCheck = SettingsPasswordCheck.Password;
 
-            ThemeBox.SelectedIndex = user.ThemeId - 1;
+            //ThemeBox.SelectedIndex = user.ThemeId - 1;
 
-            _account.UpdateUserNameTheme(username, newName, newTheme);
+            _account.UpdateUserNameTheme(username, newName, aggressiveOn, newTheme);
 
             if (!String.IsNullOrWhiteSpace(newPassword))
             {
