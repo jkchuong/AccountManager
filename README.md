@@ -2,10 +2,14 @@
 
 This project aims to use WPF and SQL to create program that allows the user to register and log in to an account and play a chess game. The project is considered to be done when a user can register an account, log in, and play a full game of chess with ability to track user stats, moves, and colour themes.
 
+Chess Game Engine (CGE) repository is found [here](https://github.com/jkchuong/Chess)
+
+Chess Program with GUI using CGE is found [here](https://github.com/jkchuong/LetsTryMakeAChessGame)
+
 <u>Sprint 1</u>
 
 - Created the 3 layers of the application - WPF GUI, SQL Database, and a Business layer in between to help the to communicate 
-- Chess Game Engine (CGE) began construction, being built first in the Console before being wired up to the application.
+- CGE began construction, being built first in the Console before being wired up to the application.
 
 <u>Retrospect</u>
 
