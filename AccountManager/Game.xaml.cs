@@ -139,6 +139,12 @@ namespace AccountManager
                 PrintMoveHistory(currentCell, clickedCell);
                 chessboard.MovePiece(currentCell, clickedCell);
 
+                if (clickedCell.Piece.Name == "Pawn" && (clickedCell.Row == 7 || clickedCell.Row == 0))
+                {
+                    PromotionBackground.Visibility = Visibility.Visible;
+                    Promotion.Visibility = Visibility.Visible;
+                }
+
                 UpdateBoardState();
 
                 // Check if game over after white move
@@ -189,6 +195,18 @@ namespace AccountManager
 
             UpdateBoardState();
 
+        }
+
+        private void Promotion_Click(object sender, RoutedEventArgs e)
+        {
+            PromotionBackground.Visibility = Visibility.Collapsed;
+            Promotion.Visibility = Visibility.Collapsed;
+
+            string promotedPiece = (sender as Button).Content.ToString();
+
+            chessboard.Promotion(currentCell.Piece, promotedPiece);
+
+            UpdateBoardState();
         }
 
         private void ComputerMove(List<Pieces> blackPieces)

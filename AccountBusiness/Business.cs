@@ -15,6 +15,13 @@ namespace AccountBusiness
     {
         public User SelectedUser { get; set; }
 
+        public User SetSelectedCustomer(string username)
+        {
+            using var db = new GameContext();
+            var entry = db.Users.Find(username);
+            return entry;
+        }
+
         public void CreateUser(string name, string username, string password)
         {
             using var db = new GameContext();
@@ -29,6 +36,7 @@ namespace AccountBusiness
             db.SaveChanges();
         }
 
+        
 
         public List<string> GetThemePrimary()
         {
@@ -75,6 +83,7 @@ namespace AccountBusiness
         }
 
 
+
         public int AddOneToWins(string username)
         {
             using var db = new GameContext();
@@ -94,6 +103,7 @@ namespace AccountBusiness
 
             return selectedUser.Losses;
         }
+
 
 
         public bool UserExist(string username)
@@ -143,6 +153,7 @@ namespace AccountBusiness
         }
 
 
+
         public void DeleteUser(string username)
         {
             using var db = new GameContext();
@@ -164,6 +175,7 @@ namespace AccountBusiness
             db.RemoveRange(db.Themes);
             db.SaveChanges();
         }
+
 
 
         public void SetSaveToExist(string username)
@@ -231,15 +243,6 @@ namespace AccountBusiness
             saveFile.Element("Saves").Add(user);
             saveFile.Save("Saves.xml");
             SetSaveToExist(userId);
-        }
-
-
-        // How to use this when passing user between pages?
-        public User SetSelectedCustomer(string username)
-        {
-            using var db = new GameContext();
-            var entry = db.Users.Find(username);
-            return entry;
         }
 
     }

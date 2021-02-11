@@ -20,20 +20,22 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="7*"/>
-                <RowDefinition Height="106*"/>
-                <RowDefinition Height="105*"/>
+                <RowDefinition Height="21*"/>
+                <RowDefinition Height="229*"/>
+                <RowDefinition Height="89*"/>
+                <RowDefinition Height="89*"/>
+                <RowDefinition Height="226*"/>
                 <RowDefinition Height="62"/>
                 <RowDefinition Height="63"/>
-                <RowDefinition Height="7*"/>
+                <RowDefinition Height="21*"/>
             </Grid.RowDefinitions>
 
-            <Border BorderThickness="2" BorderBrush="Black" Grid.ColumnSpan="3" Grid.RowSpan="4" Grid.Column="1" Grid.Row="1" Panel.ZIndex="5"/>
+            <Border BorderThickness="2" BorderBrush="Black" Grid.ColumnSpan="3" Grid.RowSpan="6" Grid.Column="1" Grid.Row="1" Panel.ZIndex="5"/>
 
 
             <!-- The Main Game Area -->
 
-            <Grid  x:Name="Board" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid  x:Name="Board" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
                 <UniformGrid Rows="8" Columns="8" Opacity=".75"
                      x:Name="Chessboard"/>
 
@@ -75,7 +77,7 @@
 
             <!-- Rules Viewer -->
 
-            <ScrollViewer x:Name="Rulebook" Grid.Row="1" Grid.Column="2" Background="MintCream" Grid.ColumnSpan="2" Visibility="Collapsed" FontSize="20" VerticalScrollBarVisibility="Visible" Grid.RowSpan="2">
+            <ScrollViewer x:Name="Rulebook" Grid.Row="1" Grid.Column="2" Background="MintCream" Grid.ColumnSpan="2" Visibility="Collapsed" FontSize="20" VerticalScrollBarVisibility="Visible" Grid.RowSpan="4">
                 <TextBlock TextWrapping="Wrap">
                     <Span FontWeight="Bold" FontSize="30">The Rules of Chess</Span> <LineBreak/>
                     
@@ -118,29 +120,48 @@
                     The Queen is a combination of the Rook and Bishop - it is able to move in any direction, in a line or diagonally.
                     It can also be obstructed by any piece. 
                     <LineBreak/><LineBreak/>
-                    
+
                 </TextBlock>
             </ScrollViewer>
 
             <!-- Move History -->
 
-            <ScrollViewer x:Name="WhiteHistory" Grid.Column="1" Grid.Row="1" FontSize="15" VerticalScrollBarVisibility="Hidden" Background="White" Foreground="Black"/>
-            <ScrollViewer x:Name="BlackHistory" Grid.Column="1" Grid.Row="2" FontSize="15" VerticalScrollBarVisibility="Hidden" Background="Black" Foreground="White"/>
+            <ScrollViewer x:Name="WhiteHistory" Grid.Column="1" Grid.Row="1" FontSize="15" VerticalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Grid.RowSpan="2"/>
+            <ScrollViewer x:Name="BlackHistory" Grid.Column="1" Grid.Row="3" FontSize="15" VerticalScrollBarVisibility="Hidden" Background="Black" Foreground="White" Grid.RowSpan="2"/>
 
             <!-- Functional Buttons -->
-            
-            <Button x:Name="Save" Content="Save" Grid.Column="1" Grid.Row="3" FontSize="30" Background="LightGreen" Click="Save_Click"/>
-            <Button x:Name="Settings" Content="Settings" Grid.Column="2" Grid.Row="4" FontSize="30" Click="Settings_Click"/>
-            <Button x:Name="Logout" Content="Logout" Grid.Column="1" Grid.Row="4" FontSize="30" Background="Orange" Click="Logout_Click"/>
-            <Button x:Name="Rules" Content="Rules" Grid.Column="2" Grid.Row="3" FontSize="30" Background="LightGoldenrodYellow" Click="Rules_Click"/>
+
+            <Button x:Name="Save" Content="Save" Grid.Column="1" Grid.Row="5" FontSize="30" Background="LightGreen" Click="Save_Click"/>
+            <Button x:Name="Settings" Content="Settings" Grid.Column="2" Grid.Row="6" FontSize="30" Click="Settings_Click"/>
+            <Button x:Name="Logout" Content="Logout" Grid.Column="1" Grid.Row="6" FontSize="30" Background="Orange" Click="Logout_Click"/>
+            <Button x:Name="Rules" Content="Rules" Grid.Column="2" Grid.Row="5" FontSize="30" Background="LightGoldenrodYellow" Click="Rules_Click"/>
 
             <!-- Database Information -->
+
+            <TextBox x:Name="UserData" Grid.Column="3" Grid.Row="5" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox x:Name="Rankings" Grid.Column="3" Grid.Row="6" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
+
+            <!-- Pawn Promotion -->
+            <Grid x:Name="Promotion" Visibility="Collapsed" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <Rectangle x:Name="PromotionBackground" Visibility="Collapsed" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="2" Fill="Transparent"/>
+
+                <Button x:Name="Knight" Grid.Column="0" Grid.Row="0" Content="Knight" FontSize="60" Click="Promotion_Click"/>
+                <Button x:Name="Rook" Grid.Column="0" Grid.Row="1" Content="Rook" FontSize="60" Click="Promotion_Click"/>
+                <Button x:Name="Bishop" Grid.Column="1" Grid.Row="0" Content="Bishop" FontSize="60" Click="Promotion_Click"/>
+                <Button x:Name="Queen" Grid.Column="1" Grid.Row="1" Content="Queen" FontSize="60" Click="Promotion_Click"/>
+
+            </Grid>
+
             
-            <TextBox x:Name="UserData" Grid.Column="3" Grid.Row="3" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
-            <TextBox x:Name="Rankings" Grid.Column="3" Grid.Row="4" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
-
-
-
         </Grid>
 
     </Grid>

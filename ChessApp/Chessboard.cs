@@ -24,7 +24,6 @@ namespace ChessApp
             }
         }
 
-        // Check position is on the board
         public bool IsOnBoard(int row, int column)
         {
             if (row >= 8 || column >= 8 || row < 0 || column < 0)
@@ -34,7 +33,6 @@ namespace ChessApp
             return true;
         }
 
-        // Check if two pieces are opposite colours
         public bool IsOppositeColour(bool isWhite, bool otherPieceWhite)
         {
             if((isWhite && otherPieceWhite) || (!isWhite && !otherPieceWhite))
@@ -53,7 +51,6 @@ namespace ChessApp
             }
         }
 
-        // Remove everything from board
         public void ClearBoard()
         {
             foreach (Cell cell in Board)
@@ -421,7 +418,6 @@ namespace ChessApp
             return false;
         }
 
-        // Check if King exists
         public bool KingExists(List<Pieces> pieces)
         {
             foreach (Pieces piece in pieces)
@@ -434,10 +430,9 @@ namespace ChessApp
             return false;
         }
 
-        // Move piece from one cell to another and change cell state
         public void MovePiece(Cell beforeCell, Cell afterCell)
         {
-            // if pawn then set first move to false
+            // first move to false if first move
             if (beforeCell.Piece.IsFirstMove)
             {
                 beforeCell.Piece.IsFirstMove = false;
@@ -453,6 +448,31 @@ namespace ChessApp
             beforeCell.IsOccupied = false;
 
             ClearMarkedLegalMoves();
+        }
+
+        public void Promotion(Pieces piece, string newPiece)
+        {
+            switch (newPiece)
+            {
+                case "Rook":
+                    piece.Position.Piece = new Rook(piece.IsWhite, piece.Position);
+                    break;
+
+                case "Bishop":
+                    piece.Position.Piece = new Bishop(piece.IsWhite, piece.Position);
+                    break;
+
+                case "Knight":
+                    piece.Position.Piece = new Knight(piece.IsWhite, piece.Position);
+                    break;
+
+                case "Queen":
+                    piece.Position.Piece = new Queen(piece.IsWhite, piece.Position);
+                    break;
+            }
+
+            // Prevent ChangeStatus() from occuring
+            piece.Position.IsOccupied = true;
         }
 
         // Get list of all pieces of one colour on board
