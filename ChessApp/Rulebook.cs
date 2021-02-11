@@ -35,7 +35,7 @@ namespace ChessApp
 
             if (!piece.IsWhite)
             {
-                pieceInitial =  pieceInitial.ToLower();
+                pieceInitial = pieceInitial.ToLower();
             }
 
             return pieceInitial;
@@ -123,10 +123,10 @@ namespace ChessApp
             new Move(0, 1)
         };
 
+
+        // Rook Bishop and Queen move list are redundant
         public static readonly List<Move> RookMoves = new List<Move>
         {
-            // forward
-
             new Move(1, 0),
             new Move(2, 0),
             new Move(3, 0),
@@ -195,7 +195,6 @@ namespace ChessApp
             new Move(7, -7),
         };
 
-        // somehow concatenate the bishop and rook moves?
         public static readonly List<Move> QueenMoves = new List<Move>
         {
             // Rook Moves
@@ -264,5 +263,6 @@ namespace ChessApp
             new Move(6, -6),
             new Move(7, -7),
         };
+
     }
 }

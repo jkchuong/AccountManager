@@ -27,6 +27,7 @@ namespace AccountManager
     
     public partial class Game : Page
     {
+        // Declare parameters
         private Business _account = new Business();
         private User user;
 
@@ -49,7 +50,6 @@ namespace AccountManager
             secondaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[1]);
             CreateButtonGrid(primaryColour, secondaryColour);
 
-
             WhiteHistory.Content = " White Moves";
             BlackHistory.Content = " Black Moves";
 
@@ -64,6 +64,7 @@ namespace AccountManager
 
         #region Chess Game Mechanics
 
+        // Create interactive Chessboard with alternating colours
         private void CreateButtonGrid(Brush primary, Brush secondary)
         {
             for (int row = 0; row < 8; row++)
@@ -85,9 +86,6 @@ namespace AccountManager
 
         private void GridButton_Click(object sender, RoutedEventArgs e)
         {
-            // Disable buttons
-
-            // Check if users turn
 
             // Get info about Cell
             Button clickedButton = (sender as Button);
@@ -129,11 +127,19 @@ namespace AccountManager
 
             }
 
-            // If user wants to look for legal moves
+            
             else if (clickedCell.IsOccupied)
             {
-                chessboard.ClearMarkedLegalMoves();
-                chessboard.FindLegalMoves(clickedCell.piece);
+                // Find legal moves if user clicks on white piece, do nothing if black piece that is not legal
+                if (clickedCell.piece.IsWhite)
+                {
+                    chessboard.ClearMarkedLegalMoves();
+                    chessboard.FindLegalMoves(clickedCell.piece);
+                }
+                else
+                {
+                    return;
+                }
             }
 
             // If user didn't click on legal or occupied
@@ -145,6 +151,7 @@ namespace AccountManager
             currentCell = clickedCell;
 
             UpdateBoardState();
+
         }
 
         private void ComputerMove(List<Pieces> blackPieces)
@@ -269,23 +276,25 @@ namespace AccountManager
             chessboard.ClearMarkedLegalMoves();
         }
 
-        // If occupied add name, else clear content
-        // if legal change colour to yellow, else change it back to original colour
         private void UpdateBoardState()
         {
             foreach (Button button in Chessboard.Children)
             {
                 Cell cell = button.Tag as Cell;
 
+                // If occupied add name, else clear content
                 if (cell.IsOccupied)
                 {
+
                     button.Content = ChessApp.Rulebook.ConvertPieceToInitial(cell.piece);
                 }
                 else
                 {
                     button.Content = "";
+                    button.IsEnabled = true;
                 }
 
+                // If legal change colour to yellow, else change it back to original colour
                 if (cell.IsLegal)
                 {
                     button.Background = Brushes.Yellow;
@@ -301,6 +310,8 @@ namespace AccountManager
                         button.Background = primaryColour;
                     }
                 }
+
+
             }
         }
 

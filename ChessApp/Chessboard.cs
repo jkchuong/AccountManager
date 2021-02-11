@@ -112,6 +112,8 @@ namespace ChessApp
                 {
                     int desitinationRow = piece.Position.Row + move.MoveRow;
                     int desitnationColumn = piece.Position.Column + move.MoveColumn;
+
+                    // Can move anywhere as long as it is of opposide colour or unoccupied
                     if (IsOnBoard(desitinationRow, desitnationColumn))
                     {
                         if (Board[desitinationRow, desitnationColumn].piece == null)
@@ -146,6 +148,7 @@ namespace ChessApp
             }
         }
 
+        // Redundant code for testing in console
         //public void NewGame()
         //{
         //    Pawn whitePawn1 = new Pawn(true, Board[6, 0]);
@@ -326,7 +329,7 @@ namespace ChessApp
 
         private void CheckBishopObstruction(Pieces piece)
         {
-            // backward movement
+            // backward right movement
             bool Unobstructed = true;
             int movement = 1;
             do
@@ -356,7 +359,7 @@ namespace ChessApp
             }
             while (Unobstructed);
 
-            // forward movement
+            // forward right movement
             Unobstructed = true;
             movement = 1;
             do
@@ -387,7 +390,7 @@ namespace ChessApp
             }
             while (Unobstructed);
 
-            // left movement
+            // backward left movement
             Unobstructed = true;
             movement = 1;
             do
@@ -418,7 +421,7 @@ namespace ChessApp
             }
             while (Unobstructed);
 
-            // right movement
+            // forward left movement
             Unobstructed = true;
             movement = 1;
             do
