@@ -11,10 +11,10 @@
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="27*"/>
+                <ColumnDefinition Width="50*"/>
                 <ColumnDefinition Width="173*"/>
                 <ColumnDefinition Width="173*"/>
-                <ColumnDefinition Width="27*"/>
+                <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="58*"/>
@@ -25,15 +25,15 @@
                 <RowDefinition Height="95*"/>
             </Grid.RowDefinitions>
 
-            <Image Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="USERNAME:" FontSize="60" IsReadOnly="True"/>
-            <TextBox Grid.Row="3" Grid.Column="1" Text="PASSWORD:" FontSize="60" IsReadOnly="True"/>
-            <TextBox x:Name="usernameInput" Grid.Row="2" Grid.Column="2" Text="" FontSize="63" IsReadOnly="False"/>
+            <Image Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Source="ChessLogo.png"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="USERNAME:" FontSize="50" IsReadOnly="True" TextAlignment="Center"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="PASSWORD:" FontSize="50" IsReadOnly="True" TextAlignment="Center"/>
+            <TextBox x:Name="usernameInput" Grid.Row="2" Grid.Column="2" Text="" FontSize="50" IsReadOnly="False"/>
             <TextBox x:Name="Message" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Text="" FontSize="30" IsReadOnly="True" Height="50" VerticalAlignment="Top" TextAlignment="Center"/>
-            <PasswordBox x:Name="passwordInput" Grid.Row="3" Grid.Column="2" FontSize="63"/>
+            <PasswordBox x:Name="passwordInput" Grid.Row="3" Grid.Column="2" FontSize="50"/>
 
-            <Button x:Name="submit" Content="LOGIN" Grid.Column="1" Grid.Row="4" FontSize="60" Click="Submit_Click" />
-            <Button x:Name="createNewAccount" Content="REGISTER" Grid.Column="2" Grid.Row="4" FontSize="60" Click="Register_Click" />
+            <Button x:Name="submit" Content="LOGIN" Grid.Column="1" Grid.Row="4" FontSize="50" Click="Submit_Click" />
+            <Button x:Name="createNewAccount" Content="REGISTER" Grid.Column="2" Grid.Row="4" FontSize="50" Click="Register_Click" />
 
         </Grid>
     </Grid>

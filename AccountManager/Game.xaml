@@ -5,26 +5,27 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AccountManager"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="800"
+      d:DesignHeight="800" d:DesignWidth="1000"
       Title="Game">
 
     <Grid>
         <Grid>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="21*"/>
-                <ColumnDefinition Width="125*"/>
-                <ColumnDefinition Width="127*"/>
-                <ColumnDefinition Width="506*"/>
-                <ColumnDefinition Width="21*"/>
+                <ColumnDefinition Width="16*"/>
+                <ColumnDefinition Width="96*"/>
+                <ColumnDefinition Width="97*"/>
+                <ColumnDefinition Width="567*"/>
+                <ColumnDefinition Width="208*"/>
+                <ColumnDefinition Width="16*"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="21*"/>
-                <RowDefinition Height="229*"/>
-                <RowDefinition Height="89*"/>
-                <RowDefinition Height="89*"/>
-                <RowDefinition Height="226*"/>
+                <RowDefinition Height="211*"/>
+                <RowDefinition Height="105*"/>
+                <RowDefinition Height="105*"/>
+                <RowDefinition Height="212*"/>
                 <RowDefinition Height="62"/>
                 <RowDefinition Height="63"/>
                 <RowDefinition Height="21*"/>
@@ -74,7 +75,7 @@
                     </ItemsControl.ItemContainerStyle>
                 </ItemsControl>
             </Grid>
-
+ 
             <!-- Rules Viewer -->
 
             <ScrollViewer x:Name="Rulebook" Grid.Row="1" Grid.Column="2" Background="MintCream" Grid.ColumnSpan="2" Visibility="Collapsed" FontSize="20" VerticalScrollBarVisibility="Visible" Grid.RowSpan="4">
@@ -124,7 +125,7 @@
                 </TextBlock>
             </ScrollViewer>
 
-            <!-- Move History -->
+            <!-- Move Histories -->
 
             <ScrollViewer x:Name="WhiteHistory" Grid.Column="1" Grid.Row="1" FontSize="15" VerticalScrollBarVisibility="Hidden" Background="White" Foreground="Black" Grid.RowSpan="2"/>
             <ScrollViewer x:Name="BlackHistory" Grid.Column="1" Grid.Row="3" FontSize="15" VerticalScrollBarVisibility="Hidden" Background="Black" Foreground="White" Grid.RowSpan="2"/>
@@ -136,13 +137,21 @@
             <Button x:Name="Logout" Content="Logout" Grid.Column="1" Grid.Row="6" FontSize="30" Background="Orange" Click="Logout_Click"/>
             <Button x:Name="Rules" Content="Rules" Grid.Column="2" Grid.Row="5" FontSize="30" Background="LightGoldenrodYellow" Click="Rules_Click"/>
 
+            <!-- Mask -->
+            
+            <Rectangle x:Name="PromotionBackground" Visibility="Collapsed" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="2" Fill="Transparent"/>
+
             <!-- Database Information -->
 
             <TextBox x:Name="UserData" Grid.Column="3" Grid.Row="5" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
-            <TextBox x:Name="Rankings" Grid.Column="3" Grid.Row="6" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
+            <TextBox x:Name="Message" Grid.Column="3" Grid.Row="6" Text="" FontSize="30" TextAlignment="Center" IsReadOnly="True"/>
+            
+            <TextBlock x:Name="Ranking1" Grid.Column="4" Grid.Row="1" Text="" FontSize="30" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock x:Name="Ranking2" Grid.Column="4" Grid.Row="2" Grid.RowSpan="2" Text="" FontSize="30" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock x:Name="Ranking3" Grid.Column="4" Grid.Row="4" Text="" FontSize="30" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
             <!-- Pawn Promotion -->
-            <Grid x:Name="Promotion" Visibility="Collapsed" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <Grid x:Name="Promotion" Visibility="Collapsed" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,1,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -151,9 +160,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                
-                <Rectangle x:Name="PromotionBackground" Visibility="Collapsed" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="2" Fill="Transparent"/>
 
+                
                 <Button x:Name="Knight" Grid.Column="0" Grid.Row="0" Content="Knight" FontSize="60" Click="Promotion_Click"/>
                 <Button x:Name="Rook" Grid.Column="0" Grid.Row="1" Content="Rook" FontSize="60" Click="Promotion_Click"/>
                 <Button x:Name="Bishop" Grid.Column="1" Grid.Row="0" Content="Bishop" FontSize="60" Click="Promotion_Click"/>
@@ -161,7 +169,7 @@
 
             </Grid>
 
-            
+
         </Grid>
 
     </Grid>

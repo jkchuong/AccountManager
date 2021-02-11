@@ -64,7 +64,6 @@ namespace ChessApp
         // Check if K is in check, if so next move must move piece out of check (i.e check if K is on same cell as legal move)
         // Check if K is in mate, if so end the game (check all K legal and occupied positions are in opponents legal move)
         // Castling, en passant?
-        // Promotion, when pawn reaches either side of the board, give choice on which piece to choose (B R Q N)
 
         public void FindLegalMoves(Pieces piece)
         {
@@ -95,6 +94,7 @@ namespace ChessApp
             }
         }
 
+        // Create reusable method?
         private void CheckKnightLegals(Pieces piece)
         {
             foreach (Move move in piece.PossibleMoves)

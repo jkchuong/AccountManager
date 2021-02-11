@@ -104,6 +104,25 @@ namespace AccountBusiness
             return selectedUser.Losses;
         }
 
+        public List<Tuple<string, int>> GetTopThreePlayers()
+        {
+            var topThree = new List<Tuple<string, int>>();
+
+            using var db = new GameContext();
+            var organisedUsers =
+                (from u in db.Users
+                orderby u.Wins descending
+                select new { Name = u.Name, Win = u.Wins }).Take(3);
+
+            foreach (var user in organisedUsers)
+            {
+                Tuple<string, int> tuple = new Tuple<string, int>(user.Name, user.Win);
+                topThree.Add(tuple);
+            }
+
+            return topThree;
+        }
+
 
 
         public bool UserExist(string username)

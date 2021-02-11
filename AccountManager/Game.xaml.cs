@@ -74,6 +74,15 @@ namespace AccountManager
             // Populate user information
             string data = $"{user.Name}, Wins: {user.Wins}, Losses: {user.Losses}.";
             UserData.Text = data;
+
+            // Populate Ranking
+            var topThree = _account.GetTopThreePlayers();
+            string rank1 = $"1st\r\n{topThree[0].Item1}: {topThree[0].Item2}";
+            string rank2 = $"2nd\r\n{topThree[1].Item1}: {topThree[1].Item2}";
+            string rank3 = $"3rd\r\n{topThree[2].Item1}: {topThree[2].Item2}";
+            Ranking1.Text = rank1;
+            Ranking2.Text = rank2;
+            Ranking3.Text = rank3;
         }
 
         public void GetSavedGame()
