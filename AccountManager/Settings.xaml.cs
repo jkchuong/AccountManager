@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Xml.Linq;
 using AccountBusiness;
 using AccountData;
 
@@ -77,6 +78,9 @@ namespace AccountManager
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            XDocument saveFile = _account.LoadSaveFile();
+            _account.DeleteUserSave(user.UserId, saveFile);
+
             Login login = new Login();
             this.NavigationService.Navigate(login);
             _account.DeleteUser(user.UserId);

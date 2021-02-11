@@ -191,7 +191,7 @@ namespace AccountBusiness
             return saveFile;
         }
 
-        private static void DeleteUserSave(string userId, XDocument saveFile)
+        public void DeleteUserSave(string userId, XDocument saveFile)
         {
             saveFile.Descendants().Where(u => (string)u.Attribute("UserId") == userId).FirstOrDefault().Remove();
             saveFile.Save("Saves.xml");
