@@ -13,6 +13,7 @@ namespace AccountBusiness
 {
     public class Business
     {
+        // Not used
         public User SelectedUser { get; set; }
 
         public User SetSelectedCustomer(string username)

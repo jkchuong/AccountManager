@@ -73,6 +73,9 @@ namespace AccountManager
             }
 
             Status.Text = message;
+
+            // Reset the current user with updated user
+            user = _account.SetSelectedCustomer(user.UserId);
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
