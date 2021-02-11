@@ -185,7 +185,6 @@ namespace AccountManager
                 // Find legal moves if user clicks on white piece, do nothing if black piece that is not legal
                 if (clickedCell.Piece.IsWhite)
                 {
-                    chessboard.ClearMarkedLegalMoves();
                     chessboard.FindLegalMoves(clickedCell.Piece);
                 }
                 else
@@ -218,20 +217,52 @@ namespace AccountManager
             UpdateBoardState();
         }
 
+        // How to optimise make a move if aggressive is available, else make random move?
         private void ComputerMove(List<Pieces> blackPieces)
         {
-            // Delay before computer move
+            // Delay before computer move (doesn't work)
             Random rnd = new Random();
             Task.Delay(rnd.Next(500, 2000));
 
-            bool hasNotMoved = true;
-            while (hasNotMoved)
+            bool hasMoved = false;
+
+            while (!hasMoved)
             {
-                Pieces piece = blackPieces[rnd.Next(0, blackPieces.Count - 1)];
-                if (chessboard.HasLegalMove(piece))
+                List<Pieces> piecesWithAggressiveMoves = chessboard.GetPiecesWithAggressiveMoves(blackPieces);
+
+                // Check if something can make any aggressive move
+                if (user.AggressiveOn && piecesWithAggressiveMoves.Any())
                 {
-                    // Get list of legal moves for that piece
+                    // Get a random pieces that can make an aggressive move
+                    Pieces piece = piecesWithAggressiveMoves[rnd.Next(0, piecesWithAggressiveMoves.Count - 1)];
+                    List<Cell> aggressivePositions = new List<Cell>();
+
+                    chessboard.FindLegalMoves(piece);
+
+                    foreach(Cell cell in chessboard.Board)
+                    {
+                        if (cell.IsLegal && cell.IsOccupied)
+                        {
+                            aggressivePositions.Add(cell);
+                        }
+                    }
+
+                    // Print Move History
+                    Cell newCell = aggressivePositions[rnd.Next(0, aggressivePositions.Count - 1)];
+                    PrintMoveHistory(piece.Position, newCell);
+                    chessboard.MovePiece(piece.Position, newCell);
+                    hasMoved = true;
+                }
+
+                // If user doesn't want aggressive AI or AI can't make aggressive move, make random move
+                else
+                {
+                    List<Pieces> piecesWithLegalMoves = chessboard.GetPiecesWithLegalMoves(blackPieces);
+
+                    Pieces piece = piecesWithLegalMoves[rnd.Next(0, piecesWithLegalMoves.Count - 1)];
                     List<Cell> legalPositions = new List<Cell>();
+
+                    chessboard.FindLegalMoves(piece);
 
                     foreach (Cell cell in chessboard.Board)
                     {
@@ -244,17 +275,14 @@ namespace AccountManager
                     // Print Move History
                     Cell newCell = legalPositions[rnd.Next(0, legalPositions.Count - 1)];
                     PrintMoveHistory(piece.Position, newCell);
-
                     chessboard.MovePiece(piece.Position, newCell);
-                    hasNotMoved = false;
-                }
-                else
-                {
-                    blackPieces.Remove(piece);
+                    hasMoved = true;
                 }
             }
+
             chessboard.ClearMarkedLegalMoves();
         }
+
 
         private bool IsGameOver(List<Pieces> whitePieces, List<Pieces> blackPieces)
         {

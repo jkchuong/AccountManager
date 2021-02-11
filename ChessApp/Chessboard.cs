@@ -67,6 +67,8 @@ namespace ChessApp
 
         public void FindLegalMoves(Pieces piece)
         {
+            ClearMarkedLegalMoves();
+
             if (piece.Name == "Pawn")
             {
                 CheckPawnLegals(piece);
@@ -147,8 +149,8 @@ namespace ChessApp
                         {
                             Board[desitinationRow, destinationColumn].IsLegal = true;
 
-                            // if first move, can move two steps
-                            if (piece.IsFirstMove)
+                            // if first move and unoccipied, can move two steps
+                            if (piece.IsFirstMove && !Board[desitinationRow + move.MoveRow, destinationColumn + move.MoveColumn].IsOccupied)
                             {
                                 Board[desitinationRow + move.MoveRow, destinationColumn + move.MoveColumn].IsLegal = true;
                             }
@@ -417,6 +419,50 @@ namespace ChessApp
             }
             return false;
         }
+
+        // Get pieces with legal moves
+        public List<Pieces> GetPiecesWithLegalMoves(List<Pieces> pieces)
+        {
+            List<Pieces> piecesWithLegalMoves = new List<Pieces>();
+            foreach (Pieces piece in pieces)
+            {
+                if (HasLegalMove(piece))
+                {
+                    piecesWithLegalMoves.Add(piece);
+                }
+            }
+            return piecesWithLegalMoves;
+        }
+
+        // Check if piece can make aggressive moves
+        public bool HasAggressiveMove(Pieces piece)
+        {
+            FindLegalMoves(piece);
+            foreach (Cell cell in Board)
+            {
+                if (cell.IsLegal && cell.IsOccupied)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Get pieces with aggressive moves
+        public List<Pieces> GetPiecesWithAggressiveMoves(List<Pieces> pieces)
+        {
+            List<Pieces> piecesWithAggressiveMoves = new List<Pieces>();
+            foreach (Pieces piece in pieces)
+            {
+                if (HasAggressiveMove(piece))
+                {
+                    piecesWithAggressiveMoves.Add(piece);
+                }
+            }
+            return piecesWithAggressiveMoves;
+        }
+
+        // Make an aggressive move
 
         public bool KingExists(List<Pieces> pieces)
         {
