@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Timers;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using System.Xml.Linq;
 using AccountBusiness;
 using AccountData;
@@ -160,6 +162,12 @@ namespace AccountManager
                 whitePieces = chessboard.SearchForPieces(true);
                 blackPieces = chessboard.SearchForPieces(false);
 
+                if (chessboard.KingInCheckForOtherSide(whitePieces))
+                {
+                    Message.Text = "Black King in check";
+                }
+
+                // Start new game if it's game over, else go to next turn
                 if (IsGameOver(whitePieces, blackPieces))
                 {
                     chessboard.NewGame();
@@ -172,6 +180,11 @@ namespace AccountManager
                 // Check if game over after black move
                 blackPieces = chessboard.SearchForPieces(false);
                 whitePieces = chessboard.SearchForPieces(true);
+
+                if (chessboard.KingInCheckForOtherSide(blackPieces))
+                {
+                    Message.Text = "White King in check";
+                }
 
                 if (IsGameOver(whitePieces, blackPieces))
                 {
@@ -217,7 +230,7 @@ namespace AccountManager
             UpdateBoardState();
         }
 
-        // How to optimise make a move if aggressive is available, else make random move?
+        // How to optimise? (Use goto statement?)
         private void ComputerMove(List<Pieces> blackPieces)
         {
             // Delay before computer move (doesn't work)
@@ -251,7 +264,12 @@ namespace AccountManager
                     Cell newCell = aggressivePositions[rnd.Next(0, aggressivePositions.Count - 1)];
                     PrintMoveHistory(piece.Position, newCell);
                     chessboard.MovePiece(piece.Position, newCell);
-                    hasMoved = true;
+
+                    // Make Promotion if pawn reaches the end
+                    if (piece.Name == "Pawn" && (piece.Position.Row == 0 || piece.Position.Row == 7))
+                    {
+                        chessboard.Promotion(piece, "Queen");
+                    }
                 }
 
                 // If user doesn't want aggressive AI or AI can't make aggressive move, make random move
@@ -276,13 +294,19 @@ namespace AccountManager
                     Cell newCell = legalPositions[rnd.Next(0, legalPositions.Count - 1)];
                     PrintMoveHistory(piece.Position, newCell);
                     chessboard.MovePiece(piece.Position, newCell);
-                    hasMoved = true;
+
+                    // Make promotion if pawn reaches the end
+                    if (piece.Name == "Pawn" && (piece.Position.Row == 0 || piece.Position.Row == 7))
+                    {
+                        chessboard.Promotion(piece, "Queen");
+                    }
                 }
+
+                hasMoved = true;
             }
 
             chessboard.ClearMarkedLegalMoves();
         }
-
 
         private bool IsGameOver(List<Pieces> whitePieces, List<Pieces> blackPieces)
         {
@@ -422,9 +446,10 @@ namespace AccountManager
         // Store all piece information in SQL database
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            // How to use timer?
             _account.SaveToXML(user.UserId, chessboard.Board);
+            Message.Text = "Saved!";
         }
-
 
         // Go to settings page
         private void Settings_Click(object sender, RoutedEventArgs e)
@@ -447,5 +472,6 @@ namespace AccountManager
                 Rules.Background = Brushes.LightGoldenrodYellow;
             }
         }
+
     }
 }

@@ -462,8 +462,6 @@ namespace ChessApp
             return piecesWithAggressiveMoves;
         }
 
-        // Make an aggressive move
-
         public bool KingExists(List<Pieces> pieces)
         {
             foreach (Pieces piece in pieces)
@@ -473,6 +471,29 @@ namespace ChessApp
                     return true;
                 }
             }
+            return false;
+        }
+
+        // Check if King for the other colour is in check
+        public bool KingInCheckForOtherSide(List<Pieces> pieces)
+        {
+            GetPiecesWithAggressiveMoves(pieces);
+
+            foreach (Pieces piece in pieces)
+            {
+                FindLegalMoves(piece);
+
+                foreach(Cell cell in Board)
+                {
+                    if (cell.IsLegal && cell.IsOccupied && cell.Piece.Name == "King")
+                    {
+                        ClearMarkedLegalMoves();
+                        return true;
+                    }
+                }
+            }
+
+            ClearMarkedLegalMoves();
             return false;
         }
 
