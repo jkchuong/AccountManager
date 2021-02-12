@@ -4,6 +4,8 @@ This project aims to create a Chess Game program that features chess gameplay as
 
 Chess Game Engine (CGE) repository is found [here](https://github.com/jkchuong/LetsTryMakeAChessGame).
 
+Kanban Board progress of each sprints can be found in the images folder [here](https://github.com/jkchuong/AccountManager/tree/main/Images).
+
 **Definition of Done:** This project is considered to be complete when a user can register an account, log in, and play a full game of chess with ability to track user stats, moves, colour themes, and computer playstyle. If the user can again log in with the same details, this project will be marked as done.
 
 ## Sprint Progress
@@ -88,7 +90,12 @@ The log in page has two spaces for you to enter your username and password. Clic
 
 ![Registration Page](https://github.com/jkchuong/AccountManager/blob/main/Images/Registration.png)
 
-The registration page allows you to register an account with the program. Name is where your name goes and will be how you are identified within the game. Username is what you will use to log in to the game and is your unique identifier. This cannot be changed later. Password and Repeat is where you type in your password; if the two are not the same, the registration will not work and an error message will be shown. "Back" takes you back to the login page.
+The registration page allows you to register an account with the program.
+
+- Name is where your name goes and will be how you are identified within the game.
+- Username is what you will use to log in to the game and is your unique identifier. This cannot be changed later.
+- Password and Repeat is where you type in your password; if the two are not the same, the registration will not work and an error message will be shown.
+- "Back" takes you back to the login page.
 
 #### <u>Game Page</u>
 
@@ -108,7 +115,12 @@ The bottom section contains four buttons and two text boxes. The upper text box 
 
 ![Settings Page](https://github.com/jkchuong/AccountManager/blob/main/Images/Settings.png)
 
-The final available page is the settings page. Here, you can update your information, password, and gameplay. Your name and password can be changed here, however your username is unique and cannot be changed. "Theme" provides a selection of colour schemes if you wish to jazz up your chessboard. "Aggressive AI" has a toggle that changes the computer's playstyle from doing random moves, to capturing your pieces every chance it gets. Be careful! Any piece you move, it *will* take. Once you are happy with the changes, you can click on "Save Changes", or you can click on "Back" to navigate back to the game without changing your settings. Finally, the bright red button lets you delete your account. Keep in mind that deleting your account is permanent, if you wish to play again, you will be required to create another account.
+The final available page is the settings page. Here, you can update your information, password, and gameplay. Your name and password can be changed here, however your username is unique and cannot be changed.
+
+- "Theme" provides a selection of colour schemes if you wish to jazz up your chessboard.
+- "Aggressive AI" has a toggle that changes the computer's playstyle from doing random moves, to capturing your pieces every chance it gets. Be careful! Any piece you move, it *will* take.
+
+Once you are happy with the changes, you can click on "Save Changes", or you can click on "Back" to navigate back to the game without changing your settings. Finally, the bright red button lets you delete your account. Keep in mind that deleting your account is permanent, if you wish to play again, you will be required to create another account.
 
 ## License
 
