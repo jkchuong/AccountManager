@@ -32,7 +32,7 @@
             <TextBox x:Name="Message" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Text="" FontSize="30" IsReadOnly="True" Height="50" VerticalAlignment="Top" TextAlignment="Center"/>
             <PasswordBox x:Name="passwordInput" Grid.Row="3" Grid.Column="2" FontSize="50"/>
 
-            <Button x:Name="submit" Content="LOGIN" Grid.Column="1" Grid.Row="4" FontSize="50" Click="Submit_Click" />
+            <Button x:Name="submit" Content="LOGIN" Grid.Column="1" Grid.Row="4" FontSize="50" Click="Submit_Click" IsDefault="True"/>
             <Button x:Name="createNewAccount" Content="REGISTER" Grid.Column="2" Grid.Row="4" FontSize="50" Click="Register_Click" />
 
         </Grid>
