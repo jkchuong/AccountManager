@@ -1,4 +1,4 @@
-# Account Manager
+# Chess Game Application
 
 This project aims to create a Chess Game program that features chess gameplay as well as account registration and stats tracking. The GUI will be created in WPF, the database will be stored using SQL. The game engine for the chess gameplay will be created in a separate repository and migrated over when ready. The main language for this project is C#, with some XAML for the GUI. The database will be queried using LINQ to SQL. Persistent save files will be stored using XML and queried using LINQ to XML.
 
