@@ -44,7 +44,7 @@ namespace AccountManager
 
 
 
-        public Game(User userPassed)
+        public Game(User userPassed, bool comingFromLogin)
         {
             Piece = new ObservableCollection<Pieces>();
             user = userPassed;
@@ -61,10 +61,16 @@ namespace AccountManager
             WhiteHistory.Content = " White Moves";
             BlackHistory.Content = " Black Moves";
 
-            if (user.SaveExist)
+            // Load saved game if it exists and arriving from login
+            if (user.SaveExist && comingFromLogin)
             {
-                GetSavedGame();
+                GetSavedGame("Save");
+            }
 
+            // Load temp save if it exists and arriving from settings
+            else if (_account.TempSaveExists(user.UserId))
+            {
+                GetSavedGame("Temp");
             }
             else
             {
@@ -87,9 +93,9 @@ namespace AccountManager
             Ranking3.Text = rank3;
         }
 
-        public void GetSavedGame()
+        public void GetSavedGame(string file)
         {
-            XDocument saveFile = _account.LoadSaveFile();
+            XDocument saveFile = _account.LoadSaveFile(file);
             XElement userSave =
                 saveFile.Descendants("User")
                 .Where(s => (string)s.Attribute("UserId") == user.UserId)
@@ -439,6 +445,9 @@ namespace AccountManager
         // Go back to login page
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
+            XDocument saveFile = _account.LoadSaveFile("Temp");
+            _account.DeleteUserSave(user.UserId, saveFile);
+
             Login login = new Login();
             this.NavigationService.Navigate(login);
         }
@@ -447,13 +456,14 @@ namespace AccountManager
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             // How to use timer?
-            _account.SaveToXML(user.UserId, chessboard.Board);
+            _account.SaveToXML(user.UserId, chessboard.Board, "Save");
             Message.Text = "Saved!";
         }
 
         // Go to settings page
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
+            _account.SaveToXML(user.UserId, chessboard.Board, "Temp");
             Settings setting = new Settings(user);
             this.NavigationService.Navigate(setting);
         }

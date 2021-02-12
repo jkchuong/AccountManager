@@ -80,13 +80,13 @@ namespace AccountManager
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Game game = new Game(user);
+            Game game = new Game(user, false);
             this.NavigationService.Navigate(game);
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            XDocument saveFile = _account.LoadSaveFile();
+            XDocument saveFile = _account.LoadSaveFile("Save");
             _account.DeleteUserSave(user.UserId, saveFile);
 
             Login login = new Login();

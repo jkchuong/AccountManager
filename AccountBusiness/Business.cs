@@ -209,19 +209,32 @@ namespace AccountBusiness
 
         public XElement GetUserSave(string userId, XDocument saveFile)
         {
-            return 
+            return
                 saveFile.Descendants("User")
                 .Where(s => (string)s.Attribute("UserId") == userId)
                 .FirstOrDefault();
         }
 
-        public XDocument LoadSaveFile()
+        public XDocument LoadSaveFile(string file)
         {
-            var filename = "Saves.xml";
+            var filename = file + ".xml";
             var currentDirectory = Directory.GetCurrentDirectory();
             var saveFilePath = Path.Combine(currentDirectory, filename);
             XDocument saveFile = XDocument.Load(saveFilePath);
             return saveFile;
+        }
+
+        public bool TempSaveExists(string userId)
+        {
+            XDocument tempFile = LoadSaveFile("Temp");
+
+            var userSave = GetUserSave(userId, tempFile);
+
+            if (userSave != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void DeleteUserSave(string userId, XDocument saveFile)
@@ -230,9 +243,9 @@ namespace AccountBusiness
             saveFile.Save("Saves.xml");
         }
 
-        public void SaveToXML(string userId, Cell[,] board)
+        public void SaveToXML(string userId, Cell[,] board, string file)
         {
-            XDocument saveFile = LoadSaveFile();
+            XDocument saveFile = LoadSaveFile(file);
 
             var userSave = GetUserSave(userId, saveFile);
 
@@ -262,9 +275,8 @@ namespace AccountBusiness
             }
 
             saveFile.Element("Saves").Add(user);
-            saveFile.Save("Saves.xml");
+            saveFile.Save(file + ".xml");
             SetSaveToExist(userId);
         }
-
     }
 }

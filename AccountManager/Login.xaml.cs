@@ -46,7 +46,7 @@ namespace AccountManager
             if (exists)
             {
                 User user = _account.SetSelectedUser(username);
-                Game game = new Game(user);
+                Game game = new Game(user, true);
                 this.NavigationService.Navigate(game);
             }
             else
