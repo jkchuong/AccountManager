@@ -40,7 +40,7 @@
                 <UniformGrid Rows="8" Columns="8" Opacity=".75"
                      x:Name="Chessboard"/>
 
-                <ItemsControl>
+                <ItemsControl ItemsSource="{Binding Pieces}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Grid IsItemsHost="True">

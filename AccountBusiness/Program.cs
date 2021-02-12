@@ -10,6 +10,13 @@ namespace AccountBusiness
     {
         static void Main(string[] args)
         {
+            Business account = new Business();
+
+            account.DeleteAllUsers();
+
+            using var db = new GameContext();
+
+            db.SaveChanges();
 
         }
 
