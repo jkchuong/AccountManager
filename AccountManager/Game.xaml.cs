@@ -232,6 +232,8 @@ namespace AccountManager
 
             chessboard.Promotion(currentCell.Piece, promotedPiece);
 
+            Message.Text = $" White Pawn promoted to {promotedPiece}";
+
             UpdateBoardState();
         }
 
@@ -274,6 +276,7 @@ namespace AccountManager
                     if (piece.Name == "Pawn" && (piece.Position.Row == 0 || piece.Position.Row == 7))
                     {
                         chessboard.Promotion(piece, "Queen");
+                        Message.Text = "Black Pawn promoted to Queen";
                     }
                 }
 
@@ -461,6 +464,7 @@ namespace AccountManager
             _account.SaveToXML(_account.SelectedUser.UserId, chessboard.Board, "Save");
             Message.Text = "Saved!";
         }
+
 
         // Go to settings page
         private void Settings_Click(object sender, RoutedEventArgs e)
