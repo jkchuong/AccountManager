@@ -87,7 +87,7 @@ namespace AccountManager
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             XDocument saveFile = _account.LoadSaveFile("Save");
-            _account.DeleteUserSave(user.UserId, saveFile);
+            _account.DeleteUserSave(user.UserId, saveFile, "Save");
 
             Login login = new Login();
             this.NavigationService.Navigate(login);

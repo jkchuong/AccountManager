@@ -237,10 +237,10 @@ namespace AccountBusiness
             return false;
         }
 
-        public void DeleteUserSave(string userId, XDocument saveFile)
+        public void DeleteUserSave(string userId, XDocument saveFile, string file)
         {
             saveFile.Descendants().Where(u => (string)u.Attribute("UserId") == userId).FirstOrDefault().Remove();
-            saveFile.Save("Saves.xml");
+            saveFile.Save(file + ".xml");
         }
 
         public void SaveToXML(string userId, Cell[,] board, string file)
@@ -252,7 +252,7 @@ namespace AccountBusiness
             // If user already has save file, delete and create a new one
             if (userSave != null)
             {
-                DeleteUserSave(userId, saveFile);
+                DeleteUserSave(userId, saveFile, file);
             }
 
             // Create XElement and populate with pieces

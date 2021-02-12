@@ -446,7 +446,7 @@ namespace AccountManager
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             XDocument saveFile = _account.LoadSaveFile("Temp");
-            _account.DeleteUserSave(user.UserId, saveFile);
+            _account.DeleteUserSave(user.UserId, saveFile, "Temp");
 
             Login login = new Login();
             this.NavigationService.Navigate(login);
