@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ChessImages\BlackBishop.png" />
+    <None Remove="ChessImages\BlackKing.png" />
+    <None Remove="ChessImages\BlackKnight.png" />
+    <None Remove="ChessImages\BlackPawn.png" />
+    <None Remove="ChessImages\BlackQueen.png" />
+    <None Remove="ChessImages\BlackRook.png" />
+    <None Remove="ChessImages\WhiteBishop.png" />
+    <None Remove="ChessImages\WhiteKing.png" />
+    <None Remove="ChessImages\WhiteKnight.png" />
+    <None Remove="ChessImages\WhitePawn.png" />
+    <None Remove="ChessImages\WhiteQueen.png" />
+    <None Remove="ChessImages\WhiteRook.png" />
     <None Remove="ChessLogo.png" />
   </ItemGroup>
 
@@ -26,6 +38,42 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="ChessImages\BlackBishop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessImages\BlackKing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessImages\BlackKnight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessImages\BlackPawn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessImages\BlackQueen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessImages\BlackRook.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessImages\WhiteBishop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessImages\WhiteKing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessImages\WhiteKnight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessImages\WhitePawn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessImages\WhiteQueen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ChessImages\WhiteRook.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="ChessLogo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

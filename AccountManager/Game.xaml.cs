@@ -384,8 +384,8 @@ namespace AccountManager
                 // If occupied add name, else clear content
                 if (cell.IsOccupied)
                 {
-
-                    button.Content = ChessApp.Rulebook.ConvertPieceToInitial(cell.Piece);
+                    var image = new Image { Source = new BitmapImage(new Uri(ImageSource(cell.Piece), UriKind.Relative)) };
+                    button.Content = image;
                 }
                 else
                 {
@@ -415,7 +415,7 @@ namespace AccountManager
         // Use images instead of letters? (not implemented)
         public static string ImageSource(Pieces piece)
         {
-            string source = "pack://application:,,,/ChessImages/";
+            string source = "/ChessImages/";
             if (piece.Name == "BlackPawn" || piece.Name == "WhitePawn")
             {
                 source += piece.Name + ".png";
