@@ -12,7 +12,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using AccountBusiness;
-using AccountData;
 
 namespace AccountManager
 {
@@ -26,8 +25,6 @@ namespace AccountManager
         public Login()
         {
             InitializeComponent();
-
-            
         }
 
         // Go to registration page
@@ -45,8 +42,8 @@ namespace AccountManager
             bool exists = _account.UserAndPasswordExist(username, password);
             if (exists)
             {
-                User user = _account.SetSelectedUser(username);
-                Game game = new Game(user, true);
+                _account.SetSelectedUser(username);
+                Game game = new Game(_account, true);
                 this.NavigationService.Navigate(game);
             }
             else

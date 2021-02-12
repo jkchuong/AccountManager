@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 
 using System.Xml.Linq;
 using AccountBusiness;
-using AccountData;
 
 namespace AccountManager
 {
@@ -24,21 +23,20 @@ namespace AccountManager
     /// </summary>
     public partial class Settings : Page
     {
-        Business _account = new Business();
-        User user;
+        Business _account;
 
-        public Settings(User userPassed)
+        public Settings(Business userPassed)
         {
-            user = userPassed;
+            _account = userPassed;
             var themes = _account.GetAllThemes();
 
             InitializeComponent();
 
             // Initialising entries 
-            SettingsUsername.Text = user.UserId;
-            SettingsName.Text = user.Name;
-            AISetting.IsChecked = user.AggressiveOn;
-            ThemeBox.SelectedIndex = user.ThemeId - 1;
+            SettingsUsername.Text = _account.SelectedUser.UserId;
+            SettingsName.Text = _account.SelectedUser.Name;
+            AISetting.IsChecked = _account.SelectedUser.AggressiveOn;
+            ThemeBox.SelectedIndex = _account.SelectedUser.ThemeId - 1;
             ThemeBox.ItemsSource = themes;
 
         }
@@ -48,7 +46,7 @@ namespace AccountManager
             string message = "Updated information ";
 
             // Get info from settings
-            string username = user.UserId;
+            string username = _account.SelectedUser.UserId;
             string newName = SettingsName.Text;
             int newTheme = ThemeBox.SelectedIndex + 1;
             bool aggressiveOn = (bool)AISetting.IsChecked;
@@ -75,23 +73,23 @@ namespace AccountManager
             Status.Text = message;
 
             // Reset the current user with updated user
-            user = _account.SetSelectedUser(user.UserId);
+            _account.SetSelectedUser(_account.SelectedUser.UserId);
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Game game = new Game(user, false);
+            Game game = new Game(_account, false);
             this.NavigationService.Navigate(game);
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             XDocument saveFile = _account.LoadSaveFile("Save");
-            _account.DeleteUserSave(user.UserId, saveFile, "Save");
+            _account.DeleteUserSave(_account.SelectedUser.UserId, saveFile, "Save");
 
             Login login = new Login();
             this.NavigationService.Navigate(login);
-            _account.DeleteUser(user.UserId);
+            _account.DeleteUser(_account.SelectedUser.UserId);
         }
     }
 }

@@ -16,11 +16,11 @@ namespace AccountBusiness
         // Not used
         public User SelectedUser { get; set; }
 
-        public User SetSelectedUser(string username)
+        public void SetSelectedUser(string username)
         {
             using var db = new GameContext();
             var entry = db.Users.Find(username);
-            return entry;
+            SelectedUser = entry;
         }
 
         public void CreateUser(string name, string username, string password)

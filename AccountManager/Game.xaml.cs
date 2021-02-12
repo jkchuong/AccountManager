@@ -17,8 +17,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Xml.Linq;
+
 using AccountBusiness;
-using AccountData;
 using ChessApp;
 
 namespace AccountManager
@@ -32,8 +32,7 @@ namespace AccountManager
     public partial class Game : Page
     {
         // Declare parameters
-        private Business _account = new Business();
-        private User user;
+        private Business _account;
 
         private Brush primaryColour;
         private Brush secondaryColour;
@@ -44,15 +43,15 @@ namespace AccountManager
 
 
 
-        public Game(User userPassed, bool comingFromLogin)
+        public Game(Business userPassed, bool comingFromLogin)
         {
             Piece = new ObservableCollection<Pieces>();
-            user = userPassed;
+            _account = userPassed;
 
             InitializeComponent();
 
             
-            var userThemes = _account.GetUserTheme(user.UserId);
+            var userThemes = _account.GetUserTheme(_account.SelectedUser.UserId);
             primaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[0]);
             secondaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[1]);
 
@@ -62,13 +61,13 @@ namespace AccountManager
             BlackHistory.Content = " Black Moves";
 
             // Load saved game if it exists and arriving from login
-            if (user.SaveExist && comingFromLogin)
+            if (_account.SelectedUser.SaveExist && comingFromLogin)
             {
                 GetSavedGame("Save");
             }
 
             // Load temp save if it exists and arriving from settings
-            else if (_account.TempSaveExists(user.UserId))
+            else if (_account.TempSaveExists(_account.SelectedUser.UserId))
             {
                 GetSavedGame("Temp");
             }
@@ -80,7 +79,7 @@ namespace AccountManager
             UpdateBoardState();
 
             // Populate user information
-            string data = $"{user.Name}, Wins: {user.Wins}, Losses: {user.Losses}.";
+            string data = $"{_account.SelectedUser.Name}, Wins: {_account.SelectedUser.Wins}, Losses: {_account.SelectedUser.Losses}.";
             UserData.Text = data;
 
             // Populate Ranking
@@ -98,7 +97,7 @@ namespace AccountManager
             XDocument saveFile = _account.LoadSaveFile(file);
             XElement userSave =
                 saveFile.Descendants("User")
-                .Where(s => (string)s.Attribute("UserId") == user.UserId)
+                .Where(s => (string)s.Attribute("UserId") == _account.SelectedUser.UserId)
                 .FirstOrDefault();
 
             foreach (XElement pieceInSave in userSave.Elements())
@@ -250,7 +249,7 @@ namespace AccountManager
                 List<Pieces> piecesWithAggressiveMoves = chessboard.GetPiecesWithAggressiveMoves(blackPieces);
 
                 // Check if something can make any aggressive move
-                if (user.AggressiveOn && piecesWithAggressiveMoves.Any())
+                if (_account.SelectedUser.AggressiveOn && piecesWithAggressiveMoves.Any())
                 {
                     // Get a random pieces that can make an aggressive move
                     Pieces piece = piecesWithAggressiveMoves[rnd.Next(0, piecesWithAggressiveMoves.Count - 1)];
@@ -326,18 +325,18 @@ namespace AccountManager
             }
             else if (!chessboard.KingExists(blackPieces))
             {
-                newWins = _account.AddOneToWins(user.UserId);
+                newWins = _account.AddOneToWins(_account.SelectedUser.UserId);
             }
             else
             {
-                newLoss = _account.AddOneToLosses(user.UserId);
+                newLoss = _account.AddOneToLosses(_account.SelectedUser.UserId);
             }
 
             //Refresh data
             WhiteHistory.Content = " White Moves";
             BlackHistory.Content = " Black Moves";
 
-            string data = $"{user.Name}, Wins: {newWins}, Losses: {newLoss}.";
+            string data = $"{_account.SelectedUser.Name}, Wins: {newWins}, Losses: {newLoss}.";
             UserData.Text = data;
             return true;
         }
@@ -446,7 +445,7 @@ namespace AccountManager
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             XDocument saveFile = _account.LoadSaveFile("Temp");
-            _account.DeleteUserSave(user.UserId, saveFile, "Temp");
+            _account.DeleteUserSave(_account.SelectedUser.UserId, saveFile, "Temp");
 
             Login login = new Login();
             this.NavigationService.Navigate(login);
@@ -456,15 +455,15 @@ namespace AccountManager
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             // How to use timer?
-            _account.SaveToXML(user.UserId, chessboard.Board, "Save");
+            _account.SaveToXML(_account.SelectedUser.UserId, chessboard.Board, "Save");
             Message.Text = "Saved!";
         }
 
         // Go to settings page
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            _account.SaveToXML(user.UserId, chessboard.Board, "Temp");
-            Settings setting = new Settings(user);
+            _account.SaveToXML(_account.SelectedUser.UserId, chessboard.Board, "Temp");
+            Settings setting = new Settings(_account);
             this.NavigationService.Navigate(setting);
         }
 
