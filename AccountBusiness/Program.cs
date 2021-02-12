@@ -13,7 +13,7 @@ namespace AccountBusiness
             Business account = new Business();
             Random rnd = new Random();
 
-            //account.DeleteAllUsers();
+            account.DeleteAllUsers();
 
             using var db = new GameContext();
             db.Users.Add(new User() { Name = "Jimmy", UserId = "Soup", Password = "Jimmy", Wins = rnd.Next(50, 100), Losses = rnd.Next(30, 100) });
@@ -24,8 +24,6 @@ namespace AccountBusiness
             db.Users.Add(new User() { Name = "Ashib", UserId = "Doc", Password = "Ashib", Wins = rnd.Next(50, 100), Losses = rnd.Next(30, 100) });
             db.Users.Add(new User() { Name = "Adam", UserId = "Scotsman", Password = "Adam", Wins = rnd.Next(50, 100), Losses = rnd.Next(30, 100) });
             db.Users.Add(new User() { Name = "Malik", UserId = "Louis", Password = "Malik", Wins = rnd.Next(50, 100), Losses = rnd.Next(30, 100) });
-
-
 
             db.SaveChanges();
 

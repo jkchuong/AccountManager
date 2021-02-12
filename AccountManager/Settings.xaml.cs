@@ -46,6 +46,7 @@ namespace AccountManager
             string message = "Updated information ";
 
             // Get info from settings
+            string username = _account.SelectedUser.UserId;
             string newName = SettingsName.Text;
             int newTheme = ThemeBox.SelectedIndex + 1;
             bool aggressiveOn = (bool)AISetting.IsChecked;
@@ -54,13 +55,13 @@ namespace AccountManager
 
             //ThemeBox.SelectedIndex = user.ThemeId - 1;
 
-            _account.UpdateUserNameTheme(newName, aggressiveOn, newTheme);
+            _account.UpdateUserNameTheme(username, newName, aggressiveOn, newTheme);
 
             if (!String.IsNullOrWhiteSpace(newPassword))
             {
                 if (newPassword == newPasswordCheck)
                 {
-                    _account.UpdatePassword(newPassword);
+                    _account.UpdatePassword(username, newPassword);
                     message += "and password";
                 }
                 else
@@ -72,6 +73,7 @@ namespace AccountManager
             Status.Text = message;
 
             // Reset the current user with updated user
+            _account.SetSelectedUser(_account.SelectedUser.UserId);
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -83,11 +85,11 @@ namespace AccountManager
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             XDocument saveFile = _account.LoadSaveFile("Save");
-            _account.DeleteUserSave(saveFile, "Save");
+            _account.DeleteUserSave(_account.SelectedUser.UserId, saveFile, "Save");
 
             Login login = new Login();
             this.NavigationService.Navigate(login);
-            _account.DeleteUser();
+            _account.DeleteUser(_account.SelectedUser.UserId);
         }
     }
 }
