@@ -84,7 +84,7 @@ This program is very simple to use and fairly intuitive. Below the directions on
 
 ![Login Page](https://github.com/jkchuong/AccountManager/blob/main/Images/Login.png)
 
-The log in page has two spaces for you to enter your username and password. Click on "LOGIN" to log in, if your details are incorrect, an error message will show. The "REGISTER" button takes you to the registration page.
+When the application is first started, you are taken to the login page. This has two spaces for you to enter your username and password. Click on "LOGIN" to log in, if your details are incorrect, an error message will show. The "REGISTER" button takes you to the registration page.
 
 #### <u>Registration Page</u>
 
@@ -105,7 +105,7 @@ Given that you successfully register an account and log in with the correct deta
 
 The largest section is the game section. This is where you will make your chess moves. You will always play as the white side in this program, so you will always have the first move. Clicking on one of the white pieces shows which moves you can make, as highlighted in yellow. In the above example, the "Knight" is able to move in an L shape.
 
-The left section shows the moves made by you (White Moves) and by the computer (Black Moves) in algebraic notation, for example "Qxe5" means that a white queen has taken a piece that was located in square "e5". As the list extends, it can be scrolled up to view earlier moves if you wish to.
+The left section shows the moves made by you (White Moves) and by the computer (Black Moves) in algebraic notation, for example "Qxf5" means that a white queen has taken a piece that was located in square "f5". As the list extends, it can be scrolled up to view earlier moves if you wish to.
 
 The right section shows the rankings of all the players that currently exist within the program, arranged by total number of wins. 
 
