@@ -276,7 +276,11 @@ namespace AccountBusiness
 
             saveFile.Element("Saves").Add(user);
             saveFile.Save(file + ".xml");
-            SetSaveToExist(userId);
+
+            if (file == "Save")
+            {
+                SetSaveToExist(userId);
+            }
         }
     }
 }

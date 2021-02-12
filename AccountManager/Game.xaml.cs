@@ -444,8 +444,11 @@ namespace AccountManager
         // Go back to login page
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            XDocument saveFile = _account.LoadSaveFile("Temp");
-            _account.DeleteUserSave(_account.SelectedUser.UserId, saveFile, "Temp");
+            if (_account.TempSaveExists(_account.SelectedUser.UserId))
+            {
+                XDocument saveFile = _account.LoadSaveFile("Temp");
+                _account.DeleteUserSave(_account.SelectedUser.UserId, saveFile, "Temp");
+            }
 
             Login login = new Login();
             this.NavigationService.Navigate(login);
