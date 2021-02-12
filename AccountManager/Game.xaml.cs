@@ -78,6 +78,7 @@ namespace AccountManager
 
             UpdateBoardState();
 
+
             // Populate user information
             string data = $"{_account.SelectedUser.Name}, Wins: {_account.SelectedUser.Wins}, Losses: {_account.SelectedUser.Losses}.";
             UserData.Text = data;
@@ -318,7 +319,8 @@ namespace AccountManager
 
         private bool IsGameOver(List<Pieces> whitePieces, List<Pieces> blackPieces)
         {
-            int newWins = 0, newLoss = 0;
+            int newWins = _account.SelectedUser.Wins;
+            int newLoss = _account.SelectedUser.Losses;
 
             // Continue if king exists. Add one to win/loss otherwise
             if (chessboard.KingExists(whitePieces) && chessboard.KingExists(blackPieces))
@@ -330,7 +332,7 @@ namespace AccountManager
             {
                 newWins = _account.AddOneToWins(_account.SelectedUser.UserId);
             }
-            else
+            else if (!chessboard.KingExists(whitePieces))
             {
                 newLoss = _account.AddOneToLosses(_account.SelectedUser.UserId);
             }
@@ -418,6 +420,7 @@ namespace AccountManager
                     }
                 }
             }
+
         }
 
         // Use images instead of letters? (not implemented)
