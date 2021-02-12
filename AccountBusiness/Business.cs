@@ -13,7 +13,6 @@ namespace AccountBusiness
 {
     public class Business
     {
-        // Not used
         public User SelectedUser { get; set; }
 
         public void SetSelectedUser(string username)
@@ -38,7 +37,7 @@ namespace AccountBusiness
         }
 
         
-
+        // Need to refactor these to use SelectedUser instead of looking for it each time.
         public List<string> GetThemePrimary()
         {
             using var db = new GameContext();
@@ -66,13 +65,13 @@ namespace AccountBusiness
             return themes;
         }
 
-        public List<string> GetUserTheme(string username)
+        public List<string> GetUserTheme()
         {
             using var db = new GameContext();
             List<string> userTheme = new List<string>();
             var themes =
                 from u in db.Users.Include(u => u.Theme)
-                where u.UserId == username
+                where u.UserId == SelectedUser.UserId
                 select new { Primary = u.Theme.PrimaryColour, Secondary = u.Theme.SecondaryColour };
 
             foreach (var t in themes)
@@ -85,24 +84,22 @@ namespace AccountBusiness
 
 
 
-        public int AddOneToWins(string username)
+        public int AddOneToWins()
         {
             using var db = new GameContext();
-            var selectedUser = db.Users.Find(username);
-            selectedUser.Wins += 1;
+            SelectedUser.Wins += 1;
             db.SaveChanges();
 
-            return selectedUser.Wins;
+            return SelectedUser.Wins;
         }
 
-        public int AddOneToLosses(string username)
+        public int AddOneToLosses()
         {
             using var db = new GameContext();
-            var selectedUser = db.Users.Find(username);
-            selectedUser.Losses += 1;
+            SelectedUser.Losses += 1;
             db.SaveChanges();
 
-            return selectedUser.Losses;
+            return SelectedUser.Losses;
         }
 
         public List<Tuple<string, int>> GetTopThreePlayers()
@@ -154,32 +151,29 @@ namespace AccountBusiness
             }
         }
 
-        public void UpdateUserNameTheme(string username, string name, bool agressiveOn, int theme)
+        public void UpdateUserNameTheme(string name, bool agressiveOn, int theme)
         {
             using var db = new GameContext();
-            var selectedUser = db.Users.Find(username);
-            selectedUser.Name = name;
-            selectedUser.AggressiveOn = agressiveOn;
-            selectedUser.ThemeId = theme;
+            SelectedUser.Name = name;
+            SelectedUser.AggressiveOn = agressiveOn;
+            SelectedUser.ThemeId = theme;
             db.SaveChanges();
 
         }
 
-        public void UpdatePassword(string username, string password)
+        public void UpdatePassword(string password)
         {
             using var db = new GameContext();
-            var selectedUser = db.Users.Find(username);
-            selectedUser.Password = password;
+            SelectedUser.Password = password;
             db.SaveChanges();
         }
 
 
 
-        public void DeleteUser(string username)
+        public void DeleteUser()
         {
             using var db = new GameContext();
-            var selectedUser = db.Users.Find(username);
-            db.Remove(selectedUser);
+            db.Remove(SelectedUser);
             db.SaveChanges();
         }
 
@@ -199,20 +193,11 @@ namespace AccountBusiness
 
 
         // How to test these?
-        public void SetSaveToExist(string username)
+        public void SetSaveToExist()
         {
             using var db = new GameContext();
-            var selectedUser = db.Users.Find(username);
-            selectedUser.SaveExist = true;
+            SelectedUser.SaveExist = true;
             db.SaveChanges();
-        }
-
-        public XElement GetUserSave(string userId, XDocument saveFile)
-        {
-            return
-                saveFile.Descendants("User")
-                .Where(s => (string)s.Attribute("UserId") == userId)
-                .FirstOrDefault();
         }
 
         public XDocument LoadSaveFile(string file)
@@ -224,11 +209,19 @@ namespace AccountBusiness
             return saveFile;
         }
 
-        public bool TempSaveExists(string userId)
+        public XElement GetUserSave(XDocument saveFile)
+        {
+            return
+                saveFile.Descendants("User")
+                .Where(s => (string)s.Attribute("UserId") == SelectedUser.UserId)
+                .FirstOrDefault();
+        }
+
+        public bool TempSaveExists()
         {
             XDocument tempFile = LoadSaveFile("Temp");
 
-            var userSave = GetUserSave(userId, tempFile);
+            var userSave = GetUserSave(tempFile);
 
             if (userSave != null)
             {
@@ -237,26 +230,26 @@ namespace AccountBusiness
             return false;
         }
 
-        public void DeleteUserSave(string userId, XDocument saveFile, string file)
+        public void DeleteUserSave(XDocument saveFile, string file)
         {
-            saveFile.Descendants().Where(u => (string)u.Attribute("UserId") == userId).FirstOrDefault().Remove();
+            saveFile.Descendants().Where(u => (string)u.Attribute("UserId") == SelectedUser.UserId).FirstOrDefault().Remove();
             saveFile.Save(file + ".xml");
         }
 
-        public void SaveToXML(string userId, Cell[,] board, string file)
+        public void SaveToXML(Cell[,] board, string file)
         {
             XDocument saveFile = LoadSaveFile(file);
 
-            var userSave = GetUserSave(userId, saveFile);
+            var userSave = GetUserSave(saveFile);
 
             // If user already has save file, delete and create a new one
             if (userSave != null)
             {
-                DeleteUserSave(userId, saveFile, file);
+                DeleteUserSave(saveFile, file);
             }
 
             // Create XElement and populate with pieces
-            XElement user = new XElement("User", new XAttribute("UserId", userId));
+            XElement user = new XElement("User", new XAttribute("UserId", SelectedUser.UserId));
 
             foreach (Cell cell in board)
             {
@@ -279,7 +272,7 @@ namespace AccountBusiness
 
             if (file == "Save")
             {
-                SetSaveToExist(userId);
+                SetSaveToExist();
             }
         }
     }

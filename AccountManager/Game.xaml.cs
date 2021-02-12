@@ -51,7 +51,7 @@ namespace AccountManager
             InitializeComponent();
 
             
-            var userThemes = _account.GetUserTheme(_account.SelectedUser.UserId);
+            var userThemes = _account.GetUserTheme();
             primaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[0]);
             secondaryColour = (SolidColorBrush)new BrushConverter().ConvertFromString(userThemes[1]);
 
@@ -67,7 +67,7 @@ namespace AccountManager
             }
 
             // Load temp save if it exists and arriving from settings
-            else if (_account.TempSaveExists(_account.SelectedUser.UserId))
+            else if (_account.TempSaveExists())
             {
                 GetSavedGame("Temp");
             }
@@ -328,11 +328,11 @@ namespace AccountManager
             }
             else if (!chessboard.KingExists(blackPieces))
             {
-                newWins = _account.AddOneToWins(_account.SelectedUser.UserId);
+                newWins = _account.AddOneToWins();
             }
             else
             {
-                newLoss = _account.AddOneToLosses(_account.SelectedUser.UserId);
+                newLoss = _account.AddOneToLosses();
             }
 
             //Refresh data
@@ -447,10 +447,10 @@ namespace AccountManager
         // Go back to login page
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            if (_account.TempSaveExists(_account.SelectedUser.UserId))
+            if (_account.TempSaveExists())
             {
                 XDocument saveFile = _account.LoadSaveFile("Temp");
-                _account.DeleteUserSave(_account.SelectedUser.UserId, saveFile, "Temp");
+                _account.DeleteUserSave(saveFile, "Temp");
             }
 
             Login login = new Login();
@@ -461,7 +461,7 @@ namespace AccountManager
         private async void Save_Click(object sender, RoutedEventArgs e)
         {
             // How to use timer?
-            _account.SaveToXML(_account.SelectedUser.UserId, chessboard.Board, "Save");
+            _account.SaveToXML(chessboard.Board, "Save");
             Message.Text = "Saved!";
             await Task.Delay(2000);
             Message.Text = "";
@@ -471,7 +471,7 @@ namespace AccountManager
         // Go to settings page
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            _account.SaveToXML(_account.SelectedUser.UserId, chessboard.Board, "Temp");
+            _account.SaveToXML(chessboard.Board, "Temp");
             Settings setting = new Settings(_account);
             this.NavigationService.Navigate(setting);
         }
