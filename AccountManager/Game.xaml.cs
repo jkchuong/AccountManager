@@ -458,11 +458,13 @@ namespace AccountManager
         }
 
         // Store all piece information in SQL database
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
             // How to use timer?
             _account.SaveToXML(_account.SelectedUser.UserId, chessboard.Board, "Save");
             Message.Text = "Saved!";
+            await Task.Delay(2000);
+            Message.Text = "";
         }
 
 

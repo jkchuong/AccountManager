@@ -143,7 +143,7 @@ namespace AccountTests
             _account.CreateUser("Jimmy", "jkchuong", "visual");
             _account.AddOneToWins("jkchuong");
 
-            _account.SelectedUser = _account.SetSelectedUser("jkchuong");
+            _account.SetSelectedUser("jkchuong");
             var wins = _account.SelectedUser.Wins;
             Assert.AreEqual(1, wins);
         }
@@ -155,7 +155,7 @@ namespace AccountTests
             _account.CreateUser("Jimmy", "jkchuong", "visual");
             _account.AddOneToLosses("jkchuong");
 
-            _account.SelectedUser = _account.SetSelectedUser("jkchuong");
+            _account.SetSelectedUser("jkchuong");
             var wins = _account.SelectedUser.Losses;
             Assert.AreEqual(1, wins);
         }
