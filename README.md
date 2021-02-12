@@ -84,7 +84,7 @@ This program is very simple to use and fairly intuitive. Below the directions on
 
 ![Login Page](https://github.com/jkchuong/AccountManager/blob/main/Images/Login.png)
 
-The log in page has two spaces for you to enter your username and password. Click on "LOGIN" to log in, if your details are incorrect, an error message will show. The "REGISTER" button takes you to the registration page.
+When the application is first started, you are taken to the login page. This has two spaces for you to enter your username and password. Click on "LOGIN" to log in, if your details are incorrect, an error message will show. The "REGISTER" button takes you to the registration page.
 
 #### <u>Registration Page</u>
 
