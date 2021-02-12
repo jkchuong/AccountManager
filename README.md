@@ -80,19 +80,19 @@ This program is very simple to use and fairly intuitive. Below the directions on
 
 #### <u>Login Page</u>
 
-![Screenshot (111)](C:\Users\jcsou\OneDrive\Pictures\Screenshots\Screenshot (111).png)
+![Login Page](https://github.com/jkchuong/AccountManager/blob/main/Images/Login.png)
 
 The log in page has two spaces for you to enter your username and password. Click on "LOGIN" to log in, if your details are incorrect, an error message will show. The "REGISTER" button takes you to the registration page.
 
 #### <u>Registration Page</u>
 
-![Screenshot (112)](C:\Users\jcsou\OneDrive\Pictures\Screenshots\Screenshot (112).png)
+![Registration Page](https://github.com/jkchuong/AccountManager/blob/main/Images/Registration.png)
 
 The registration page allows you to register an account with the program. Name is where your name goes and will be how you are identified within the game. Username is what you will use to log in to the game and is your unique identifier. This cannot be changed later. Password and Repeat is where you type in your password; if the two are not the same, the registration will not work and an error message will be shown. "Back" takes you back to the login page.
 
 #### <u>Game Page</u>
 
-![Screenshot (115)](C:\Users\jcsou\OneDrive\Pictures\Screenshots\Screenshot (115).png)
+![Game Page](https://github.com/jkchuong/AccountManager/blob/main/Images/Game.png)
 
 Given that you successfully register an account and log in with the correct details, you will be directed to the main game page. This is where you can play chess against the computer.
 
@@ -106,7 +106,7 @@ The bottom section contains four buttons and two text boxes. The upper text box 
 
 #### <u>Settings Page</u>
 
-![Screenshot (114)](C:\Users\jcsou\OneDrive\Pictures\Screenshots\Screenshot (114).png)
+![Settings Page](https://github.com/jkchuong/AccountManager/blob/main/Images/Settings.png)
 
 The final available page is the settings page. Here, you can update your information, password, and gameplay. Your name and password can be changed here, however your username is unique and cannot be changed. "Theme" provides a selection of colour schemes if you wish to jazz up your chessboard. "Aggressive AI" has a toggle that changes the computer's playstyle from doing random moves, to capturing your pieces every chance it gets. Be careful! Any piece you move, it *will* take. Once you are happy with the changes, you can click on "Save Changes", or you can click on "Back" to navigate back to the game without changing your settings. Finally, the bright red button lets you delete your account. Keep in mind that deleting your account is permanent, if you wish to play again, you will be required to create another account.
 
